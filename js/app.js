@@ -10,6 +10,13 @@
  */
 
 const KNOWN_YT_REFS = {
+  K1j4kneapVY: {
+    title: "PACT 派克特 & 寶石Gem《你也是個Rapper》全場群嘲 Satire × 雙段變奏硬核說唱",
+    bpm: 98,
+    preset: "you-too-rapper",
+    vibe: "戲謔銅管馬戲團感 Boom-Bap (98 BPM) × 寶石老舅幽默嘴替點名群嘲（「他也少年股神、你也少年股神」）× 派克特中段 Beat Switch 炸裂硬核技術流快嘴 Real Talk",
+    dna: ["🤡 戲謔銅管×老學校 Boom-Bap", "🗣️ 「你也是個股神」群嘲大合唱", "🔥 寶石Gem幽默嘴替辛辣點名", "⚡ 派克特 Beat Switch 硬核快嘴"]
+  },
   "j-iN8RD44dI": {
     title: "楊宗緯 & 寶石Gem & 王宇宙《若月亮沒來》治癒哭腔 × 催淚走心敘事說唱",
     bpm: 84,
@@ -97,6 +104,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "you-too-rapper": {
+    nameZh: "派克特&寶石Gem《你也是個Rapper》風：辛辣群嘲假股神 × 洗腦大合唱 × 硬核 Beat Switch 快嘴",
+    defaultBpm: 98,
+    sunoStyleZh:
+      "Mandarin satirical comedy boom-bap hip-hop duo switching into aggressive hardcore trap-bap, {BPM} BPM, quirky bouncy brass horn loop and funky upright bass with turntable scratches in part one, witty theatrical northern male rapper delivering hilarious sarcastic roast punchlines and a catchy crowd sing-along chant hook, sudden dramatic beat switch in part two into dark heavy 808 hardcore drums with an explosive rapid-fire technical fast-flow male rapper spitting real talk, live cypher riot energy",
+    sunoStyleEn:
+      "Satirical comedy boom-bap hip-hop duo with dramatic mid-song beat switch into hardcore technical rap, {BPM} BPM, quirky brass horns, slap bass and DJ scratches in first half with charismatic witty male rapper roasting fake gurus over a crowd chant hook, sudden dark heavy 808 beat switch in second half with breathless double-time multi-syllable technical male rapper spitting raw truth, Eminem meets 90s cypher energy",
+    sunoExclude: "slow sad ballad, romantic R&B, country, gentle acoustic folk, EDM trance",
+    dnaTags: ["🤡 戲謔銅管×老學校 Boom-Bap", "🗣️ 「你也是個股神」群嘲大合唱", "🔥 寶石Gem幽默嘴替辛辣點名", "⚡ 派克特 Beat Switch 硬核快嘴"]
+  },
   "moon-notcome": {
     nameZh: "《若月亮沒來》楊宗緯&寶石Gem風：治癒旋律副歌 × 催淚哭腔 × 深夜走心敘事說唱",
     defaultBpm: 84,
@@ -251,8 +268,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "moon-notcome",
-  bpm: 84,
+  preset: "you-too-rapper",
+  bpm: 98,
   topics: new Set([
     "nvda",
     "tsmc",
@@ -847,6 +864,189 @@ function analyzeYoutubeUrl() {
   randomizeSongKeywords(false);
   renderAll();
   showToast("🔍 已完成曲風解析並隨機抽取全新關鍵字創作歌詞！");
+}
+
+function buildYouTooRapperPackage(p, bpm, flags) {
+  const hookLineZh = currentState.customHook || "他也少年股神，你也少年股神，怎麼打開股版全都是少年股神";
+  const hookLineEn = currentState.customHook || "He's a trading guru, you're a trading guru, everybody online is a trading guru";
+
+  const stockList =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.zh.split(" ")[0]).join("、")
+      : "台積電、輝達、鴻海";
+  const stockListEn =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.en.split(" ")[0]).join(", ")
+      : "TSMC, Nvidia, Foxconn";
+
+  const lyricsZh = `[Intro: Quirky Bouncy Brass Horn Loop, Classic Boom-Bap Drums, Turntable DJ Scratches]
+[Rapper A (Gem style), sarcastic theatrical conversational tone with comedic timing]
+哎呀，現在這年頭啊，只要大盤漲個兩天
+我身邊做美髮的、開計程車的、連樓下賣早餐的阿姨
+拿著手機畫兩條斜線，都跟我說他是「全職操盤手」了！
+來，音響師傅給點動靜，咱們好好聊一聊——Let's go!
+
+[Verse 1: Rapper A (Gem style), witty humorous northern roast flow, bouncy brass boom-bap]
+自從看了兩集財經網紅的短影音
+你把K線圖當成了算命的紫微斗數經
+學會了「黃金交叉」「費波南希」幾個專有名詞
+就在同學會群組裡指點江山裝得像個大師
+漲停板的時候你說「早跟你們講過我有內線」
+跌停板的時候你說「這叫主力洗盤價值浮現」
+曬出來的對帳單永遠只截圖賺錢的那一筆
+被套在山頂的 ${stockList} 怎麼從來不見你提起？
+開個付費訂閱群、取個英文名叫什麼 Alpha Trader
+結果無本當沖虧掉三個月房租還在那裡裝 Winner
+一聊就是巴菲特、索羅斯跟華爾街的宏觀大局
+一看交割戶頭餘額，連T加2的零頭都湊不齊！
+
+[Chorus: Catchy Sarcastic Sing-Along Gang Vocal Hook, Bouncy Horns & Crowd Laughter]
+${hookLineZh}
+只買了一百股零股，講話像控股幾百億的財閥大神
+他也少年股神，你也少年股神
+牛市裡人人都是巴菲特，退潮了才知誰在公園裸泳過冬！
+
+[Beat Switch! Turntable Scratch Stop — Sudden Drop into Dark Heavy Hardcore 808 Boom-Bap!]
+[Rapper B (PACT style), deep aggressive authoritative voice]
+Hold up! 把那嬉皮笑臉的伴奏給我關了！
+前面老舅給你們留點面子，現在換我派克特來講點真話（Real Talk）！Listen!
+
+[Verse 2: Rapper B (PACT style), explosive double-time hardcore technical fast-flow, multi-syllable rhyme barrage]
+（派克特式硬核重拍技術流快嘴 — 火力全開 Real Talk）
+別再拿模擬倉的截圖出來騙那些剛入市的菜鳥散戶
+真正的交易室裡沒有神話，只有白紙黑字的風險控管與殘酷
+你們只看到別人滿倉翻倍的慶功酒，卻沒看過凌晨三點回測十年數據的孤獨
+當高頻演算法在毫秒之間抽走五檔委買，你那套看圖說故事的指標拿什麼去堵？
+我敬重每一個用真金白銀在盤面裡跌倒、自己爬起來寫交易日誌的戰士
+而不是那些靠賣課割韭菜、在漲停板後面馬後炮的騙子
+看看 ${stockList} 的基本面與供應鏈護城河，哪一個不是千錘百鍊的產業周期
+真正的操盤手在暴跌兩千點時守住維持率底線，在萬眾恐慌時安靜扣下扳機
+尊重市場、敬畏槓桿，把那些浮誇的頭銜全部給我摘掉
+能在空頭與多頭的絞肉機裡活過十個年頭，那才叫真正的驕傲！
+
+[Bridge: Rapper A & Rapper B Trading Rapid-Fire Bars Back-and-Forth]
+[Rapper A] 老師老師，明天哪支會漲停？（[Rapper B] 先看懂你的停損點設在哪裡！）
+[Rapper A] 大神大神，這根下影線是不是見底？（[Rapper B] 沒量沒籌碼的幻想只會害死你自己！）
+[Rapper A] 哎呀，原來不是買了麥克風就叫 Rapper——
+[Rapper B] 更不是開了證券戶，就叫少年股神！
+
+[Chorus: Full Riot Live Crowd Chant, Brass Horns + Heavy 808 Sub-Bass Combined]
+${hookLineZh}
+收起你的馬後炮，市場只認實力不認人
+他也少年股神，你也少年股神
+真金白銀見真章，看誰能站到最後收盤時分！
+
+[Outro: DJ Scratch Solo & Crowd Cheering]
+[Rapper A]
+哈哈，不好意思啊各位股神，今天沒傷著你們的維持率吧？
+[Rapper B]
+Respect the market. Keep it real. 收盤！
+[End]`;
+
+  const lyricsEn = `[Intro: Quirky Bouncy Brass Horn Loop, Classic Boom-Bap Drums, Turntable DJ Scratches]
+[Rapper A, sarcastic theatrical conversational tone with comedic timing]
+Man, these days the market goes up for two days straight
+And suddenly my barber, my Uber driver, and my cousin who just downloaded a trading app yesterday
+Are all putting "Full-Time Hedge Fund Genius" in their bio!
+DJ, drop that beat—let's talk about it!
+
+[Verse 1: Rapper A, witty humorous roast flow, bouncy brass boom-bap]
+Watched two TikTok videos on candlestick charts last night
+Now you're drawing random triangles like a Wall Street fortune-teller site
+Learned the words "Fibonacci" and "Golden Cross" at noon
+By 2 PM you're charging fifty bucks a month for a Discord room
+When it pumps you say "I called the bottom, told y'all I had the play"
+When it dumps you say "Just a healthy shakeout, institutional accumulation day"
+Cropping your screenshot so we only see the one green trade you made
+While your bagholding shares of ${stockListEn} slowly fade
+Calling yourself an Alpha Whale with a rented Lamborghini pic
+While a single tick of day-trade slippage makes your stomach sick
+Talking macro-economics like you're dining with Jerome Powell tonight
+While your T-plus-two settlement account doesn't have a dollar in sight!
+
+[Chorus: Catchy Sarcastic Sing-Along Gang Vocal Hook, Bouncy Horns & Crowd Energy]
+${hookLineEn}
+Holding zero-point-one fractional shares, talking like a billionaire mogul crew
+He's a trading guru, you're a trading guru
+Everybody's Warren Buffett in a bull run till the tide goes out on you!
+
+[Beat Switch! Turntable Scratch Stop — Sudden Drop into Dark Heavy Hardcore 808 Boom-Bap!]
+[Rapper B, deep aggressive authoritative voice]
+Hold up! Cut that circus horn loop right now!
+We had our laughs in the first half, now let me spit some real trading truth! Listen!
+
+[Verse 2: Rapper B, explosive double-time hardcore technical fast-flow, multi-syllable rhyme barrage]
+(Hardcore Beat Switch — Breathless Technical Real Talk Flow)
+Stop flexing paper-trading screenshots to bait the rookies in the game
+On the real trading floor there are no miracles, only risk management and pain
+You envy the ten-bagger victory wine, never saw the ten thousand hours studying the tape
+When HFT algorithms pull the Level-two bids in a millisecond, there is no escape
+I salute every real trader who took a loss, wrote the journal, and rebuilt from the floor
+Not these hindsight clowns selling courses who never survived a bear-market war
+Study the silicon moat of ${stockListEn}, respect the cycle and the cash-flow sheet
+Real operators protect their margin through a two-thousand-point crash on the street
+Strip away the fake titles, humble your ego before the opening bell
+Surviving ten years in this volatility meat-grinder is the only story worth to tell!
+
+[Bridge: Rapper A & Rapper B Trading Rapid-Fire Bars Back-and-Forth]
+[Rapper A] Guru, guru, what's the ten-bagger tomorrow? ([Rapper B] Learn where to set your stop-loss before you borrow!)
+[Rapper A] Master, master, is that lower wick the bottom sign? ([Rapper B] Trading on hopium puts your whole life on the line!)
+[Rapper A] Buying a microphone doesn't make you an MC—
+[Rapper B] And opening a brokerage app doesn't make you a Wall Street OG!
+
+[Chorus: Full Riot Live Crowd Chant, Brass Horns + Heavy 808 Sub-Bass Combined]
+${hookLineEn}
+Put away the hindsight talk, the market tests everything you do
+He's a trading guru, you're a trading guru
+Only real discipline survives when the closing bell rings through!
+
+[Outro: DJ Scratch Solo & Crowd Cheering]
+[Rapper A]
+Haha, hope we didn't hurt nobody's feelings in the Discord chat tonight!
+[Rapper B]
+Respect the market. Keep it real. Market closed!
+[End]`;
+
+  return {
+    zh: {
+      title: "你也是個少年股神 (誰還不是個股神)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI辛辣饒舌】《你也是個少年股神》｜致敬派克特×寶石Gem〈你也是個Rapper〉！前半段群嘲假老師、後半段硬核變奏炸全場 (Official Audio)`,
+        `《你也是個少年股神》｜「他也少年股神、你也少年股神！」全網最敢講的台美股嘴替神曲｜幽默群嘲 × Beat Switch 快嘴 (${bpm} BPM)`,
+        `當股市上漲兩天，身邊突然全是巴菲特？這首《你也是個少年股神》把股版跟投顧網紅嘴到體無完膚 🤡🔥`
+      ],
+      ytDesc: `🤡「他也少年股神，你也少年股神，怎麼打開股版全都是少年股神？只買了一百股零股，講話像控股幾百億的財閥大神！」
+致敬《中國說唱巔峰對決》PACT 派克特 & 寶石Gem 席捲後台的炸場神曲《你也是個Rapper》，這首《你也是個少年股神》完美復刻原曲最經典的「雙段式變奏（Beat Switch）」架構！
+前半段由寶石老舅式幽默戲謔的銅管 Boom-Bap 領軍，化身全網股民嘴替，辛辣群嘲那些看兩部短影音就開群帶單、只截圖賺錢單、馬後炮畫線的「假少年股神」；中段刷碟急停後瞬間 Beat Switch 切換暗黑硬核 808 重拍，由派克特式窒息技術流快嘴火力全開（Real Talk），致敬真正守住紀律、鑽研 ${stockList} 護城河與風險控管的實戰交易者！
+
+🎧 曲風與編曲亮點：
+• ${bpm} BPM 雙段變奏設計：前半段戲謔銅管馬戲團感 Boom-Bap ➔ 後半段暗黑硬核 808 炸裂快嘴
+• 超洗腦群嘲大合唱 Hook：「${hookLineZh}」
+• 雙人一搭一唱相聲式嗆聲 + 派克特式硬核 Real Talk 技術流轟炸
+
+💬 你身邊也有那種「漲停早知道、跌停洗盤中」的少年股神嗎？趕快把這首歌分享給他！
+
+#台股 #美股 #你也是個Rapper #派克特 #寶石Gem #中國說唱巔峰對決 #少年股神 #中文饒舌 #BeatSwitch #台積電 #輝達 #SunoAI #AI音樂 #股票饒舌`
+    },
+    en: {
+      title: "You're a Trading Guru Too (Everybody's a Guru)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `You're a Trading Guru Too | Satirical Stock Market Roast × Hardcore Beat-Switch Fast Rap (${bpm} BPM)`,
+        `"He's a Trading Guru, You're a Trading Guru!" 🤡 Roasting Fake Discord FinTwit Gurus (Official AI Audio)`,
+        `From Comedy Boom-Bap Roast to Hardcore Real Talk 🔥 "You're a Trading Guru Too" (NVDA, TSMC, Wall Street)`
+      ],
+      ytDesc: `🤡 "${hookLineEn}!"
+Inspired by PACT & Gem's viral cypher hit "You're a Rapper Too (你也是個Rapper)", this ${bpm} BPM two-part hip-hop banger starts as a hilarious brass-driven boom-bap roast of fake screenshot gurus and hindsight Discord traders—before executing a sudden mid-song Beat Switch into a dark, hard-hitting 808 technical fast-rap verse about real risk management and discipline on ${stockListEn}.
+
+#StockMarketRap #TradingGuru #BeatSwitch #BoomBap #FastRap #FinTwit #WallStreet #TSMC #NVDA #SunoAI #AIMusic`
+    }
+  };
 }
 
 function buildMoonNotComePackage(p, bpm, flags) {
@@ -2785,6 +2985,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "you-too-rapper") {
+    return buildYouTooRapperPackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "moon-notcome") {
     return buildMoonNotComePackage(p, bpm, {
