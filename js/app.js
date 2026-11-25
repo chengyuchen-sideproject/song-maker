@@ -10,6 +10,13 @@
  */
 
 const KNOWN_YT_REFS = {
+  "50BCt8bptDg": {
+    title: "GAI 周延《苦行僧 (Ascetic Monk)》江湖搖滾國風 Trap 說唱",
+    bpm: 90,
+    preset: "gai-ascetic",
+    vibe: "崔健經典搖滾失真電吉他 Riff × 滄桑古琴竹笛國風 Trap 重低音 808 (90 BPM) × GAI 式霸氣江湖川味草莽唱腔 × 「我想要從南走到北」蒼涼大合唱副歌",
+    dna: ["🎸 搖滾失真吉他×國風古琴", "🐉 GAI式霸氣江湖草莽腔", "🥁 沉重 Trap 808 × 戰鼓", "🍶 「從南走到北」蒼涼大合唱"]
+  },
   IBaWc3C00kU: {
     title: "那吾克熱 & 尤長靖《飄向北方 (Stranger in the North)》史詩高音×機關槍快嘴 Live",
     bpm: 92,
@@ -76,6 +83,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "gai-ascetic": {
+    nameZh: "GAI《苦行僧》風：搖滾電吉他×國風古琴 Trap × 霸氣江湖草莽說唱 × 蒼涼大合唱",
+    defaultBpm: 90,
+    sunoStyleZh:
+      "Chinese Jianghu wuxia trap rock hip-hop, {BPM} BPM, classic gritty distorted rock electric guitar riff fused with traditional guqin, suona horn and bamboo flute, booming heavy 808 sub-bass and war drums, raspy powerful aggressive southwestern Chinese dialect-inflected male rapper with raw outlaw swagger, weathered soulful rock sing-along chorus, epic live arena energy",
+    sunoStyleEn:
+      "East-meets-West outlaw blues-rock trap hip-hop, {BPM} BPM, gritty vintage distorted electric guitar riff fused with traditional Chinese guqin and bamboo flute, booming 808 bass and heavy live stomp drums, raspy aggressive male rapper with bold street-warrior swagger, weathered anthemic rock chant chorus, stadium live power",
+    sunoExclude: "bubblegum pop, cute female vocal, EDM, techno, gentle whisper, disco",
+    dnaTags: ["🎸 搖滾失真吉他×國風古琴", "🐉 GAI式霸氣江湖草莽腔", "🥁 沉重 Trap 808 × 戰鼓", "🍶 「從南走到北」蒼涼大合唱"]
+  },
   "drift-north": {
     nameZh: "那吾克熱&尤長靖《飄向北方》風：史詩鋼琴管弦 × 穿透高音副歌 × 炸裂機關槍快嘴",
     defaultBpm: 92,
@@ -200,8 +217,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "drift-north",
-  bpm: 92,
+  preset: "gai-ascetic",
+  bpm: 90,
   topics: new Set([
     "nvda",
     "tsmc",
@@ -490,6 +507,175 @@ function analyzeYoutubeUrl() {
 
   renderAll();
   showToast("🔍 已完成 YouTube 參考網址曲風基因提取與整改！");
+}
+
+function buildAsceticMonkPackage(p, bpm, flags) {
+  const hookLineZh = currentState.customHook || "我想要從空軋到多，我還要從底抄到頂";
+  const hookLineEn = currentState.customHook || "I wanna walk from Bear to Bull, I'll climb from bottom to the peak";
+
+  const lyricsZh = `[Intro: Gritty Distorted Classic Rock Electric Guitar Riff, Weathered Guqin Plucks & Lonely Bamboo Flute]
+[Raspy Soulful Rock Male Vocal, weathered and resonant]
+${hookLineZh}
+我要這市場都看我，但不知道我是誰
+要是你看我就交出籌碼，我給你留條活路走
+要是你敢攔我破頂的路，我立刻把你軋上天！
+
+[Heavy Trap 808 Bass & War Drums Drop!]
+[Rapper: Raspy Aggressive Jianghu Male Rapper, bold outlaw swagger]
+勒是霧都！台北到華爾街！開盤！
+
+[Verse 1: Raspy Aggressive Jianghu Male Rapper, heavy rhythmic bounce and swagger]
+腳踏開盤風火輪，老子滿倉就是神
+不管外資怎麼洗，生死有命富貴在天門
+彎弓射下那黑天鵝，帳戶紅得像火盆
+小散戶還在看新聞，老子早鎖定護國神山魂
+開路先鋒誰敢擋，五檔委買直接掃光
+他們在股版哭爹喊娘，我在夜盤裡大口喝湯
+那些沒膽的牆頭草，追高殺低往死裡跑
+一根天地針長下影線，就把你嚇得把手裡籌碼倒
+${flags.hasTsmc ? "台積電的護城河，CoWoS 晶圓煉真金\n任憑空軍借券幾萬張，也撼動不了老子的定力心" : "龍頭股的護城河，主升段裡煉真金\n任憑空軍借券幾萬張，也撼動不了老子的定力心"}
+無本當沖的小嘍囉，為幾個 tick 在泥巴裡摸
+老子是股市的苦行僧，抱緊趨勢單從不哆嗦！
+
+[Chorus: Raspy Weathered Rock Male Vocal & Gang Vocals, Heavy Guitar Riff + 808 Sub-Bass]
+${hookLineZh}
+我要這主力都看我，但不知道我是誰
+我只看Ｋ線不看人，我只認籌碼不認神
+我也曾砍在阿呆谷，從不稀罕誰來施捨同情！
+
+[Verse 2: Raspy Aggressive Jianghu Male Rapper, fiery explosive delivery]
+一雙布鞋踏過股災，兩手抓緊我的底牌
+${flags.hasWhipsaw ? "昨天暴漲三千三百點，今天重挫兩千點又怎樣\n大風大浪老子見得多，你這點洗盤算什麼名堂" : "昨天跳空創下新高點，今天回測月線又怎樣\n大風大浪老子見得多，你這點洗盤算什麼名堂"}
+${flags.hasNvda ? "看皮衣男黃仁勳揮起大刀，輝達算力把天空燒\n華爾街空頭還在發抖，老子的多單已經在山腰" : "看科技巨頭揮起大刀，AI 算力把天空燒\n華爾街空頭還在發抖，老子的多單已經在山腰"}
+${flags.hasTariff ? "關稅大棒隨便你敲，聯準會降息隨便你聊" : "利空消息隨便你敲，聯準會降息隨便你聊"}
+融資維持率一百三的追繳，嚇不倒真正走江湖的豪傑英豪
+莫問老子從哪裡來，對帳單翻開全是紅牌
+限空令下融券強制回補，空頭的棺材板老子親自來抬
+五線合一黃金交叉，這波主升段直衝雲霄
+一命二運三風水，四積陰德五看盤，誰敢跟老子比高低！
+
+[Bridge: Traditional Chinese Opera Gongs, Bamboo Flute Solo & Stripped-Back War Drums]
+[Rapper, deep menacing whisper building to a roar]
+世人笑我太瘋癲，我笑他人看不穿
+漲停鎖死一字線，跌停關門吃碗麵
+你在K線裡找神仙，老子在恐慌裡撿銅錢
+天乾物燥，小心軋空！
+
+[Chorus: Maximum Arena Climax, Distorted Rock Guitar + Suona Horn + Full 808 Drop]
+${hookLineZh}
+我要這華爾街都看我，但不知道我是誰
+要是你看我就交出空單，我給你留條活路走
+要是你敢擋我破頂的路，老子把你軋到外太空！
+
+[Outro: Vintage Rock Guitar Solo & Guqin fade out]
+[Vocal]
+我想要從空軋到多…… 我還要從底抄到頂……
+[Rapper]
+苦行僧修成正果，破頂封王！收盤！
+[End]`;
+
+  const lyricsEn = `[Intro: Gritty Distorted Classic Rock Electric Guitar Riff, Weathered Guqin Plucks & Lonely Bamboo Flute]
+[Raspy Soulful Rock Male Vocal, weathered and resonant]
+${hookLineEn}
+I want Wall Street staring at my orders, never knowing who I am
+If you cross my path then cover your shorts, I'll leave you a way out alive
+If you block my breakout to the top, I'll squeeze your margin to the sky!
+
+[Heavy Trap 808 Bass & War Drums Drop!]
+[Rapper: Raspy Aggressive Outlaw Male Rapper, bold street-warrior swagger]
+From Taipei to New York! Opening bell! Let's ride!
+
+[Verse 1: Raspy Aggressive Outlaw Male Rapper, heavy rhythmic bounce and swagger]
+Stepping on the trading floor with fire beneath my feet
+All-in leverage on the table, never tasting defeat
+Shoot the black swan out the sky, account burning bright and red
+While retail sheep read the headlines, I'm ten steps ahead
+Vanguard of the breakout, sweeping Level-two order books clean
+Crying bagholders on the forum while I feast upon the green
+Paper-handed cowards chasing tops and panic-selling lows
+One stop-hunt lower wick and their whole portfolio folds
+TSMC silicon fortress, CoWoS wafers forged in gold
+Let the hedge funds short a million shares, my conviction never sold
+Zero-capital scalpers fighting for pennies in the dirt
+I'm the ascetic monk of the market, holding trends until it hurts!
+
+[Chorus: Raspy Weathered Rock Male Vocal & Gang Vocals, Heavy Guitar Riff + 808 Sub-Bass]
+${hookLineEn}
+I want the market makers watching me, never knowing who I am
+I only trust the candlesticks, I bow to no Wall Street king
+I survived the darkest margin calls, never begged for anything!
+
+[Verse 2: Raspy Aggressive Outlaw Male Rapper, fiery explosive delivery]
+Worn-out boots walking through the crash, two hands gripping my ace
+Three thousand points up yesterday, two thousand down in your face
+I've seen hurricanes on the chart, your little shakeout is a joke
+Leather-jacket Jensen swinging the blade, Nvidia turning shorts to smoke
+Tariff hammers slamming down, Fed speakers talking tough
+130 percent maintenance warnings ain't nearly scary enough
+Don't ask me where I came from, my brokerage statement bleeds green
+Forced short-covering sirens ringing, cleanest squeeze you've ever seen
+Five moving averages golden-crossed, riding the third wave high
+Fortune favors the disciplined warrior under the neon sky!
+
+[Bridge: Traditional Chinese Opera Gongs, Bamboo Flute Solo & Stripped-Back War Drums]
+[Rapper, deep menacing whisper building to a roar]
+The world laughs and calls me crazy, I laugh 'cause they cannot see
+Limit-up locked at the open bell, blood on the street sets me free
+Watch your shorts, the squeeze is coming!
+
+[Chorus: Maximum Arena Climax, Distorted Rock Guitar + Suona Horn + Full 808 Drop]
+${hookLineEn}
+I want all of Wall Street watching me, never knowing who I am
+If you see my bid then cover your shorts, I'll leave you a way out alive
+If you block my breakout to the top, we squeeze you past the sky!
+
+[Outro: Vintage Rock Guitar Solo & Guqin fade out]
+[Vocal]
+From Bear to Bull... from bottom to the peak...
+[Rapper]
+The ascetic monk claims the crown. Market closed!
+[End]`;
+
+  return {
+    zh: {
+      title: "股市苦行僧 (從空軋到多)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI江湖饒舌】《股市苦行僧》｜致敬 GAI 周延〈苦行僧〉搖滾國風 Trap！「我想要從空軋到多，我還要從底抄到頂！」(Official Audio)`,
+        `《股市苦行僧（從空軋到多）》｜台積電、輝達大洗盤下的散戶俠客戰歌｜霸氣江湖說唱 × 滄桑搖滾副歌 (${bpm} BPM)`,
+        `「世人笑我太瘋癲，我笑他人看不穿！」這首《股市苦行僧》把台股美股唱出江湖草莽霸氣 🐉🔥`
+      ],
+      ytDesc: `🐉「我想要從空軋到多，我還要從底抄到頂！我要這主力都看我，但不知道我是誰！」
+當崔健搖滾經典與 GAI 周延封神舞台《苦行僧》的江湖草莽國風 Trap，遇上台股與美股的史詩級多空博弈！
+這首《股市苦行僧 (從空軋到多)》以 ${bpm} BPM 粗獷失真的搖滾電吉他 Riff 與古琴、竹笛開場，融合炸裂的現代 Trap 808 重低音與戰鼓，用 GAI 式霸氣十足、咬字鏗鏘的江湖唱腔，把台積電（2330）CoWoS 護城河、輝達（NVIDIA）皮衣刀客、單日三千點暴漲暴跌洗盤、天地針長下影線與限空令軋空，唱成一首行走金融江湖的散戶俠客戰歌！
+
+🎧 曲風與編曲亮點：
+• ${bpm} BPM 經典搖滾失真電吉他 Riff × 古琴/竹笛/嗩吶 × 沉重 Trap 808 戰鼓
+• 蒼涼豪邁搖滾大合唱副歌：「${hookLineZh}，我要這市場都看我，但不知道我是誰！」
+• GAI 式江湖草莽霸氣主歌：「一命二運三風水，四積陰德五看盤，天乾物燥，小心軋空！」
+
+💬 你也是在震盪洗盤中堅守紀律的「股市苦行僧」嗎？在留言區刷一排「天乾物燥，小心軋空 🐉」！
+
+#台股 #美股 #苦行僧 #GAI周延 #中國新說唱 #中國說唱巔峰對決 #中國風說唱 #江湖說唱 #台積電 #輝達 #NVIDIA #TSMC #SunoAI #AI音樂 #股票饒舌 #軋空`
+    },
+    en: {
+      title: "Market Ascetic Monk (From Bear to Bull)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `Market Ascetic Monk (From Bear to Bull) | Wuxia Outlaw Rock-Trap Stock Market Anthem (NVDA, TSMC)`,
+        `"I Wanna Walk From Bear to Bull!" 🐉 Market Ascetic Monk | Gritty Guitar Riff × Heavy 808 Jianghu Rap (${bpm} BPM)`,
+        `When Classic Chinese Rock Meets Wall Street Trap 🔥 "Market Ascetic Monk" (Official AI Audio)`
+      ],
+      ytDesc: `🐉 "${hookLineEn}, I want Wall Street staring at my orders, never knowing who I am!"
+Inspired by GAI's legendary wuxia rock-trap anthem "Ascetic Monk (苦行僧)", "Market Ascetic Monk (From Bear to Bull)" fuses a gritty vintage rock electric guitar riff, traditional Chinese guqin and bamboo flute with booming ${bpm} BPM 808 sub-bass and outlaw street-warrior rap delivery.
+
+#StockMarketRap #AsceticMonk #GAI #ChineseTrap #RockRap #TSMC #NVDA #WallStreet #ShortSqueeze #SunoAI #AIMusic`
+    }
+  };
 }
 
 function buildDriftNorthPackage(p, bpm, flags) {
@@ -1928,6 +2114,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "gai-ascetic") {
+    return buildAsceticMonkPackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "drift-north") {
     return buildDriftNorthPackage(p, bpm, {
