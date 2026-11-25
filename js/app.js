@@ -10,6 +10,13 @@
  */
 
 const KNOWN_YT_REFS = {
+  vx2u5uUu3DE: {
+    title: "Bon Jovi《It's My Life》傳奇體育館硬式搖滾 × 華爾街熱血 Rap-Rock 戰歌",
+    bpm: 120,
+    preset: "bonjovi-mylife",
+    vibe: "經典 Talk-Box 哇音失真電吉他 Riff (Bow-wow-wow) × 120 BPM 炸裂體育館真鼓與重低音 × 硬派 Rap-Rock 節奏主歌 ×「It's my life, it's now or never!」萬人嘶吼破頂大合唱",
+    dna: ["🎸 Talk-Box 哇音電吉他 Riff", "🏟️ 120 BPM 體育館硬式搖滾", "🔥 \"It's My Life, Now or Never!\"", "⚡ 硬核 Rap-Rock 交易員戰歌"]
+  },
   x3bDhtuC5yk: {
     title: "茄子蛋 EggPlantEgg《浪子回頭 (Back Here Again)》台式滄桑藍調搖滾 × 散戶浪子饒舌",
     bpm: 78,
@@ -111,6 +118,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "bonjovi-mylife": {
+    nameZh: "Bon Jovi《It's My Life》風：Talk-Box 哇音電吉他 × 體育館硬式搖滾嘶吼 × 熱血 Rap-Rock 戰歌",
+    defaultBpm: 120,
+    sunoStyleZh:
+      "2000s stadium hard rock and rap-rock anthem, {BPM} BPM, iconic talk-box wah-wah distorted electric guitar riff intro, massive arena live acoustic drums and driving bassline, palm-muted rock guitar with punchy rhythmic rap-rock male vocals in the verses, explosive raspy high-energy stadium rock male lead vocalist belting an unstoppable anthemic gang-vocal chorus (It's my life, it's now or never!), soaring melodic guitar solo, pure adrenaline concert energy",
+    sunoStyleEn:
+      "2000s arena hard rock and rap-rock crossover anthem, {BPM} BPM, signature talk-box wah-wah distorted electric guitar riff intro, booming stadium drums and driving bass, tight palm-muted guitar chugs with fiery rhythmic rap-rock delivery in verses, powerhouse raspy rock tenor vocalist belting a massive stadium chant chorus (It's my trade, it's now or never!), epic melodic rock guitar solo, Bon Jovi meets Linkin Park stadium energy",
+    sunoExclude: "slow sad acoustic ballad, lo-fi chill, gentle whisper, country, jazz lounge, mumble rap",
+    dnaTags: ["🎸 Talk-Box 哇音電吉他 Riff", "🏟️ 120 BPM 體育館硬式搖滾", "🔥 \"It's My Life, Now or Never!\"", "⚡ 硬核 Rap-Rock 交易員戰歌"]
+  },
   "prodigal-return": {
     nameZh: "茄子蛋《浪子回頭》風：催淚藍調電吉他 × 沙啞菸酒嗓大合唱 × 台式浪子走心饒舌",
     defaultBpm: 78,
@@ -285,8 +302,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "prodigal-return",
-  bpm: 78,
+  preset: "bonjovi-mylife",
+  bpm: 120,
   topics: new Set([
     "nvda",
     "tsmc",
@@ -881,6 +898,212 @@ function analyzeYoutubeUrl() {
   randomizeSongKeywords(false);
   renderAll();
   showToast("🔍 已完成曲風解析並隨機抽取全新關鍵字創作歌詞！");
+}
+
+function buildBonJoviMyLifePackage(p, bpm, flags) {
+  const hookLineZh =
+    currentState.customHook ||
+    "It's my life! 這是我的盤，It's now or never! 我絕不白活一場";
+  const hookLineEn =
+    currentState.customHook ||
+    "It's my trade! And it's now or never! I ain't gonna hold forever";
+
+  const stockList =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.zh.split(" ")[0]).join("、")
+      : "台積電、輝達、鴻海";
+  const stockListEn =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.en.split(" ")[0]).join(", ")
+      : "TSMC, Nvidia, Foxconn";
+
+  const lyricsZh = `[Intro: Iconic Talk-Box Wah-Wah Distorted Electric Guitar Riff (Bow-wow-wow!), Massive Stadium Drums Drop!]
+[Powerhouse Raspy Rock Vocal & Rapper Hype]
+Yeah! Bow-wow-wow!
+從台北早盤九點鐘，到華爾街那斯達克不眠夜！
+我的籌碼我做主！Turn the amps up! Let's rock!
+
+[Verse 1: Palm-Muted Chugging Rock Guitar & Driving Bass, Fierce Rap-Rock Male Vocal]
+這不是投顧老師寫好的劇本，更不是給膽小鬼玩的練習題
+螢幕上紅綠Ｋ線像心電圖狂跳，${stockList} 在盤面上呼風喚雨
+Tommy 以前在融資斷頭裡押上全部身家，被天地針洗出局在公園嘆氣
+Gina 在夜盤暴跌兩千點時咬緊牙關，守住維持率底線等黎明升起
+（Rap-Rock 疾速連押加速）
+外資借券賣出幾萬張想把散戶壓在地板摩擦
+高頻演算法在五檔委買瞬間抽單玩弄真假
+但我的手指按在買進鍵上從來不會發抖害怕
+自己選的賽道、自己扛的槓桿，就算天塌下來我也要親手把空頭打垮！
+
+[Pre-Chorus: Building Drum Roll & Distorted Guitar Chord Crescendo]
+我的心像滿載運轉的 AI 算力機房
+頂開所有均線壓力的高牆
+堅守我的交易信仰，絕不退讓——！
+
+[Chorus: Explosive Stadium Hard-Rock Anthem, Raspy Rock Tenor + 50,000 Crowd Gang Vocals!]
+${hookLineZh}
+我只想在破頂的主升段裡輝煌！
+(It's my life!)
+我的信念像 ${stockList} 的護城河一樣開闊堅強
+像老船長掌舵穿越千點洗盤的巨浪
+I just want to trade while I'm alive!
+(It's my life!)
+
+[Talk-Box Wah-Wah Guitar Riff Interlude: Bow-wow-wow!]
+
+[Verse 2: Aggressive Rap-Rock Male Vocal, Tight Punchy Arena Rock Groove]
+這首歌獻給每一個在暴跌三千點時依然沒砍在阿呆谷底的孤勇者
+獻給那些自己畫趨勢線、自己算費波南希、不聽明牌不跟風的硬骨頭
+當關稅黑天鵝半夜突襲、當聯準會鷹派發言讓全場發抖
+你敢不敢在萬眾恐慌的時刻逆勢扣下扳機、跟主升段生死與共？
+
+[Pre-Chorus: Maximum Stadium Build-Up]
+不向莊家低頭，不對震盪求饒
+要麼不進場，要麼就一路軋上雲霄——！
+
+[Chorus: Explosive Stadium Hard-Rock Anthem, Full Arena Sing-Along!]
+${hookLineZh}
+我不在乎空頭設下多少圈套！
+(It's my life!)
+我的帳戶由我自己親手打造
+迎著黃金交叉的長紅一路狂飆
+I just want to win while I'm alive!
+
+[Guitar Solo: Soaring Melodic Stadium Hard-Rock Electric Guitar Solo with Talk-Box Wah-Wah Climax!]
+
+[Bridge: Stripped-Back Bass & Stadium Stomp-Clap Beat, Rapper & Rock Vocal Call-and-Response]
+[Rapper] 你是要聽別人的明牌當一輩子韭菜，還是自己握緊方向盤？
+[Rock Vocal] Better stand tall when they're calling you out!
+[Rapper] 面對追繳、面對洗盤，不彎腰、不認輸、不折斷！
+[Rock Vocal] Don't bend, don't break, baby, don't back down!
+
+[Chorus: Final Maximum Adrenaline Stadium Explosion, Key Change High-Note Belt!]
+${hookLineZh}
+And I ain't gonna live forever!
+我只要在破頂的歷史高點被銘記！
+(It's my life!)
+握緊 ${stockList} 的最後底牌
+It's now or never!
+I just want to trade while I'm alive!
+
+[Outro: Iconic Talk-Box Guitar Riff & Crashed Cymbals Finale]
+[Rock Vocal]
+It's my life! 我的盤面我做主！
+It's now or never! 破頂封王！
+[End]`;
+
+  const lyricsEn = `[Intro: Iconic Talk-Box Wah-Wah Distorted Electric Guitar Riff (Bow-wow-wow!), Massive Stadium Drums Drop!]
+[Powerhouse Raspy Rock Vocal & Rapper Hype]
+Yeah! Bow-wow-wow!
+From the Taipei opening bell to the Wall Street midnight floor!
+My capital, my conviction! Turn it up! Let's go!
+
+[Verse 1: Palm-Muted Chugging Rock Guitar & Driving Bass, Fierce Rap-Rock Male Vocal]
+This ain't a paper-trading demo account, this ain't no practice round
+Candlesticks flashing like a heartbeat monitor while ${stockListEn} shake the ground
+Tommy used to blow his paycheck chasing zero-day options in the dark
+Gina held the line through a two-thousand-point crash waiting for the morning spark
+(Rap-Rock Double-Time Surge)
+Hedge funds short-lending millions tryna crush the retail dream
+HFT algos spoofing Level-two bids inside the machine
+But my finger on the trigger never trembles at the open bell
+My own thesis, my own risk—I'll ride this breakout straight through hell!
+
+[Pre-Chorus: Building Drum Roll & Distorted Guitar Chord Crescendo]
+My heart is like an open highway of AI compute power
+Breaking through the resistance wall in the darkest hour
+Standing my ground, I will never back down—!
+
+[Chorus: Explosive Stadium Hard-Rock Anthem, Raspy Rock Tenor + 50,000 Crowd Gang Vocals!]
+${hookLineEn}
+I just want to ride the breakout wave while I'm alive!
+(It's my trade!)
+My conviction is like the silicon shield beside the open highway
+Like Frankie said, I did it my way
+I just want to trade while I'm alive!
+(It's my life!)
+
+[Talk-Box Wah-Wah Guitar Riff Interlude: Bow-wow-wow!]
+
+[Verse 2: Aggressive Rap-Rock Male Vocal, Tight Punchy Arena Rock Groove]
+This is for the ones who stood their ground when the index dropped three grand
+For the diamond-handed warriors who drew their own Fibonacci plan
+When midnight tariff headlines hit and hawkish Fed speakers roar
+Will you fold in the panic or buy the blood on the trading floor?
+
+[Pre-Chorus: Maximum Stadium Build-Up]
+No bowing to the market makers, no begging for a break
+All-in on the golden cross, everything's at stake—!
+
+[Chorus: Explosive Stadium Hard-Rock Anthem, Full Arena Sing-Along!]
+${hookLineEn}
+I ain't gonna fold under the short-seller pressure!
+(It's my trade!)
+My portfolio, my discipline, my way
+Riding ${stockListEn} into the break of day
+I just want to win while I'm alive!
+
+[Guitar Solo: Soaring Melodic Stadium Hard-Rock Electric Guitar Solo with Talk-Box Wah-Wah Climax!]
+
+[Bridge: Stripped-Back Bass & Stadium Stomp-Clap Beat, Rapper & Rock Vocal Call-and-Response]
+[Rapper] Are you gonna follow fake gurus like a sheep, or captain your own ship tonight?
+[Rock Vocal] Better stand tall when the margin calls bite!
+[Rapper] Through the stop-hunt wicks and the volatility storm—never fold!
+[Rock Vocal] Don't bend, don't break, baby, don't back down!
+
+[Chorus: Final Maximum Adrenaline Stadium Explosion, Key Change High-Note Belt!]
+${hookLineEn}
+I just want to ride the all-time high while I'm alive!
+(It's my life!)
+Like Frankie said, I traded my way!
+It's now or never!
+I just want to trade while I'm alive!
+
+[Outro: Iconic Talk-Box Guitar Riff & Crashed Cymbals Finale]
+[Rock Vocal]
+It's my life! It's my trade!
+It's now or never! Market conquered!
+[End]`;
+
+  return {
+    zh: {
+      title: "It's My Life・我的盤面我做主 (Now or Never)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI搖滾饒舌】《It's My Life・我的盤面我做主》｜致敬 Bon Jovi 傳奇搖滾神曲！Talk-Box 電吉他 × 台美股破頂戰歌 (Official Audio)`,
+        `《It's My Life (It's Now or Never!)》股市熱血版｜「這是我的盤，我絕不白活一場！」體育館硬式搖滾 × Rap-Rock (${bpm} BPM)`,
+        `開盤前聽這首直接腎上腺素狂飆！當 Bon Jovi《It's My Life》遇上台積電與輝達主升段 🎸🔥`
+      ],
+      ytDesc: `🎸「It's my life! 這是我的盤，It's now or never! 我絕不白活一場！我只想在破頂的主升段裡輝煌！」
+致敬搖滾傳奇天團 Bon Jovi 跨越世代的體育館聖歌《It's My Life》，這首《It's My Life・我的盤面我做主》以 ${bpm} BPM 最具標誌性的 Talk-Box 哇音失真電吉他 Riff（Bow-wow-wow!）與炸裂真鼓揭開序幕！
+將原曲中傳奇人物 Tommy & Gina 的奮鬥故事，改編為散戶在融資追繳、天地針洗盤與千點震盪中浴火重生、不聽投顧明牌、自己掌握交易紀律與 ${stockList} 護城河的熱血 Rap-Rock 戰歌！
+
+🎧 曲風與編曲亮點：
+• ${bpm} BPM 2000 年代體育館硬式搖滾 (Stadium Hard Rock) × 硬派 Rap-Rock 節奏主歌
+• 經典 Talk-Box 哇音電吉他 Riff + 悶音電吉他推進 (Palm-Muted Chugs)
+• 萬人體育館嘶吼大合唱副歌：「It's my life! It's now or never! Don't bend, don't break, baby, don't back down!」
+
+💬 你的帳戶由你自己做主！在留言區刷一排「It's My Life! It's Now or Never! 🎸🔥」！
+
+#台股 #美股 #ItsMyLife #BonJovi #搖滾饒舌 #RapRock #交易員戰歌 #台積電 #輝達 #鴻海 #SunoAI #AI音樂 #股票音樂 #熱血搖滾`
+    },
+    en: {
+      title: "It's My Trade (It's Now or Never)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `It's My Trade (It's Now or Never!) | Bon Jovi Style Stadium Hard-Rock × Wall Street Rap-Rock Anthem (${bpm} BPM)`,
+        `"It's My Trade, And It's Now or Never!" 🎸 Talk-Box Guitar Riff × Trader Conviction Rock Anthem (Official AI Audio)`,
+        `Don't Bend, Don't Break, Don't Back Down 🔥 "It's My Trade" | Arena Rock Stock Market Song (NVDA, TSMC)`
+      ],
+      ytDesc: `🎸 "${hookLineEn}! I just want to ride the breakout wave while I'm alive!"
+Inspired by Bon Jovi's legendary 2000s stadium rock anthem "It's My Life", "It's My Trade (It's Now or Never)" packs a ${bpm} BPM talk-box wah-wah distorted guitar riff, palm-muted rap-rock verses about Tommy and Gina surviving market shakeouts, and an explosive arena chorus celebrating trader independence and conviction on ${stockListEn}.
+
+#StockMarketRap #BonJovi #ItsMyLife #ArenaRock #RapRock #TraderAnthem #WallStreet #TSMC #NVDA #SunoAI #AIMusic`
+    }
+  };
 }
 
 function buildProdigalReturnPackage(p, bpm, flags) {
@@ -3161,6 +3384,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "bonjovi-mylife") {
+    return buildBonJoviMyLifePackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "prodigal-return") {
     return buildProdigalReturnPackage(p, bpm, {
