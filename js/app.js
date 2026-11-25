@@ -168,8 +168,112 @@ let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
   preset: "pharaoh-ghostface",
   bpm: 93,
-  topics: new Set(["nvda", "tsmc", "whipsaw", "tariff", "squeeze"]),
-  customHook: ""
+  topics: new Set([
+    "nvda",
+    "tsmc",
+    "whipsaw",
+    "tariff",
+    "squeeze",
+    "daytrade",
+    "margincall",
+    "wick",
+    "options"
+  ]),
+  customHook: "",
+  customKeywords: ""
+};
+
+const TRADING_KEYWORD_ENGINE = {
+  etf: {
+    zh: "高股息 ETF 溢價破發，00940 的自救會在股版排隊買單",
+    en: "High-dividend ETFs breaking below NAV, retail bagholders praying at the close",
+    tagZh: "#高股息ETF #00940",
+    tagEn: "#DividendETF #RetailBagholder"
+  },
+  daytrade: {
+    zh: "無本當沖搶那幾個 tick 的價差，撮合排隊在九點零一分生死交叉",
+    en: "Zero-capital day-trading scalping every tick, queue orders clashing at 9:01 AM",
+    tagZh: "#無本當沖 #搶帽子",
+    tagEn: "#DayTrading #TickScalping"
+  },
+  margincall: {
+    zh: "融資維持率跌破一百三的追繳令，清晨的簡訊比鬧鐘還要無情",
+    en: "Margin maintenance crashing under 130 percent, liquidation SMS colder than the winter rain",
+    tagZh: "#融資維持率 #斷頭追繳",
+    tagEn: "#MarginCall #Liquidation"
+  },
+  settlement: {
+    zh: "T加2 交割款還差幾十萬，營業員的奪命連環叩讓人手心流汗",
+    en: "T-plus-2 settlement clock ticking down, broker's phone calls ringing off the hook",
+    tagZh: "#違約交割 #營業員",
+    tagEn: "#SettlementDefault #BrokerCall"
+  },
+  limitlock: {
+    zh: "開盤一字線漲停鎖死買不到，隔天跌停關門直接請你吃碗大滷麵",
+    en: "Limit-up locked tight at the open bell, limit-down trap door slamming straight to hell",
+    tagZh: "#漲停鎖死 #跌停吃麵",
+    tagEn: "#LimitUp #LimitDownTrap"
+  },
+  wick: {
+    zh: "那根天地針長下影線剛掃掉我的停損點，馬上假跌破真穿頭拉上雲端",
+    en: "That nasty stop-hunt lower wick swept my exit clean, fake breakdown into a vertical green machine",
+    tagZh: "#長下影線 #假跌破",
+    tagEn: "#StopHuntWick #FakeBreakdown"
+  },
+  ma: {
+    zh: "五線合一均線糾結了一整季，帶量突破年線黃金交叉直接噴出天際",
+    en: "Five moving averages coiled tight for a quarter, golden cross breakout ripping through the border",
+    tagZh: "#均線糾結 #黃金交叉",
+    tagEn: "#GoldenCross #Breakout"
+  },
+  macd: {
+    zh: "高檔 KD 鈍化不要隨便猜頂，MACD 柱狀體底背離才是反轉的訊號",
+    en: "Stochastic staying overbought while bears get burned, MACD bullish divergence shows the tide has turned",
+    tagZh: "#KD鈍化 #MACD背離",
+    tagEn: "#MACDDivergence #TechnicalAnalysis"
+  },
+  fibonacci: {
+    zh: "費波南希零點六一八的黃金回撤位，艾略特波浪推升到主升段第三波",
+    en: "Fibonacci 0.618 golden pocket retracement held, Elliott Wave Three impulse ringing the bell",
+    tagZh: "#費波南希 #主升段",
+    tagEn: "#Fibonacci #ElliottWave"
+  },
+  orderbook: {
+    zh: "五檔委買掛著幾千張假單瞬間抽走，內外盤搓合全是演算法的障眼法",
+    en: "Level-2 order book spoofing thousand-lot bids then pulling the rug, HFT algos playing tug-of-war",
+    tagZh: "#五檔報價 #主力抽單",
+    tagEn: "#Level2OrderBook #AlgoSpoofing"
+  },
+  options: {
+    zh: "台指夜盤多空雙巴洗到脫皮，選擇權莊家精算著最大痛點收割權利金",
+    en: "Night session futures chopping both sides raw, options market makers pinning Max Pain by law",
+    tagZh: "#台指夜盤 #選擇權最大痛點",
+    tagEn: "#IndexFutures #MaxPainOptions"
+  },
+  ZeroDTE: {
+    zh: "週三結算日買方樂透翻了十倍倒莊，賣方吃完歸零膏卻在一根長紅裡破產",
+    en: "Wednesday 0DTE lotto calls going ten-bagger gamma squeeze, option sellers blown out on their knees",
+    tagZh: "#週選結算 #倒莊歸零膏",
+    tagEn: "#0DTEOptions #GammaSqueeze"
+  },
+  inst: {
+    zh: "外資借券賣出幾萬張壓著盤面，投信季底作帳結帳在尾盤神仙打架",
+    en: "Foreign funds short-lending millions of shares while local trusts window-dress the quarter-end close",
+    tagZh: "#三大法人 #投信作帳",
+    tagEn: "#InstitutionalFlow #QuarterEnd"
+  },
+  broker: {
+    zh: "盤後分點看到凱基台北跟隔日沖大軍鎖漲停，明天早盤開高九點半準備倒貨",
+    en: "Broker-branch data shows overnight-flip whales locking the limit-up, ready to dump at 9:30 AM sharp",
+    tagZh: "#隔日沖 #主力分點",
+    tagEn: "#BrokerFlow #OvernightFlip"
+  },
+  fomo: {
+    zh: "每次賣飛就是主升段起漲點，砍在阿呆谷底只能去公園搶最後一個紙箱",
+    en: "Every time I sell the stock goes parabolic, panic-sold the exact bottom now I'm shopping for a cardboard box",
+    tagZh: "#賣飛 #砍在阿呆谷 #睡公園",
+    tagEn: "#PaperHands #SoldTheBottom"
+  }
 };
 
 // 初始化
@@ -205,8 +309,8 @@ function bindEvents() {
     renderAll();
   });
 
-  // 話題 Chip 切換
-  document.querySelectorAll("#topic-chips .chip").forEach((chip) => {
+  // 話題 Chip 切換 (支援所有分類區塊)
+  document.querySelectorAll(".topic-chips .chip").forEach((chip) => {
     chip.addEventListener("click", () => {
       const topic = chip.dataset.topic;
       if (currentState.topics.has(topic)) {
@@ -223,12 +327,41 @@ function bindEvents() {
   });
 
   document.getElementById("btn-select-all-tags").addEventListener("click", () => {
-    document.querySelectorAll("#topic-chips .chip").forEach((chip) => {
+    document.querySelectorAll(".topic-chips .chip").forEach((chip) => {
       currentState.topics.add(chip.dataset.topic);
       chip.classList.add("active");
     });
     renderAll();
+    showToast("🔥 已全選 20 項台美股實戰操作關鍵字！");
   });
+
+  const clearBtn = document.getElementById("btn-clear-tags");
+  if (clearBtn) {
+    clearBtn.addEventListener("click", () => {
+      const defaults = new Set(["nvda", "tsmc", "whipsaw", "tariff", "squeeze", "daytrade", "margincall", "wick"]);
+      currentState.topics = new Set(defaults);
+      document.querySelectorAll(".topic-chips .chip").forEach((chip) => {
+        if (defaults.has(chip.dataset.topic)) {
+          chip.classList.add("active");
+        } else {
+          chip.classList.remove("active");
+        }
+      });
+      currentState.customKeywords = "";
+      const kwInput = document.getElementById("custom-keywords");
+      if (kwInput) kwInput.value = "";
+      renderAll();
+      showToast("🔄 已重置為核心實戰預設關鍵字！");
+    });
+  }
+
+  const customKwInput = document.getElementById("custom-keywords");
+  if (customKwInput) {
+    customKwInput.addEventListener("input", (e) => {
+      currentState.customKeywords = e.target.value.trim();
+      renderAll();
+    });
+  }
 
   // BPM & 自訂副歌
   const bpmSlider = document.getElementById("custom-bpm");
@@ -270,7 +403,7 @@ function bindEvents() {
   });
 
   document.querySelector('[data-copy-target="all-suno"]').addEventListener("click", () => {
-    const songData = buildSongPackage();
+    const songData = injectExtraTradingBars(buildSongPackage());
     const activeData = currentState.lang === "en" ? songData.en : songData.zh;
     const bundle = [
       `【Song Title】\n${activeData.title}`,
@@ -282,7 +415,7 @@ function bindEvents() {
   });
 
   document.querySelector('[data-copy-target="all-yt"]').addEventListener("click", () => {
-    const songData = buildSongPackage();
+    const songData = injectExtraTradingBars(buildSongPackage());
     const activeData = currentState.lang === "en" ? songData.en : songData.zh;
     const bundle = `【YouTube 建議標題】\n${activeData.ytTitles.join("\n")}\n\n【YouTube 影片描述】\n${activeData.ytDesc}`;
     copyToClipboard(bundle, "📋 已複製 YouTube 標題與完整描述！");
@@ -1712,8 +1845,56 @@ function formatLyricsHtml(text) {
     .join("\n");
 }
 
+function injectExtraTradingBars(pkg) {
+  const extraZh = [];
+  const extraEn = [];
+  const extraTagsZh = [];
+  const extraTagsEn = [];
+
+  Object.keys(TRADING_KEYWORD_ENGINE).forEach((key) => {
+    if (currentState.topics.has(key)) {
+      const item = TRADING_KEYWORD_ENGINE[key];
+      extraZh.push(item.zh);
+      extraEn.push(item.en);
+      extraTagsZh.push(item.tagZh);
+      extraTagsEn.push(item.tagEn);
+    }
+  });
+
+  if (currentState.customKeywords) {
+    const kws = currentState.customKeywords
+      .split(/[,，、\s]+/)
+      .map((s) => s.trim())
+      .filter(Boolean);
+    if (kws.length > 0) {
+      extraZh.push(`盤面鎖定 ${kws.join("、")} 的關鍵價位，籌碼與Ｋ線交織出我們的實戰態度`);
+      extraEn.push(`Locked in on ${kws.join(", ")} at the key breakout level, conviction and volume setting the pace`);
+      kws.forEach((k) => {
+        extraTagsZh.push(`#${k.replace(/^#/, "")}`);
+        extraTagsEn.push(`#${k.replace(/^#/, "")}`);
+      });
+    }
+  }
+
+  if (extraZh.length > 0) {
+    const blockZh = `\n[Trading Alpha Breakdown: Rapid-fire stock operation bars]\n${extraZh.join("\n")}\n`;
+    const blockEn = `\n[Trading Alpha Breakdown: Rapid-fire stock operation bars]\n${extraEn.join("\n")}\n`;
+
+    // 插入在最後一個 [Outro 前方
+    pkg.zh.lyrics = pkg.zh.lyrics.replace(/\n\[Outro/, `${blockZh}\n[Outro`);
+    pkg.en.lyrics = pkg.en.lyrics.replace(/\n\[Outro/, `${blockEn}\n[Outro`);
+  }
+
+  if (extraTagsZh.length > 0) {
+    pkg.zh.ytDesc += `\n${extraTagsZh.join(" ")}`;
+    pkg.en.ytDesc += `\n${extraTagsEn.join(" ")}`;
+  }
+
+  return pkg;
+}
+
 function renderAll() {
-  const pkg = buildSongPackage();
+  const pkg = injectExtraTradingBars(buildSongPackage());
   const p = STYLE_PRESETS[currentState.preset];
 
   // 更新 DNA tags
@@ -1795,7 +1976,7 @@ function showToast(msg) {
 }
 
 function exportFullMarkdown() {
-  const pkg = buildSongPackage();
+  const pkg = injectExtraTradingBars(buildSongPackage());
   const md = `# 歌曲製造機 Pro — 台美股饒舌曲風整改全套企劃包
 
 - **參考網址**：${document.getElementById("yt-url").value}

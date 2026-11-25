@@ -85,27 +85,75 @@
 
       <section class="card">
         <div class="card-header">
-          <h2>2️⃣ 台股 & 美股時事關鍵字注入</h2>
-          <button id="btn-select-all-tags" class="btn-text">全選熱門</button>
+          <h2>2️⃣ 台股 & 美股操作關鍵字注入庫 (24 大實戰模組)</h2>
+          <div class="chip-toolbar">
+            <button id="btn-select-all-tags" class="btn-text">全選</button>
+            <button id="btn-clear-tags" class="btn-text">重置預設</button>
+          </div>
         </div>
-        <p class="section-desc">點選要寫進歌詞的近期台美股核心話題（可複選）：</p>
-        <div class="topic-chips" id="topic-chips">
-          <button class="chip active" data-topic="nvda">🧥 輝達黃仁勳閃電回歸 & AI 算力</button>
-          <button class="chip active" data-topic="tsmc">🛡️ 台積電 (2330) CoWoS 護國神山</button>
-          <button class="chip active" data-topic="whipsaw">🎢 台股單日暴漲 3300 點又重挫洗盤</button>
-          <button class="chip active" data-topic="tariff">🦅 美國關稅戰 & 聯準會鷹派降息博弈</button>
-          <button class="chip active" data-topic="squeeze">🚀 限空令軋空 vs. 融資斷頭多空對決</button>
-          <button class="chip" data-topic="options">📊 台指夜盤 & 選擇權莊家雙巴</button>
+        <p class="section-desc">點選要寫進歌詞的股市實戰操作、技術籌碼與時事關鍵字（勾選後即時動態注入中英文歌詞段落與 Hashtags）：</p>
+
+        <div class="topic-category">
+          <div class="cat-title">🔥 核心時事與權值信仰</div>
+          <div class="topic-chips" data-cat="macro">
+            <button class="chip active" data-topic="nvda">🧥 輝達黃仁勳回歸 & AI 算力</button>
+            <button class="chip active" data-topic="tsmc">🛡️ 台積電 (2330) CoWoS 護國神山</button>
+            <button class="chip active" data-topic="whipsaw">🎢 單日暴漲 3300 點又重挫大洗盤</button>
+            <button class="chip active" data-topic="tariff">🦅 美國關稅戰 & 聯準會降息博弈</button>
+            <button class="chip" data-topic="etf">💰 高股息 ETF 之亂 & 00940 破發自救</button>
+          </div>
+        </div>
+
+        <div class="topic-category">
+          <div class="cat-title">⚡ 當沖、軋空與槓桿生死局</div>
+          <div class="topic-chips" data-cat="leverage">
+            <button class="chip active" data-topic="squeeze">🚀 限空令軋空 vs. 融券強制回補</button>
+            <button class="chip active" data-topic="daytrade">⚡ 無本當沖 tick 流 & 撮合排隊搶帽</button>
+            <button class="chip active" data-topic="margincall">🩸 融資維持率 130% 追繳斷頭令</button>
+            <button class="chip" data-topic="settlement">🏦 T+2 違約交割 & 營業員奪命連環叩</button>
+            <button class="chip" data-topic="limitlock">🔒 漲停鎖死一字線 vs. 跌停關門吃麵</button>
+          </div>
+        </div>
+
+        <div class="topic-category">
+          <div class="cat-title">📈 技術線型與量價獵殺</div>
+          <div class="topic-chips" data-cat="technical">
+            <button class="chip active" data-topic="wick">🗡️ 天地針長下影線 & 假跌破真穿頭</button>
+            <button class="chip" data-topic="ma">📐 五線合一均線糾結 & 黃金交叉噴出</button>
+            <button class="chip" data-topic="macd">📊 KD 鈍化 & MACD 柱狀體底背離</button>
+            <button class="chip" data-topic="fibonacci">🌀 費波南希 0.618 回撤 & 波浪主升段</button>
+            <button class="chip" data-topic="orderbook">🖥️ 五檔委買瞬間抽單 & 內外盤洗價</button>
+          </div>
+        </div>
+
+        <div class="topic-category">
+          <div class="cat-title">🏦 籌碼博弈、期權與散戶心理</div>
+          <div class="topic-chips" data-cat="chips">
+            <button class="chip active" data-topic="options">🎯 台指夜盤 & 選擇權莊家最大痛點雙巴</button>
+            <button class="chip" data-topic="ZeroDTE">💣 週三結算日倒莊 & 歸零膏買方樂透</button>
+            <button class="chip" data-topic="inst">🦈 外資借券賣出 vs. 投信季底作帳結帳</button>
+            <button class="chip" data-topic="broker">🕵️ 隔日沖分點凱基台北 & 主力鎖碼</button>
+            <button class="chip" data-topic="fomo">🤡 賣飛在起漲點、砍在阿呆谷 & 公園睡紙箱</button>
+          </div>
+        </div>
+
+        <div class="form-group custom-kw-group">
+          <label for="custom-keywords">✍️ 自訂專屬股票代號 / 操盤術語注入 (以逗號分隔，自動寫入歌詞)</label>
+          <input
+            type="text"
+            id="custom-keywords"
+            placeholder="例如：鴻海2317, 聯發科, 隔日沖, 滿倉幹進去, 少年股神"
+          />
         </div>
 
         <div class="form-row">
           <div class="form-group">
             <label for="custom-hook">自訂副歌口號 (選填)</label>
-            <input type="text" id="custom-hook" placeholder="預設：就是冤家 / 認了吧認了認了唄" />
+            <input type="text" id="custom-hook" placeholder="留空則使用該曲風經典改編副歌" />
           </div>
           <div class="form-group">
-            <label for="custom-bpm">目標 BPM：<span id="bpm-val">96</span></label>
-            <input type="range" id="custom-bpm" min="75" max="155" value="96" />
+            <label for="custom-bpm">目標 BPM：<span id="bpm-val">93</span></label>
+            <input type="range" id="custom-bpm" min="75" max="155" value="93" />
           </div>
         </div>
 
