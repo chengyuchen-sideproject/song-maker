@@ -248,97 +248,328 @@ let currentState = {
     "options"
   ]),
   customHook: "",
-  customKeywords: ""
+  customKeywords: "",
+  randomSeed: Date.now(),
+  variantMap: {},
+  autoRandomStocks: []
 };
 
+const ALL_TOPIC_KEYS = [
+  "nvda",
+  "tsmc",
+  "whipsaw",
+  "tariff",
+  "etf",
+  "squeeze",
+  "daytrade",
+  "margincall",
+  "settlement",
+  "limitlock",
+  "wick",
+  "ma",
+  "macd",
+  "fibonacci",
+  "orderbook",
+  "options",
+  "ZeroDTE",
+  "inst",
+  "broker",
+  "fomo"
+];
+
+const RANDOM_STOCK_POOL = [
+  { zh: "台積電 (2330) CoWoS 晶圓", en: "TSMC 2330 CoWoS wafers", tag: "#台積電2330" },
+  { zh: "輝達 (NVDA) Blackwell 算力", en: "NVIDIA Blackwell GPU cluster", tag: "#輝達NVDA" },
+  { zh: "鴻海 (2317) GB200 伺服器機櫃", en: "Foxconn GB200 AI server racks", tag: "#鴻海2317" },
+  { zh: "聯發科 (2454) 邊緣 AI 旗艦晶片", en: "MediaTek edge-AI flagship silicon", tag: "#聯發科2454" },
+  { zh: "廣達 (2382) 雲端資料中心大單", en: "Quanta cloud data-center orders", tag: "#廣達2382" },
+  { zh: "奇鋐 (3017) 雙相水冷散熱模組", en: "AVC liquid-cooling thermal modules", tag: "#水冷散熱" },
+  { zh: "長榮 (2603) 紅海運價報價", en: "Evergreen Red-Sea container freight rates", tag: "#航海王貨櫃" },
+  { zh: "世芯-KY (3661) ASIC 客製化晶片", en: "Alchip custom ASIC silicon", tag: "#千金股ASIC" },
+  { zh: "特斯拉 (TSLA) FSD 自駕與機器人", en: "Tesla FSD & Optimus robotics", tag: "#特斯拉TSLA" },
+  { zh: "超微 (AMD) MI300 算力挑戰者", en: "AMD MI300 compute challenger", tag: "#AMD超微" },
+  { zh: "微策略 (MSTR) 比特幣槓桿狂潮", en: "MicroStrategy Bitcoin leverage wave", tag: "#比特幣概念" },
+  { zh: "美超微 (SMCI) 液冷機櫃妖股行情", en: "Supermicro liquid-cooled server volatility", tag: "#美超微SMCI" }
+];
+
 const TRADING_KEYWORD_ENGINE = {
+  nvda: {
+    zh: [
+      "皮衣男黃仁勳再次登台點火，輝達 Blackwell 算力把空頭防線徹底踏破",
+      "看輝達 GPU 訂單排到明年，AI 算力就是這場牛市最硬的底氣與尊嚴",
+      "那斯達克夜盤只看輝達臉色，皮衣刀客一揮手就是千億美元的市值翻騰"
+    ],
+    en: [
+      "Leather-jacket Jensen steps back on stage, Nvidia Blackwell compute burning through the short-sellers' cage",
+      "Nvidia GPU backlog stretched across the year, AI compute power is the hardest conviction here",
+      "Nasdaq night session moves on Nvidia's breath, one keynote swing sends bears to margin death"
+    ],
+    tagZh: "#輝達 #黃仁勳 #AI算力",
+    tagEn: "#NVIDIA #JensenHuang #AICompute"
+  },
+  tsmc: {
+    zh: [
+      "台積電 CoWoS 先進封裝產能全開，護國神山的晶圓護城河誰也跨不過來",
+      "二三三零跳空站上千元大關，台積電 ADR 在美股夜盤先把多頭號角吹響",
+      "外資認錯回補台積電幾萬張，兩奈米製程的信仰在Ｋ線圖上閃閃發亮"
+    ],
+    en: [
+      "TSMC CoWoS packaging running at full speed, the Silicon Shield moat is everything the bulls need",
+      "2330 gapping up past the thousand-dollar mark, TSMC ADR lighting up the Wall Street dark",
+      "Foreign funds panic-buying TSMC shares back, 2nm wafer dominance leading the attack"
+    ],
+    tagZh: "#台積電 #2330 #CoWoS",
+    tagEn: "#TSMC #SiliconShield #CoWoS"
+  },
+  whipsaw: {
+    zh: [
+      "昨天單日暴漲三千三百點創下奇蹟，今天又重挫兩千點把浮額洗到脫皮",
+      "大盤像坐上失速雲霄飛車，早盤開高五百點尾盤卻翻黑殺得措手不及",
+      "史詩級的千點振幅天天上演，多空雙巴的盤面只留給有心臟的人掌舵"
+    ],
+    en: [
+      "Three thousand three hundred points rally yesterday, two thousand points crash today shaking weak hands away",
+      "Market riding a runaway rollercoaster track, opening up five hundred before a brutal afternoon smack",
+      "Thousand-point daily swings becoming the norm, only iron stomachs survive this whipsaw storm"
+    ],
+    tagZh: "#暴漲暴跌 #極致洗盤",
+    tagEn: "#MarketWhipsaw #Volatility"
+  },
+  tariff: {
+    zh: [
+      "半夜一則關稅推文突襲夜盤，聯準會鮑爾的鷹派降息劇本還在反覆試探",
+      "關稅壁壘與通膨數據連環開槍，華爾街在降息碼數的博弈裡徹夜未眠",
+      "白宮關稅風暴吹亂全球供應鏈，我們在非農數據與利率點陣圖裡找買點"
+    ],
+    en: [
+      "Midnight tariff tweets ambushing the futures screen, while Powell plays his hawkish-cut routine",
+      "Tariff walls and CPI numbers firing back to back, Wall Street losing sleep on the interest-rate track",
+      "Trade-war headlines shaking up the supply chain, hunting entries through the Fed dot-plot rain"
+    ],
+    tagZh: "#關稅戰 #聯準會降息",
+    tagEn: "#TariffWar #FedRateCut"
+  },
+  squeeze: {
+    zh: [
+      "限空令下借券賣出踢到鐵板，股東會前融券強制回補把空軍軋上天花板",
+      "券資比飆高就是軋空的燃料，空頭不死多頭不止的戰歌在盤中咆哮",
+      "看那些放空妖股的空單被鎖在漲停板外，排隊回補的市價單像雪片般飛來"
+    ],
+    en: [
+      "Short-selling restrictions locking bears in a trap, forced buy-ins sending the chart off the map",
+      "Sky-high short interest is pure rocket fuel, squeezing greedy bears by the old-school rule",
+      "Short sellers locked out above the limit-up line, market-buy cover orders begging for a sign"
+    ],
+    tagZh: "#限空令 #融券軋空",
+    tagEn: "#ShortSqueeze #ForcedBuyIn"
+  },
   etf: {
-    zh: "高股息 ETF 溢價破發，00940 的自救會在股版排隊買單",
-    en: "High-dividend ETFs breaking below NAV, retail bagholders praying at the close",
+    zh: [
+      "高股息 ETF 溢價破發，00940 的自救會在股版排隊買單",
+      "千億規模 ETF 換股潮引爆土洋對作，吃豆腐的散戶反被投信結帳洗落",
+      "月月配息的口號喊得震天響，左手配右手還不如抓緊主升段的成長浪"
+    ],
+    en: [
+      "High-dividend ETFs breaking below NAV, retail bagholders praying at the close",
+      "Billion-dollar ETF rebalancing sparks a turf war, front-running retail left bleeding on the floor",
+      "Monthly dividend hype echoing everywhere, while growth-stock breakouts leave bagholders there"
+    ],
     tagZh: "#高股息ETF #00940",
     tagEn: "#DividendETF #RetailBagholder"
   },
   daytrade: {
-    zh: "無本當沖搶那幾個 tick 的價差，撮合排隊在九點零一分生死交叉",
-    en: "Zero-capital day-trading scalping every tick, queue orders clashing at 9:01 AM",
+    zh: [
+      "無本當沖搶那幾個 tick 的價差，撮合排隊在九點零一分生死交叉",
+      "當沖客盯著江波圖秒進秒出，手續費跟證交稅算下來到底幫誰打了一整年工",
+      "早盤急拉追進去想搶帽子，結果現股當沖翻黑留倉不起只能在尾盤含淚砍單"
+    ],
+    en: [
+      "Zero-capital day-trading scalping every tick, queue orders clashing at 9:01 AM",
+      "Scalpers glued to one-minute charts in and out, paying commissions while drowning in doubt",
+      "Chased the morning spike for a quick hat-grab, trapped at the close taking a brutal loss stab"
+    ],
     tagZh: "#無本當沖 #搶帽子",
     tagEn: "#DayTrading #TickScalping"
   },
   margincall: {
-    zh: "融資維持率跌破一百三的追繳令，清晨的簡訊比鬧鐘還要無情",
-    en: "Margin maintenance crashing under 130 percent, liquidation SMS colder than the winter rain",
+    zh: [
+      "融資維持率跌破一百三的追繳令，清晨的簡訊比鬧鐘還要無情",
+      "連續兩根跌停讓融資斷頭萬箭穿心，散戶大軍減肥成功才是底部浮現的證明",
+      "維持率保衛戰在下午兩點開打，不想被券商砍在阿呆谷就只能忍痛補錢加碼"
+    ],
+    en: [
+      "Margin maintenance crashing under 130 percent, liquidation SMS colder than the winter rain",
+      "Back-to-back limit-downs triggering forced liquidation, retail margin washout marks the bottom formation",
+      "Margin-call defense line at 2 PM sharp, wire more collateral or get dumped in the dark"
+    ],
     tagZh: "#融資維持率 #斷頭追繳",
     tagEn: "#MarginCall #Liquidation"
   },
   settlement: {
-    zh: "T加2 交割款還差幾十萬，營業員的奪命連環叩讓人手心流汗",
-    en: "T-plus-2 settlement clock ticking down, broker's phone calls ringing off the hook",
+    zh: [
+      "T加2 交割款還差幾十萬，營業員的奪命連環叩讓人手心流汗",
+      "上午十點銀行扣款倒數計時，差一點違約交割的驚魂記在交易室裡真實上演",
+      "當沖沖過頭忘了算交割水位，四處調頭寸才懂得敬畏市場不能只靠一張嘴"
+    ],
+    en: [
+      "T-plus-2 settlement clock ticking down, broker's phone calls ringing off the hook",
+      "10 AM wire deadline counting down fast, dodging a settlement default by a razor-thin cast",
+      "Over-leveraged day trades forgot the cash floor, scrambling for liquidity before they lock the door"
+    ],
     tagZh: "#違約交割 #營業員",
     tagEn: "#SettlementDefault #BrokerCall"
   },
   limitlock: {
-    zh: "開盤一字線漲停鎖死買不到，隔天跌停關門直接請你吃碗大滷麵",
-    en: "Limit-up locked tight at the open bell, limit-down trap door slamming straight to hell",
+    zh: [
+      "開盤一字線漲停鎖死買不到，隔天跌停關門直接請你吃碗大滷麵",
+      "亮燈漲停十萬張市價委買排到天邊，隔日開高走低天地板讓你懷疑人生",
+      "主力拉抬時一字鎖死不給上車，出貨時一字跌停連逃命的縫隙都不留"
+    ],
+    en: [
+      "Limit-up locked tight at the open bell, limit-down trap door slamming straight to hell",
+      "Hundred-thousand lots queued at the limit-up light, next day ceiling-to-floor wipeout in plain sight",
+      "Locked limit-up when you want to buy in, locked limit-down when the dumping begins"
+    ],
     tagZh: "#漲停鎖死 #跌停吃麵",
     tagEn: "#LimitUp #LimitDownTrap"
   },
   wick: {
-    zh: "那根天地針長下影線剛掃掉我的停損點，馬上假跌破真穿頭拉上雲端",
-    en: "That nasty stop-hunt lower wick swept my exit clean, fake breakdown into a vertical green machine",
+    zh: [
+      "那根天地針長下影線剛掃掉我的停損點，馬上假跌破真穿頭拉上雲端",
+      "主力刻意畫出破底長下影線洗出帶血籌碼，收盤卻拉回五日線上笑看風雲",
+      "避雷針長上影線以為要見頂，結果隔天跳空開高直接把所有仙人指路變成噴出"
+    ],
+    en: [
+      "That nasty stop-hunt lower wick swept my exit clean, fake breakdown into a vertical green machine",
+      "Whales painted a deep lower shadow to shake out bloody shares, closing back above the 5-MA like nobody cares",
+      "Long upper wick looked like a blow-off top, next morning gap-up made the short sellers drop"
+    ],
     tagZh: "#長下影線 #假跌破",
     tagEn: "#StopHuntWick #FakeBreakdown"
   },
   ma: {
-    zh: "五線合一均線糾結了一整季，帶量突破年線黃金交叉直接噴出天際",
-    en: "Five moving averages coiled tight for a quarter, golden cross breakout ripping through the border",
+    zh: [
+      "五線合一均線糾結了一整季，帶量突破年線黃金交叉直接噴出天際",
+      "沿著五日線強勢上攻不回頭，季線翻揚就是多軍最堅固的移動堡壘",
+      "跌破月線假摔後三天內強勢站回，均線多頭排列的列車根本停不下來"
+    ],
+    en: [
+      "Five moving averages coiled tight for a quarter, golden cross breakout ripping through the border",
+      "Riding the 5-day moving average without looking back, rising quarterly line shielding the bull attack",
+      "Reclaimed the monthly average after a three-day shake, full bullish alignment with no time to brake"
+    ],
     tagZh: "#均線糾結 #黃金交叉",
     tagEn: "#GoldenCross #Breakout"
   },
   macd: {
-    zh: "高檔 KD 鈍化不要隨便猜頂，MACD 柱狀體底背離才是反轉的訊號",
-    en: "Stochastic staying overbought while bears get burned, MACD bullish divergence shows the tide has turned",
+    zh: [
+      "高檔 KD 鈍化不要隨便猜頂，MACD 柱狀體底背離才是反轉的訊號",
+      "RSI 超賣區亮起黃金買訊，MACD 綠翻紅第一根柱子就是我們扣扳機的瞬間",
+      "指標在八十以上高檔鈍化軋空，看指標放空的技術派全被主升段軋到外太空"
+    ],
+    en: [
+      "Stochastic staying overbought while bears get burned, MACD bullish divergence shows the tide has turned",
+      "RSI oversold flashing the golden entry sign, MACD histogram flipping green on the front line",
+      "Oscillators pinned above eighty in a runaway trend, shorting overbought signals brings a painful end"
+    ],
     tagZh: "#KD鈍化 #MACD背離",
     tagEn: "#MACDDivergence #TechnicalAnalysis"
   },
   fibonacci: {
-    zh: "費波南希零點六一八的黃金回撤位，艾略特波浪推升到主升段第三波",
-    en: "Fibonacci 0.618 golden pocket retracement held, Elliott Wave Three impulse ringing the bell",
+    zh: [
+      "費波南希零點六一八的黃金回撤位，艾略特波浪推升到主升段第三波",
+      "精算波浪理論的滿足點位，回測零點三八二支撐不破就是加碼滿倉的號角",
+      "完成了邪惡第五波的末升段噴出，在黃金分割率的天際線上優雅停利轉身"
+    ],
+    en: [
+      "Fibonacci 0.618 golden pocket retracement held, Elliott Wave Three impulse ringing the bell",
+      "Calculated the wave-extension target with precision, 0.382 support bounce confirmed the all-in decision",
+      "Riding the parabolic Wave Five blow-off high, taking profit right on the Fibonacci sky"
+    ],
     tagZh: "#費波南希 #主升段",
     tagEn: "#Fibonacci #ElliottWave"
   },
   orderbook: {
-    zh: "五檔委買掛著幾千張假單瞬間抽走，內外盤搓合全是演算法的障眼法",
-    en: "Level-2 order book spoofing thousand-lot bids then pulling the rug, HFT algos playing tug-of-war",
+    zh: [
+      "五檔委買掛著幾千張假單瞬間抽走，內外盤搓合全是演算法的障眼法",
+      "集合競價最後一秒試搓漲停瞬間變跌停，高頻交易機器人在毫秒之間獵殺散戶",
+      "看到大單敲進外盤連拉五檔，識別出主力真突破還是假拉抬才是盤中真功夫"
+    ],
+    en: [
+      "Level-2 order book spoofing thousand-lot bids then pulling the rug, HFT algos playing tug-of-war",
+      "Pre-open auction flashing limit-up then yanked at the last second, millisecond bots hunting where retail beckoned",
+      "Block orders sweeping five levels on the ask, separating real breakouts from spoofing is the trader's task"
+    ],
     tagZh: "#五檔報價 #主力抽單",
     tagEn: "#Level2OrderBook #AlgoSpoofing"
   },
   options: {
-    zh: "台指夜盤多空雙巴洗到脫皮，選擇權莊家精算著最大痛點收割權利金",
-    en: "Night session futures chopping both sides raw, options market makers pinning Max Pain by law",
+    zh: [
+      "台指夜盤多空雙巴洗到脫皮，選擇權莊家精算著最大痛點收割權利金",
+      "外資期貨空單三萬口只是避險障眼法，看懂選擇權買權賣權未平倉量才知真方向",
+      "隱含波動率飆升讓權利金貴得離譜，莊家雙賣收租卻在突破大行情裡踢到鐵板"
+    ],
+    en: [
+      "Night session futures chopping both sides raw, options market makers pinning Max Pain by law",
+      "Thirty thousand foreign futures shorts are just a hedge disguise, open-interest walls reveal where the real move lies",
+      "Implied volatility spiking premiums through the roof, straddle sellers crushed when the breakout gives proof"
+    ],
     tagZh: "#台指夜盤 #選擇權最大痛點",
     tagEn: "#IndexFutures #MaxPainOptions"
   },
   ZeroDTE: {
-    zh: "週三結算日買方樂透翻了十倍倒莊，賣方吃完歸零膏卻在一根長紅裡破產",
-    en: "Wednesday 0DTE lotto calls going ten-bagger gamma squeeze, option sellers blown out on their knees",
+    zh: [
+      "週三結算日買方樂透翻了十倍倒莊，賣方吃完歸零膏卻在一根長紅裡破產",
+      "午後一點半結算價拉鋸戰，末日選擇權 Gamma Squeeze 讓點數在十分鐘內狂飆三百點",
+      "幾十點的權利金買進末日翻倍樂透，以小博大的心臟在週三下午跳到最高速"
+    ],
+    en: [
+      "Wednesday 0DTE lotto calls going ten-bagger gamma squeeze, option sellers blown out on their knees",
+      "Final thirty-minute settlement tug-of-war, 0DTE gamma explosion ripping three hundred points more",
+      "Cheap out-of-the-money lotto tickets turning into gold, Wednesday afternoon is only for the bold"
+    ],
     tagZh: "#週選結算 #倒莊歸零膏",
     tagEn: "#0DTEOptions #GammaSqueeze"
   },
   inst: {
-    zh: "外資借券賣出幾萬張壓著盤面，投信季底作帳結帳在尾盤神仙打架",
-    en: "Foreign funds short-lending millions of shares while local trusts window-dress the quarter-end close",
+    zh: [
+      "外資借券賣出幾萬張壓著盤面，投信季底作帳結帳在尾盤神仙打架",
+      "自營商避險買盤點火、投信連買二十天鎖碼，土洋對作的籌碼戰我們跟著贏家走",
+      "看懂三大法人買賣超背後的真假外資，隔著汪洋的熱錢匯入直接把權值股推上巔峰"
+    ],
+    en: [
+      "Foreign funds short-lending millions of shares while local trusts window-dress the quarter-end close",
+      "Proprietary desks hedging while domestic funds buy twenty days straight, riding institutional flow before it's too late",
+      "Seeing through fake offshore accounts in the daily flow report, hot money flooding in to lift the flagship fort"
+    ],
     tagZh: "#三大法人 #投信作帳",
     tagEn: "#InstitutionalFlow #QuarterEnd"
   },
   broker: {
-    zh: "盤後分點看到凱基台北跟隔日沖大軍鎖漲停，明天早盤開高九點半準備倒貨",
-    en: "Broker-branch data shows overnight-flip whales locking the limit-up, ready to dump at 9:30 AM sharp",
+    zh: [
+      "盤後分點看到凱基台北跟隔日沖大軍鎖漲停，明天早盤開高九點半準備倒貨",
+      "神秘地緣券商分點默默在低檔吃貨三個月，籌碼集中度飆高就是主力即將發動的暗號",
+      "虎尾幫與嘉義幫在漲停板前大匯合，看穿隔日沖假突破才不會在早盤成為接盤俠"
+    ],
+    en: [
+      "Broker-branch data shows overnight-flip whales locking the limit-up, ready to dump at 9:30 AM sharp",
+      "A mysterious local broker branch quietly accumulated for three months straight, chip concentration signaling the breakout gate",
+      "Overnight momentum syndicates crowding the limit-up board, dodging their morning dump is its own reward"
+    ],
     tagZh: "#隔日沖 #主力分點",
     tagEn: "#BrokerFlow #OvernightFlip"
   },
   fomo: {
-    zh: "每次賣飛就是主升段起漲點，砍在阿呆谷底只能去公園搶最後一個紙箱",
-    en: "Every time I sell the stock goes parabolic, panic-sold the exact bottom now I'm shopping for a cardboard box",
+    zh: [
+      "每次賣飛就是主升段起漲點，砍在阿呆谷底只能去公園搶最後一個紙箱",
+      "看別人貼對帳單賺到財富自由，自己一追高就套在山頂、一停損就馬上V轉",
+      "戒掉散戶追高殺低的 FOMO 心魔，守住交易紀律才不會在牛市裡還去睡公園"
+    ],
+    en: [
+      "Every time I sell the stock goes parabolic, panic-sold the exact bottom now I'm shopping for a cardboard box",
+      "Watching everyone post ten-bagger screenshots online, the second I FOMO in at the top the chart starts to decline",
+      "Conquering retail FOMO and emotional panic trades, discipline is the only shield that never fades"
+    ],
     tagZh: "#賣飛 #砍在阿呆谷 #睡公園",
     tagEn: "#PaperHands #SoldTheBottom"
   }
@@ -346,10 +577,72 @@ const TRADING_KEYWORD_ENGINE = {
 
 // 初始化
 document.addEventListener("DOMContentLoaded", () => {
+  randomizeSongKeywords(false);
   bindEvents();
   renderAll();
   drawIdleVisualizer();
 });
+
+function shuffleArray(arr) {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+function randomizeSongKeywords(notify = true) {
+  // 每個分類至少隨機挑 1~2 個，總共隨機挑 6~9 個不同關鍵字
+  const groups = [
+    ["nvda", "tsmc", "whipsaw", "tariff", "etf"],
+    ["squeeze", "daytrade", "margincall", "settlement", "limitlock"],
+    ["wick", "ma", "macd", "fibonacci", "orderbook"],
+    ["options", "ZeroDTE", "inst", "broker", "fomo"]
+  ];
+  const picked = new Set();
+  groups.forEach((g) => {
+    const shuffled = shuffleArray(g);
+    const count = Math.floor(Math.random() * 2) + 1; // 每組抽 1~2 個
+    for (let i = 0; i < count; i++) {
+      picked.add(shuffled[i]);
+    }
+  });
+
+  // 再從全池隨機補滿 6~9 個
+  const remaining = shuffleArray(ALL_TOPIC_KEYS.filter((k) => !picked.has(k)));
+  const targetSize = Math.floor(Math.random() * 4) + 6; // 6 ~ 9 個
+  while (picked.size < targetSize && remaining.length > 0) {
+    picked.add(remaining.pop());
+  }
+
+  currentState.topics = picked;
+  currentState.randomSeed = Date.now() + Math.floor(Math.random() * 100000);
+
+  // 為每個關鍵字隨機挑一個歌詞句型版本 (0, 1, 2)
+  const vMap = {};
+  ALL_TOPIC_KEYS.forEach((k) => {
+    vMap[k] = Math.floor(Math.random() * 3);
+  });
+  currentState.variantMap = vMap;
+
+  // 隨機抽 2~3 個當次專屬熱門標的寫入歌詞
+  currentState.autoRandomStocks = shuffleArray(RANDOM_STOCK_POOL).slice(0, 3);
+
+  // 同步更新頁面上 Chip 的 active 狀態
+  document.querySelectorAll(".topic-chips .chip").forEach((chip) => {
+    if (currentState.topics.has(chip.dataset.topic)) {
+      chip.classList.add("active");
+    } else {
+      chip.classList.remove("active");
+    }
+  });
+
+  if (notify) {
+    const stockNames = currentState.autoRandomStocks.map((s) => s.zh.split(" ")[0]).join("、");
+    showToast(`🎲 已隨機更換 ${picked.size} 組操作關鍵字與標的 (${stockNames})！`);
+  }
+}
 
 function bindEvents() {
   // 語言切換
@@ -362,10 +655,10 @@ function bindEvents() {
     });
   });
 
-  // 解析 YouTube URL
+  // 解析 YouTube URL (每次解析自動隨機換一組新關鍵字進行歌詞創作)
   document.getElementById("btn-analyze-url").addEventListener("click", analyzeYoutubeUrl);
 
-  // 曲風模板切換
+  // 曲風模板切換 (每次切換曲風自動隨機換一組新關鍵字)
   const presetEl = document.getElementById("style-preset");
   presetEl.addEventListener("change", () => {
     currentState.preset = presetEl.value;
@@ -374,8 +667,18 @@ function bindEvents() {
     document.getElementById("custom-bpm").value = p.defaultBpm;
     document.getElementById("bpm-val").textContent = p.defaultBpm;
     document.getElementById("ref-bpm-display").textContent = `${p.defaultBpm} BPM`;
+    randomizeSongKeywords(false);
     renderAll();
+    showToast("🎲 已切換曲風並隨機抽取全新關鍵字組合創作歌詞！");
   });
+
+  const randomBtn = document.getElementById("btn-random-tags");
+  if (randomBtn) {
+    randomBtn.addEventListener("click", () => {
+      randomizeSongKeywords(true);
+      renderAll();
+    });
+  }
 
   // 話題 Chip 切換 (支援所有分類區塊)
   document.querySelectorAll(".topic-chips .chip").forEach((chip) => {
@@ -446,8 +749,10 @@ function bindEvents() {
   });
 
   document.getElementById("btn-generate").addEventListener("click", () => {
+    randomizeSongKeywords(false);
     renderAll();
-    showToast("⚡ 已重新編譯中英文歌詞、Suno Prompt 與 YouTube 文案！");
+    const stockNames = currentState.autoRandomStocks.map((s) => s.zh.split(" ")[0]).join("、");
+    showToast(`🎲 已隨機抽取 ${currentState.topics.size} 組新關鍵字 (${stockNames}) 生成全新歌詞！`);
   });
 
   // 複製按鈕
@@ -522,8 +827,9 @@ function analyzeYoutubeUrl() {
     document.getElementById("url-status").textContent = `已載入 ID: ${videoId}`;
   }
 
+  randomizeSongKeywords(false);
   renderAll();
-  showToast("🔍 已完成 YouTube 參考網址曲風基因提取與整改！");
+  showToast("🔍 已完成曲風解析並隨機抽取全新關鍵字創作歌詞！");
 }
 
 function buildMissSimilarPackage(p, bpm, flags) {
@@ -2668,15 +2974,32 @@ function injectExtraTradingBars(pkg) {
   const extraTagsZh = [];
   const extraTagsEn = [];
 
-  Object.keys(TRADING_KEYWORD_ENGINE).forEach((key) => {
-    if (currentState.topics.has(key)) {
-      const item = TRADING_KEYWORD_ENGINE[key];
-      extraZh.push(item.zh);
-      extraEn.push(item.en);
-      extraTagsZh.push(item.tagZh);
-      extraTagsEn.push(item.tagEn);
-    }
+  // 依據當次隨機順序與隨機變體句庫抽取歌詞行
+  const activeKeys = Object.keys(TRADING_KEYWORD_ENGINE).filter((k) => currentState.topics.has(k));
+
+  activeKeys.forEach((key) => {
+    const item = TRADING_KEYWORD_ENGINE[key];
+    const vIdx = currentState.variantMap && typeof currentState.variantMap[key] === "number"
+      ? currentState.variantMap[key]
+      : 0;
+    const lineZh = Array.isArray(item.zh) ? item.zh[vIdx % item.zh.length] : item.zh;
+    const lineEn = Array.isArray(item.en) ? item.en[vIdx % item.en.length] : item.en;
+    extraZh.push(lineZh);
+    extraEn.push(lineEn);
+    extraTagsZh.push(item.tagZh);
+    extraTagsEn.push(item.tagEn);
   });
+
+  // 自動注入當次隨機抽取的熱門個股標的（確保每首歌都有不同的股票與題材組合）
+  if (currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0) {
+    const sZh = currentState.autoRandomStocks.map((s) => s.zh).join("、");
+    const sEn = currentState.autoRandomStocks.map((s) => s.en).join(", ");
+    extraZh.push(`這局籌碼隨機鎖定 ${sZh}，在多空洗盤的風暴裡寫下獨一無二的對帳單`);
+    extraEn.push(`Rotating alpha locked onto ${sEn}, carving a unique track record through the market storm`);
+    currentState.autoRandomStocks.forEach((s) => {
+      extraTagsZh.push(s.tag);
+    });
+  }
 
   if (currentState.customKeywords) {
     const kws = currentState.customKeywords
@@ -2694,12 +3017,26 @@ function injectExtraTradingBars(pkg) {
   }
 
   if (extraZh.length > 0) {
-    const blockZh = `\n[Trading Alpha Breakdown: Rapid-fire stock operation bars]\n${extraZh.join("\n")}\n`;
-    const blockEn = `\n[Trading Alpha Breakdown: Rapid-fire stock operation bars]\n${extraEn.join("\n")}\n`;
+    // 拆分為兩段：前半段直接融入 Verse 1 / Verse 2 之間，後半段作為專屬實戰 Breakdown，讓整首歌從頭到尾都隨每次隨機關鍵字變化
+    const mid = Math.ceil(extraZh.length / 2);
+    const firstHalfZh = extraZh.slice(0, mid);
+    const secondHalfZh = extraZh.slice(mid);
+    const firstHalfEn = extraEn.slice(0, mid);
+    const secondHalfEn = extraEn.slice(mid);
 
-    // 插入在最後一個 [Outro 前方
-    pkg.zh.lyrics = pkg.zh.lyrics.replace(/\n\[Outro/, `${blockZh}\n[Outro`);
-    pkg.en.lyrics = pkg.en.lyrics.replace(/\n\[Outro/, `${blockEn}\n[Outro`);
+    if (firstHalfZh.length > 0) {
+      const verseInsertZh = `\n${firstHalfZh.join("\n")}\n`;
+      const verseInsertEn = `\n${firstHalfEn.join("\n")}\n`;
+      pkg.zh.lyrics = pkg.zh.lyrics.replace(/\n\[Chorus/, `${verseInsertZh}\n[Chorus`);
+      pkg.en.lyrics = pkg.en.lyrics.replace(/\n\[Chorus/, `${verseInsertEn}\n[Chorus`);
+    }
+
+    if (secondHalfZh.length > 0) {
+      const blockZh = `\n[Trading Alpha Breakdown: Randomized live market operation bars]\n${secondHalfZh.join("\n")}\n`;
+      const blockEn = `\n[Trading Alpha Breakdown: Randomized live market operation bars]\n${secondHalfEn.join("\n")}\n`;
+      pkg.zh.lyrics = pkg.zh.lyrics.replace(/\n\[Outro/, `${blockZh}\n[Outro`);
+      pkg.en.lyrics = pkg.en.lyrics.replace(/\n\[Outro/, `${blockEn}\n[Outro`);
+    }
   }
 
   if (extraTagsZh.length > 0) {
