@@ -10,6 +10,13 @@
  */
 
 const KNOWN_YT_REFS = {
+  IjltoDcgtV0: {
+    title: "MC HotDog 熱狗《除了說唱我什麼都不會》Live 版",
+    bpm: 94,
+    preset: "hotdog-oldschool",
+    vibe: "黃金年代 Old School Jazz Boom Bap × 蛋堡式微醺爵士鋼琴與刷碟 × 幽默自嘲卻霸氣自豪的 OG 敘事 Punchline",
+    dna: ["🎷 90s 爵士銅管 & 鋼琴採樣", "💿 經典 DJ 刷碟 (Turntable)", "🐕 熱狗式幽默自嘲 Punchline", "🗣️ 洗腦大合唱 Hook"]
+  },
   "z-4GQPIxppw": {
     title: "《中國新說唱》潘瑋柏 & 鄧紫棋 & 艾熱《攀登》Live 版",
     bpm: 90,
@@ -34,6 +41,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "hotdog-oldschool": {
+    nameZh: "熱狗《除了說唱我什麼都不會》風：Old School 爵士 Boom Bap × 自嘲狂妄 OG 說唱",
+    defaultBpm: 94,
+    sunoStyleZh:
+      "90s golden era old school jazz hip-hop, classic boom bap drums, {BPM} BPM, warm jazzy Rhodes piano sample, soulful brass and saxophone horn stabs, turntable DJ scratches, witty charismatic OG male rapper with laid-back conversational yet punchy delivery, catchy sing-along gang vocal hook, live concert cypher vibe",
+    sunoStyleEn:
+      "90s golden era East Coast jazz hip-hop, classic boom bap drums, {BPM} BPM, warm Rhodes piano loop, soulful saxophone and brass horn stabs, turntable DJ scratches, witty charismatic OG male rapper with conversational punchlines, catchy crowd sing-along hook",
+    sunoExclude: "autotune trap, EDM, heavy metal, sad slow ballad, dubstep",
+    dnaTags: ["🎷 90s 爵士銅管 & 鋼琴採樣", "💿 經典 DJ 刷碟 (Turntable)", "🐕 熱狗式幽默自嘲 Punchline", "🗣️ 洗腦大合唱 Hook"]
+  },
   "climb-anthem": {
     nameZh: "《攀登》史詩聖歌風：高亢女聲 Diva 副歌 × 熱血多押勵志說唱",
     defaultBpm: 90,
@@ -98,8 +115,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "climb-anthem",
-  bpm: 90,
+  preset: "hotdog-oldschool",
+  bpm: 94,
   topics: new Set(["nvda", "tsmc", "whipsaw", "tariff", "squeeze"]),
   customHook: ""
 };
@@ -642,6 +659,178 @@ Inspired by stadium hip-hop anthems and Coldplay-style piano-rock hooks, "Scalin
   };
 }
 
+function buildHotdogPackage(p, bpm, flags) {
+  const hookLineZh = currentState.customHook || "除了看盤我什麼都不會";
+  const hookLineEn = currentState.customHook || "I don't know nothing but the charts all day";
+
+  const lyricsZh = `[Intro: Classic 90s Vinyl Crackle, Jazzy Piano Loop, Turntable DJ Scratching]
+[Rapper, laid-back witty OG conversational tone]
+Let's back to the old school
+那些看財報只看本益比的，別來吃我豆腐
+Yeah... 早上九點台股，晚上九點半美股
+女友問我除了盯著紅紅綠綠的Ｋ線，你還會幹嘛？
+我想了想…… 欸，還真的不會。Let's go!
+
+[Verse 1: Charismatic OG Male Rapper, witty punchlines, classic boom bap bounce]
+Let's back to the old school
+我不聽投顧老師畫大餅也不吃主力的豆腐
+Only you，也只有我能抓到起漲的 punchline
+${flags.hasTsmc ? "在我心中台積電永遠不會被別的晶圓廠取代" : "在我心中龍頭股永遠不會被雜毛股取代"}
+我從來沒有自己煮過一頓飯，連微波爐都不會按
+我連出門搭捷運都會迷路，像活在侏儸紀公園裡打轉
+但只要打開五檔報價，連外資操盤手都去 Google me
+都說十個散戶九個賠，偏偏我就是留著那一口氣
+我不懂怎麼談戀愛，不懂怎麼哄妳睡
+妳問我紀念日是哪天，我只記得聯準會哪天開會
+${flags.hasWhipsaw ? "昨天台股暴漲三千點，今天又重挫一千九百點" : "昨天大盤跳空創高點，今天又殺破月線支撐點"}
+別人嚇到把軟體刪掉，我一邊剔牙一邊逢低撿
+
+[Chorus: Catchy Sing-along Hook with Crowd Gang Vocals, bouncy jazz horns]
+${hookLineZh}
+已經三天沒睡我怎麼都不累
+這頭老牛的部位怎麼還不退
+都說追高會跪，你看我廢不廢，廢不廢
+${hookLineZh}
+從台北盯到美股我怎麼都不累
+${flags.hasTariff ? "不管關稅怎麼吹，看我會不會，會不會" : "不管利空怎麼吹，看我會不會，會不會"}
+
+[Verse 2: Charismatic OG Male Rapper, humorous self-deprecating yet confident flow]
+他們笑我是個生活白癡，連水電費都會忘記繳
+但我一眼就能看出那根長下影線是主力在洗盤還是逃跑
+${flags.hasNvda ? "看那穿皮衣的男人閃電回歸，輝達單日暴衝三十個百分點\n當全世界還在懷疑 AI 是不是泡沫，我的買單早就已經成交在起點" : "看那算力狂潮席捲華爾街，科技股單日暴衝幾十個百分點\n當全世界還在懷疑行情是不是泡沫，我的買單早就已經成交在起點"}
+我不會修電腦，不會換燈泡，不會拼 IKEA 的衣櫃
+但我算得出 CoWoS 的產能，算得出選擇權莊家的最大痛點位
+那些西裝筆挺的華爾街分析師，講話像在唸經文
+不如聽我這首 Old School，一針見血直接幫你開天門
+把一件事做到極致，就算生活廢到笑也無所謂
+當收盤鐘聲敲響，看著對帳單上的微笑曲線，這杯冰美式才夠味
+
+[Chorus: Catchy Sing-along Hook with Crowd Gang Vocals, full brass & DJ scratches]
+${hookLineZh}
+已經三天沒睡我怎麼都不累
+這頭老牛的部位怎麼還不退
+都說追高會跪，你看我廢不廢，廢不廢
+${hookLineZh}
+從台北盯到美股我怎麼都不累
+不管關稅怎麼吹，看我會不會，會不會
+
+[Bridge: Stripped back jazzy bassline and crisp snare, OG talking style]
+[Rapper]
+有人會煮飯，有人會修車，有人會講甜言蜜語
+我什麼都不會，我只會在暴跌三千點的時候，把別人的恐慌撿起來放進口袋裡
+Keep it old school, keep it real.
+Put your hands up!
+
+[Outro: Turntable DJ Scratch Solo, Jazzy Saxophone riff fades out]
+[Rapper]
+${hookLineZh}……
+明天早上九點，我們盤中見。Peace!
+[End]`;
+
+  const lyricsEn = `[Intro: Classic 90s Vinyl Crackle, Jazzy Piano Loop, Turntable DJ Scratching]
+[Rapper, laid-back witty OG conversational tone]
+Let's take it back to the old school
+All those TV gurus drawing lines on a whiteboard, man, quit playing
+Yeah... 9 AM in Taipei, 9:30 PM Wall Street open
+My girl asked me: "Besides staring at red and green candles all day, what else do you even know how to do?"
+I thought about it... and honestly? Nothing at all. Let's go!
+
+[Verse 1: Charismatic OG Male Rapper, witty punchlines, classic boom bap bounce]
+Let's back to the old school
+I don't buy the hedge fund hype or play the market maker's fool
+Only you get the real alpha in my punchline
+In my book, TSMC will never be replaced on the silicon frontline
+I've never cooked a real meal, barely know how the microwave works
+I get lost taking the subway like a dinosaur wandering in the dark
+But when the level-two order book lights up, even Wall Street quants Google me
+They say nine out of ten retail traders go broke, guess I'm the one anomaly
+I don't know how to be romantic, don't know how to buy a bouquet
+Ask me when our anniversary is, I only know FOMC meeting day
+Three thousand points rally yesterday, two thousand points crash today
+While everybody's panic-deleting their apps, I'm picking up shares on the dip, okay
+
+[Chorus: Catchy Sing-along Hook with Crowd Gang Vocals, bouncy jazz horns]
+${hookLineEn}
+Three days no sleep and I'm still wide awake
+This old bull's conviction never fades away
+They say chasing tops will break you, look at me making plays
+${hookLineEn}
+From Taipei to Nasdaq I'm still wide awake
+No matter what the tariff headlines say, watch me make it pay
+
+[Verse 2: Charismatic OG Male Rapper, humorous self-deprecating yet confident flow]
+They call me hopeless at life, forgetting to pay the electric bill
+But I can spot a liquidity sweep on a five-minute wick before the orders fill
+Watch the leather jacket walk back on stage, Nvidia surging thirty percent in a day
+While the pundits debate if AI is a bubble, my limit orders already locked in the play
+I can't fix a leaky faucet, can't assemble an IKEA shelf
+But I can model CoWoS capacity and max-pain gamma all by myself
+All those suits on CNBC talking fancy macro jargon on the screen
+Need a dose of this old school boom-bap just to keep their portfolio green
+Master one thing to the limit, who cares if the rest is a mess
+When the closing bell rings and the equity curve smiles, that iced coffee tastes the best
+
+[Chorus: Catchy Sing-along Hook with Crowd Gang Vocals, full brass & DJ scratches]
+${hookLineEn}
+Three days no sleep and I'm still wide awake
+This old bull's conviction never fades away
+They say chasing tops will break you, look at me making plays
+${hookLineEn}
+From Taipei to Nasdaq I'm still wide awake
+No matter what the tariff headlines say, watch me make it pay
+
+[Outro: Turntable DJ Scratch Solo, Jazzy Saxophone riff fades out]
+[Rapper]
+Nothing but the charts...
+See you at the opening bell tomorrow. Peace!
+[End]`;
+
+  return {
+    zh: {
+      title: "除了看盤我什麼都不會 (Nothing But The Charts)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI饒舌】《除了看盤我什麼都不會》｜致敬熱狗 MC HotDog 曲風！把台股美股當老學校 Boom Bap 唱 (Official Audio)`,
+        `《除了看盤我什麼都不會》｜已經三天沒睡我怎麼都不累！台積電、輝達老司機自嘲神曲 (${bpm} BPM Old School Jazz Hip-Hop)`,
+        `女友問我除了看股票還會幹嘛？聽完這首《除了看盤我什麼都不會》全網股民笑著流淚！🔥`
+      ],
+      ytDesc: `🐕「我不會修電腦、不會換燈泡、連紀念日都忘記，但只要打開五檔報價與Ｋ線圖，我三天沒睡怎麼都不累！」
+致敬華語嘻哈 OG 熱狗 MC HotDog 與蛋堡 Soft Lipa 的經典老學校爵士說唱曲風（Old School Jazz Boom Bap），這首《除了看盤我什麼都不會》以 ${bpm} BPM 用最幽默自嘲卻又霸氣滿滿的 Punchline，唱出全職投資人與股市老司機的日常：生活上可以像個侏儸紀白癡，但在台股暴漲暴跌三千點、輝達（NVIDIA）皮衣男回歸、台積電（2330）CoWoS 與美股夜盤的戰場上，我們把「看盤」這件事做到極致！
+
+🎧 曲風與編曲亮點：
+• ${bpm} BPM 黃金 90 年代 Old School Jazz Boom Bap（微醺爵士鋼琴 + 薩克斯風銅管 + 經典 DJ 刷碟）
+• 幽默自嘲又句句暴擊的 OG 敘事 Flow（「妳問我紀念日是哪天，我只記得聯準會哪天開會」）
+• 超洗腦全場大合唱副歌：「${hookLineZh}，已經三天沒睡我怎麼都不累！」
+
+💬 你身邊也有這種「生活白癡、看盤天才」的朋友嗎？快把這首歌分享給他！
+
+#台股 #美股 #熱狗 #MCHotDog #除了說唱我什麼都不會 #OldSchool #爵士嘻哈 #台積電 #輝達 #NVIDIA #SunoAI #AI音樂 #股票饒舌 #投資日常 #中文饒舌`
+    },
+    en: {
+      title: "Nothing But The Charts (Old School Trader)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `Nothing But The Charts | 90s Old School Jazz Hip-Hop Trader Anthem (NVDA, TSMC, Wall Street Boom Bap)`,
+        `"Three Days No Sleep & I'm Still Wide Awake!" 🐕 Nothing But The Charts | Witty Stock Market Rap`,
+        `When Your Girlfriend Asks What You Do Besides Trading Stocks 😂 "Nothing But The Charts" (${bpm} BPM Official Audio)`
+      ],
+      ytDesc: `🐕 "Ask me when our anniversary is, I only know FOMC meeting day!"
+Bringing back the golden-era 90s Jazz Boom-Bap vibe (${bpm} BPM) with turntable scratches, warm Rhodes piano, and witty OG punchlines, "Nothing But The Charts" is the ultimate self-deprecating yet ultra-confident anthem for dedicated Taipei & Wall Street traders.
+
+🎧 Track Highlights:
+• ${bpm} BPM classic Old School Jazz Hip-Hop beat with saxophone horns & DJ scratches
+• Hilarious, relatable trader punchlines meeting sharp market alpha (NVDA, TSMC CoWoS, Fed days, tariff dips)
+• Catchy crowd-chant chorus: "${hookLineEn}!"
+
+#StockMarketRap #OldSchoolHipHop #JazzHop #BoomBap #WallStreet #TSMC #NVDA #SunoAI #AIMusic #DayTraderLife #TradingHumor`
+    }
+  };
+}
+
 function buildSongPackage() {
   const p = STYLE_PRESETS[currentState.preset];
   const bpm = currentState.bpm;
@@ -651,6 +840,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "hotdog-oldschool") {
+    return buildHotdogPackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "climb-anthem") {
     return buildClimbPackage(p, bpm, {
