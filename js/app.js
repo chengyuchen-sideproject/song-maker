@@ -10,6 +10,13 @@
  */
 
 const KNOWN_YT_REFS = {
+  VslVrOUnJX0: {
+    title: "瘦子E.SO & 歐陽靖 & 李佳隆 & 小春《在Cypher裏》",
+    bpm: 98,
+    preset: "cypher-fourkings",
+    vibe: "四人接力王牌 Cypher (98 BPM) × 雙語傳奇 OG × 台式江湖氣口 × 旋律快嘴 T0 × 低音壓軸神主牌 Punchline",
+    dna: ["🎤 四人四色接力 Cypher", "🌐 歐陽靖式雙語切換開場", "⚡ 李佳隆式 T0 旋律快嘴", "👑 瘦子 E.SO 式低音壓軸山難 Punchline"]
+  },
   "Qey0V-UtK6U": {
     title: "《中國說唱巔峰對決》張震嶽 & 熱狗《離開》Live 版",
     bpm: 88,
@@ -48,6 +55,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "cypher-fourkings": {
+    nameZh: "《在Cypher裏》四人接力風：歐陽靖雙語 × 小春江湖 × 李佳隆旋律 × 瘦子壓軸",
+    defaultBpm: 98,
+    sunoStyleZh:
+      "Mandarin hardcore hip-hop cypher, {BPM} BPM, heavy West Coast boom-bap meets modern trap 808s, brass horn stabs, four distinct male rappers trading bars: bilingual OG rapper, gritty Taiwanese street gangster rapper, autotune melodic fast-flow rapper, and deep-voice charismatic final boss rapper, stadium cipher energy",
+    sunoStyleEn:
+      "Hardcore hip-hop posse cut cypher, {BPM} BPM, heavy West Coast boom-bap meets modern trap 808 bass, brass stabs, four distinct male rappers trading verses: witty East Coast OG, gritty street brawler, melodic autotune fast-flow artist, and deep baritone final boss rapper, stadium energy",
+    sunoExclude: "soft ballad, country, EDM, techno, gentle acoustic folk",
+    dnaTags: ["🎤 四人四色接力 Cypher", "🌐 歐陽靖式雙語切換開場", "⚡ 李佳隆式 T0 旋律快嘴", "👑 瘦子 E.SO 式低音壓軸山難 Punchline"]
+  },
   "leave-raprock": {
     nameZh: "張震嶽&熱狗《離開》風：滄桑搖滾吶喊副歌 × 盯盤成癮寫實饒舌",
     defaultBpm: 88,
@@ -132,8 +149,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "leave-raprock",
-  bpm: 88,
+  preset: "cypher-fourkings",
+  bpm: 98,
   topics: new Set(["nvda", "tsmc", "whipsaw", "tariff", "squeeze"]),
   customHook: ""
 };
@@ -1023,6 +1040,168 @@ Blending raw, observational hip-hop verses with a soaring, raspy rock chorus (${
   };
 }
 
+function buildCypherPackage(p, bpm, flags) {
+  const hookLineZh = currentState.customHook || "在盤中 Cypher 裏，我們籌碼從不見底";
+  const hookLineEn = currentState.customHook || "In the trading cypher, our liquidity never runs dry";
+
+  const lyricsZh = `[Intro: Heavy West Coast Brass Hits, Crisp Boom-Bap Snare and Deep 808 Bass Drop]
+[All Rappers]
+Yeah! 小跑豬主力聯盟 in the building!
+從台北早盤殺到華爾街夜盤，歡迎來到我們的 Cypher！Let's go!
+
+[Verse 1: Bilingual OG Male Rapper (MC Jin style), playful bilingual English-Mandarin switch, sharp rhythm]
+The legend from the Wall Street floor is back
+Buying up the dip while the bears all crack
+For example, 看我怎麼切換美股跟台股的節奏
+我知道你知道誰是大戶，我敲下鍵盤買單就等於梅西準備踢球
+${flags.hasNvda ? "皮衣男閃電回歸，Nvidia back inside the game\n三十趴的單日漲幅，讓空軍全部記住我的 name" : "科技巨頭滿血回歸，Nasdaq back inside the game\n史詩級的單日漲幅，讓空軍全部記住我的 name"}
+就算偶爾被洗出場，我都停損得比你更帥
+在這個盤中 Cypher 裏，傳奇永遠不會被淘汰
+
+[Verse 2: Gritty Street Male Rapper (Kenzy style), fierce Taiwanese street attitude, aggressive punchy flow]
+沒在吃你這套，別把我當韭菜
+全部都來比籌碼，試試看我的能耐
+外資禿鷹想要洗盤，看我怎麼把你反手買回來
+一步一腳印打拚，主力兄弟結拜
+別想踩在我的均線頭頂，我直接掀掉莊家的底牌
+我出生就打赤腳，沒在怕華爾街穿皮鞋的
+${flags.hasWhipsaw ? "昨天暴跌一千九，今天暴拉三千三，這局我們拿定了！" : "任你盤中上下洗，尾盤照樣拉漲停，這局我們拿定了！"}
+
+[Chorus: All Rappers Gang Vocal Chant, heavy bass and brass]
+${hookLineZh}
+從台積電到輝達，看多軍插旗到底
+在盤中 Cypher 裏，把空單全部清理
+${flags.hasTariff ? "不管關稅怎麼洗，這場遊戲我們主宰自己" : "不管利空怎麼洗，這場遊戲我們主宰自己"}
+
+[Verse 3: Melodic Fast-Flow Male Rapper (JelloRio style), stylized autotune melodic bounce and rapid triplets]
+我只需要打開螢幕，綠色的買單掉落就像雨滴
+${flags.hasTsmc ? "別的晶圓廠還在 T1，但是台積電的 CoWoS 排行 T0" : "別的標的還在 T1，但是我們手裡的核心持股排行 T0"}
+看盤看得太累，把空頭結束再會
+你會的技術分析我大概會，你不敢抄的底部由我帶隊
+拉高了尾盤的斜率，軋空像呼吸一樣隨意
+聯準會的鷹派發言，在我耳裡只是背景的旋律
+
+[Verse 4: Deep-Voice Charismatic Boss Male Rapper (E.SO style), laid-back low baritone, lethal punchlines, beat switches to heavy sub-bass]
+Young OG Trader, let's go，讓我打醒那些放空的山寨
+你後悔進場參賽，當代的操盤手都知道我的能耐
+看你拿著做空報告想要登上巔峰參拜，我是你山難
+暴漲三千點軋到你斷頭，你最好待在原地等著搜救隊來
+不要跟我談什麼本益比，在 AI 的時代算力就是真理
+${flags.hasSqueeze ? "限空令的大門已經關上，這根長紅Ｋ線直接送給不信邪的你" : "軋空令的號角已經吹響，這根長紅Ｋ線直接送給不信邪的你"}
+
+[Chorus: All Rappers Gang Vocal Chant, maximum stadium cypher energy]
+${hookLineZh}
+從台積電到輝達，看多軍插旗到底
+在盤中 Cypher 裏，把空單全部清理
+不管關稅怎麼洗，這場遊戲我們主宰自己
+
+[Outro: Heavy 808 Beat Ride Out, Rappers Ad-libbing]
+[Boss Rapper]
+你最好待在原地等著搜救隊……
+在盤中 Cypher 裏，收盤！Peace!
+[End]`;
+
+  const lyricsEn = `[Intro: Heavy West Coast Brass Hits, Crisp Boom-Bap Snare and Deep 808 Bass Drop]
+[All Rappers]
+Yeah! Four Kings Trading Alliance in the building!
+From Taipei morning session to Wall Street closing bell, step into the cypher! Let's go!
+
+[Verse 1: Witty OG Male Rapper, sharp rhythmic bounce and veteran swagger]
+The legend from the first bull run is back
+I'm the reason your portfolio's on the track
+For example, watch how I switch it from Nasdaq to Taipei
+You know who the big whale is when I step inside the play
+Me clicking the buy button is like Messi stepping to the penalty spot
+Leather jacket back at Nvidia, thirty percent rally on the dot
+Even if I hit a stop-loss, I take the exit cleaner than your crew
+In this trading cypher, old school alpha always comes through
+
+[Verse 2: Gritty Street Male Rapper, fierce aggressive delivery]
+I ain't buying your fake news, don't treat me like a fool
+Put your liquidity on the table, let's see who runs the pool
+Wall Street vultures tryna shake the tree, I sweep their orders off the floor
+Step by step with my trading brotherhood, kicking down the door
+Don't try to short above my moving average, I'll flip your whole deck
+Grew up trading barefoot, never feared a suit with a blank check!
+
+[Chorus: All Rappers Gang Vocal Chant, heavy bass and brass]
+${hookLineEn}
+From TSMC to Nvidia, watch the bull flag fly
+In the trading cypher, squeezing every short goodbye
+No matter how the tariffs hit, we own the market sky
+
+[Verse 3: Melodic Fast-Flow Male Rapper, stylized autotune bounce and rapid triplets]
+All I gotta do is tap the keys, green limit orders falling like the rain
+Other foundries stuck in Tier-1, TSMC CoWoS sitting on the Tier-0 throne
+Watching tickers got me tired, wave the bears goodbye
+What you chart I already know, where you fear to buy I lead the tribe
+Steepening the breakout angle, short squeeze flowing like a breeze
+Hawkish Fed speeches sounding like background melodies
+
+[Verse 4: Deep-Voice Charismatic Boss Male Rapper, laid-back low baritone, lethal punchlines]
+Young OG Trader, let's go, waking up the copycat bears today
+You regret stepping in the arena, every market maker knows my play
+You brought a short report tryna climb the mountain peak? I'm your avalanche
+Three thousand points gap-up, better stay right there and wait for the rescue ambulance
+Don't lecture me on P/E ratios when AI compute is the only law
+Margin call bells ringing loud, that giant green candle is the final straw
+
+[Chorus: All Rappers Gang Vocal Chant, maximum stadium cypher energy]
+${hookLineEn}
+From TSMC to Nvidia, watch the bull flag fly
+In the trading cypher, squeezing every short goodbye
+No matter how the tariffs hit, we own the market sky
+
+[Outro: Heavy 808 Beat Ride Out, Rappers Ad-libbing]
+[Boss Rapper]
+Better stay right there and wait for the rescue team...
+In the trading cypher. Market closed!
+[End]`;
+
+  return {
+    zh: {
+      title: "在盤中Cypher裏 (In The Trading Cypher)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI饒舌Cypher】《在盤中Cypher裏》｜致敬瘦子E.SO×歐陽靖×李佳隆×小春！台股美股四大主力接力炸場 (Official Audio)`,
+        `《在盤中Cypher裏》｜「你想抄底參拜，我是你山難！」台積電T0、輝達回歸最強四人接力說唱 (${bpm} BPM)`,
+        `當股市四大高手圍圈開唱！《在盤中Cypher裏》雙語OG×台式江湖×旋律快嘴×低音男神一次聽爽 🔥`
+      ],
+      ytDesc: `🔥「別的晶圓廠還在 T1，但是台積電的 CoWoS 排行 T0！」
+🔥「你想放空登上巔峰參拜，我是你山難，你最好待在原地等著搜救隊來！」
+致敬《中國說唱巔峰對決2023》最炸裂的四人神曲《在Cypher裏》（瘦子 E.SO、歐陽靖 MC Jin、李佳隆 JelloRio、小春 Kenzy），這首《在盤中Cypher裏》以 ${bpm} BPM 的重拍西岸 Boom-Bap 結合 Trap 808，讓四位風格截然不同的操盤 Rapper 輪番接力，把輝達（NVIDIA）黃仁勳回歸、台積電（2330）T0 霸主地位、台股單日三千點暴漲暴跌與限空令軋空大戰一次唱到炸裂！
+
+🎧 四大段落亮點：
+• Verse 1 (雙語傳奇 OG 風)：中英流利切換，「我敲下鍵盤買單就等於梅西準備踢球」
+• Verse 2 (台式江湖街頭風)：硬派氣口，「我出生就打赤腳，沒在怕華爾街穿皮鞋的」
+• Verse 3 (旋律快嘴 Melodic 風)：「別的晶圓廠在 T1，但台積電 CoWoS 排行 T0」
+• Verse 4 (低音壓軸神主牌 E.SO 風)：「你想登上巔峰參拜，我是你山難，你最好待在原地等著搜救隊」
+
+💬 四段 Verse 你最愛哪一棒的 Flow？在留言區投出你的 MVP！
+
+#台股 #美股 #在Cypher裏 #瘦子ESO #歐陽靖 #小春 #李佳隆 #台積電 #輝達 #NVIDIA #TSMC #SunoAI #AI音樂 #中文饒舌 #Cypher #股票饒舌`
+    },
+    en: {
+      title: "In The Trading Cypher (Four Kings)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `In The Trading Cypher (Four Kings) | Epic 4-Rapper Stock Market Posse Cut (NVDA, TSMC Tier-0, Wall Street)`,
+        `"You Tryna Short the Peak? I'm Your Avalanche!" 🔥 In The Trading Cypher | Hardcore Hip-Hop Cypher`,
+        `4 Distinct Flows, 1 Massive Bull Run: "In The Trading Cypher" (${bpm} BPM Official AI Audio) | Boom-Bap × Trap`
+      ],
+      ytDesc: `🔥 "Other foundries stuck in Tier-1, TSMC CoWoS sitting on the Tier-0 throne!"
+🔥 "You brought a short report tryna climb the peak? I'm your avalanche—wait for the rescue team!"
+"In The Trading Cypher (Four Kings)" brings a heavyweight ${bpm} BPM posse-cut cypher where four distinct rap styles—the witty OG, the street brawler, the melodic triplet speedster, and the deep-voice final boss—trade bars over a West Coast Boom-Bap & Trap beat about NVDA, TSMC, and crushing short sellers.
+
+#StockMarketRap #HipHopCypher #TSMC #NVDA #WallStreet #PosseCut #SunoAI #AIMusic #BoomBapTrap #TradingAnthem`
+    }
+  };
+}
+
 function buildSongPackage() {
   const p = STYLE_PRESETS[currentState.preset];
   const bpm = currentState.bpm;
@@ -1032,6 +1211,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "cypher-fourkings") {
+    return buildCypherPackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "leave-raprock") {
     return buildLeavePackage(p, bpm, {
