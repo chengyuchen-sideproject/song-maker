@@ -10,6 +10,13 @@
  */
 
 const KNOWN_YT_REFS = {
+  IBaWc3C00kU: {
+    title: "那吾克熱 & 尤長靖《飄向北方 (Stranger in the North)》史詩高音×機關槍快嘴 Live",
+    bpm: 92,
+    preset: "drift-north",
+    vibe: "史詩古典鋼琴與管弦樂搖滾 Hip-Hop (92 BPM) × 尤長靖清澈穿透高音抒情副歌 × 那吾克熱窒息式雙倍速機關槍快嘴 × 結尾高音與快嘴燃炸交疊",
+    dna: ["🎹 史詩鋼琴×管弦搖滾", "🎤 尤長靖式穿透高音副歌", "⚡ 那吾克熱機關槍快嘴", "🔥 高音×快嘴雙軌交疊高潮"]
+  },
   "MywfB-ZXe8o": {
     title: "福克斯 FOX《慶功酒 (Jungle Juice)》國風戲腔江湖說唱",
     bpm: 95,
@@ -69,6 +76,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "drift-north": {
+    nameZh: "那吾克熱&尤長靖《飄向北方》風：史詩鋼琴管弦 × 穿透高音副歌 × 炸裂機關槍快嘴",
+    defaultBpm: 92,
+    sunoStyleZh:
+      "Mandarin cinematic orchestral hip-hop rock duet, {BPM} BPM, emotional grand piano intro building with dramatic strings and heavy live rock drums, soaring crystal-clear high-tenor male vocalist singing a heartbroken yet powerful anthemic chorus, explosive double-time machine-gun fast-flow male rapper with raw grit and multi-syllable rhymes, climactic final chorus with overlapping high-note vocals and rapid-fire rap counter-melody, stadium live emotion",
+    sunoStyleEn:
+      "Cinematic orchestral hip-hop rock duet, {BPM} BPM, melancholic grand piano and sweeping strings with heavy live boom-bap rock drums, soaring powerhouse high-tenor male vocalist on the emotional chorus, breathless double-time chop-flow male rapper delivering intense rapid-fire storytelling verses, Linkin Park meets Eminem & Skylar Grey stadium climax with overlapping high notes and fast rap",
+    sunoExclude: "happy bubblegum pop, EDM, techno, trap cowbell, mumble rap, country, lo-fi whisper",
+    dnaTags: ["🎹 史詩鋼琴×管弦搖滾", "🎤 尤長靖式穿透高音副歌", "⚡ 那吾克熱機關槍快嘴", "🔥 高音×快嘴雙軌交疊高潮"]
+  },
   "fox-victorywine": {
     nameZh: "福克斯《慶功酒》風：京劇戲腔開場 × 古箏國風 Trap × 豪邁舉杯慶功副歌",
     defaultBpm: 95,
@@ -183,8 +200,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "fox-victorywine",
-  bpm: 95,
+  preset: "drift-north",
+  bpm: 92,
   topics: new Set([
     "nvda",
     "tsmc",
@@ -457,7 +474,7 @@ function analyzeYoutubeUrl() {
     const ref = KNOWN_YT_REFS[videoId];
     document.getElementById("ref-title").textContent = ref.title;
     document.getElementById("ref-vibe").textContent = ref.vibe;
-    document.getElementById("url-status").textContent = "已精準匹配《王牌冤家》曲風基因";
+    document.getElementById("url-status").textContent = `已精準匹配 ${ref.title.split(" ")[0]} 曲風基因`;
     currentState.preset = ref.preset;
     currentState.bpm = ref.bpm;
     document.getElementById("style-preset").value = ref.preset;
@@ -473,6 +490,189 @@ function analyzeYoutubeUrl() {
 
   renderAll();
   showToast("🔍 已完成 YouTube 參考網址曲風基因提取與整改！");
+}
+
+function buildDriftNorthPackage(p, bpm, flags) {
+  const hookLineZh = currentState.customHook || "我飄向北方，別問我帳面多淒涼";
+  const hookLineEn = currentState.customHook || "Drifting to Wall Street, don't ask me where my margin's gone";
+
+  const lyricsZh = `[Intro: Melancholic Grand Piano Solo and Sweeping Strings, Cold Wind & Stock Ticker Ambience]
+[Soaring Crystal-Clear High-Tenor Male Vocal, emotional and piercing]
+${hookLineZh}
+肩上沉重的槓桿，晃呀晃
+回不去的起漲遠方
+在夜盤裡遊蕩……
+
+[Verse 1: Explosive Male Rapper, building from gritty narrative into rapid-fire multi-syllable flow]
+有人說台北到紐約不過是十二個小時的時差
+卻裝不下一個散戶想要財富自由的夢啊
+看著螢幕上一排排紅綠閃爍冰冷的報價
+五檔委買委賣的跳動像是命運無情的拷打
+我懷裡揣著最後一筆東拼西湊來的本金
+踏進這座被外資與高頻演算法統治的叢林
+${flags.hasTsmc ? "仰望著台積電高聳入雲像不可攀越的城牆\n每一片 CoWoS 晶圓都折射著令人目眩的光芒" : "仰望著權值股高聳入雲像不可攀越的城牆\n每一根跳空的紅Ｋ都折射著令人目眩的光芒"}
+他們說這裡遍地黃金只要敢滿倉就能翻身
+卻沒人告訴你跌停鎖死時連呼吸都會發冷
+無本當沖在九點零一分排隊撮合裡廝殺
+一個 tick 的滑價就能讓整個月的薪水蒸發
+那根天地針長下影線精準刺穿了我的停損點
+剛砍在阿呆谷底它卻又旱地拔蔥拉上天際線
+站在信義區的街頭看著一零一大樓的燈火輝煌
+怎麼容不下我這一張被追繳斷頭的對帳單！
+
+[Chorus: Soaring High-Tenor Male Vocal, full orchestral strings and heavy live rock drums drop]
+${hookLineZh}
+肩上沉重的槓桿，晃呀晃
+也許這根長紅能撫平我遍體鱗傷
+我飄向北方，別問我停損在哪方
+抬頭看那Ｋ線的星光
+微弱卻依然滾燙，照亮這破頂的戰場
+
+[Verse 2: Explosive Double-Time Machine-Gun Fast-Flow Male Rapper, breathless technical speed]
+（雙倍速機關槍快嘴 Double-Time Chop Flow）
+凌晨兩點半的房間只剩下主機風扇在轟鳴
+聯準會的記者會每一句鷹派發言都讓人神經緊繃得不能呼吸
+${flags.hasWhipsaw ? "昨天才暴漲三千三百點全市場都在高喊牛市回歸的奇蹟\n今天卻因為一則關稅推文直接重挫兩千點把多軍洗到脫皮" : "昨天才跳空創下歷史新高全市場都在高喊牛市回歸的奇蹟\n今天卻因為一則黑天鵝推文直接跳水殺破月線把多軍洗到脫皮"}
+融資維持率跌破一百三的簡訊在清晨六點準時響起
+營業員奪命連環叩問你 T加2 的交割款到底在哪裡
+外資借券賣出幾萬張、投信季底結帳、隔日沖分點在早盤九點半無情倒貨
+散戶在股版排隊取暖、問著零零九四零何時才能回到十塊錢的寄託
+我不甘心就這樣淪為華爾街財報季裡一顆被收割的韭菜
+擦乾眼角把破碎的交易紀律重新一筆一劃拼湊起來
+${flags.hasNvda ? "看皮衣男黃仁勳帶著輝達算力重新站上世界之巔的舞台" : "看科技巨頭帶著 AI 算力重新站上世界之巔的舞台"}
+五線合一均線糾結了一整季，MACD 底背離的訊號已經徹底展開
+限空令下融券強制回補的號角吹響，這一次我絕不再置身事外！
+
+[Bridge: Overlapping Dual Climax — Soaring High-Note Vocal & Machine-Gun Rap Counterpoint]
+[High-Tenor Vocal] ${hookLineZh}——（[Rapper] 就算曾被斷頭追繳壓得喘不過氣！）
+[High-Tenor Vocal] 肩上沉重的槓桿，晃呀晃——（[Rapper] 看破了假跌破真穿頭的把戲，握緊手中台積與輝達的底氣！）
+[High-Tenor Vocal] 就算K線再動盪，阻擋不了我的信仰——（[Rapper] 從台北早盤一路殺到那斯達克夜盤，把空軍全部軋上天際！）
+[High-Tenor Vocal] 迎著狂風巨浪，飛向那破頂的北方——！（[Rapper] 這場翻身仗我們絕不投降！Let's go!）
+
+[Chorus: Maximum Stadium Climax, Ultra-High Belt Note + Full Orchestra & Distorted Guitar]
+${hookLineZh}
+握緊最後的籌碼，放手一搏去闖
+那萬點之上的光芒
+終究會把我的帳戶照亮！
+
+[Outro: Lone Grand Piano echoing in the hall, Rapper breathing heavily]
+[Rapper]
+從阿呆谷底，一路飄向北方……
+只要還沒下桌，我們終究會破頂封王。
+[High-Tenor Vocal]
+飄向北方…… 迎著那道曙光……
+[End]`;
+
+  const lyricsEn = `[Intro: Melancholic Grand Piano Solo and Sweeping Strings, Cold Wind & Trading Floor Ambience]
+[Soaring Crystal-Clear High-Tenor Male Vocal, emotional and piercing]
+${hookLineEn}
+Heavy leverage on my shoulders, swaying til the dawn
+No way back to where we started from
+Wandering through the night session alone...
+
+[Verse 1: Explosive Male Rapper, building from gritty narrative into rapid-fire multi-syllable flow]
+They say Taipei to New York is just twelve hours on the clock
+But it's too small to hold a retail dreamer chasing one big stock
+Staring at the glowing monitors of red and green all night
+Level-two order book flashing like a merciless street fight
+Holding onto the last savings that I scraped up from the floor
+Stepping into a concrete jungle where the HFT algos roar
+Looking up at TSMC towering like a fortress in the sky
+Every CoWoS silicon wafer blinding to the naked eye
+They said the streets were paved with gold if you just go all-in bold
+Nobody warned you how a limit-down lock makes your blood run cold
+Zero-capital day traders clashing at the nine-oh-one bell
+One tick of slippage sends a whole month's paycheck straight to hell
+That wicked stop-hunt lower wick pierced right through my exit line
+Sold the exact rock bottom right before it went vertical prime
+Standing under the neon skyline watching billionaire towers shine
+Why is there no room in this bull market for a brokerage account like mine!
+
+[Chorus: Soaring High-Tenor Male Vocal, full orchestral strings and heavy live rock drums drop]
+${hookLineEn}
+Heavy leverage on my shoulders, swaying til the dawn
+Maybe this breakout candle heals the scars I've carried on
+Drifting to Wall Street, don't ask me where my stop-loss lies
+Looking up at the candlestick skies
+Faint but burning bright, lighting up this battlefield tonight
+
+[Verse 2: Explosive Double-Time Machine-Gun Fast-Flow Male Rapper, breathless technical speed]
+(Double-Time Chop Flow — Breathless Rapid Delivery)
+Two-thirty in the morning and the PC fans are screaming loud
+Jerome Powell on the podium dropping hawkish thunderclouds
+Three thousand points up yesterday, everybody screaming bull market miracle
+Then one tariff headline drops two thousand points, retail panic critical
+Margin maintenance falling under one-thirty, liquidation SMS at six AM
+Broker calling nonstop asking where the T-plus-two settlement went
+Foreign funds short-lending millions while overnight whales dump at nine-thirty sharp
+Bagholders crying on the forums praying their ETFs get out of the dark
+I refuse to be another statistic harvested in earnings season's game
+Wipe the blood off my keyboard, rebuild my trading discipline from the flame
+Watch leather-jacket Jensen and Nvidia compute reclaim the global throne
+Five moving averages coiled tight, MACD bullish divergence fully shown
+Short-squeeze forced-covering sirens ringing out, I'm taking back what's my own!
+
+[Bridge: Overlapping Dual Climax — Soaring High-Note Vocal & Machine-Gun Rap Counterpoint]
+[High-Tenor Vocal] ${hookLineEn}— ([Rapper] Even when the margin calls had me down upon my knees!)
+[High-Tenor Vocal] Heavy leverage on my shoulders, swaying til the dawn— ([Rapper] Saw right through the fake breakdown, holding TSMC and NVDA keys!)
+[High-Tenor Vocal] No matter how the market shakes, my conviction won't break— ([Rapper] From Taipei morning bell to Nasdaq futures, riding the gamma squeeze!)
+[High-Tenor Vocal] Rising through the hurricane toward the northern peak—! ([Rapper] We never surrender until we hit the all-time high! Let's go!)
+
+[Chorus: Maximum Stadium Climax, Ultra-High Belt Note + Full Orchestra & Distorted Guitar]
+${hookLineEn}
+Gripping my final chips, rising up against the storm
+The light above the all-time high
+Will finally bring our portfolio home!
+
+[Outro: Lone Grand Piano echoing in the hall, Rapper breathing heavily]
+[Rapper]
+From the bottom of the valley, drifting to the northern peak...
+As long as we're still at the table, we'll claim the crown we seek.
+[High-Tenor Vocal]
+Drifting to Wall Street... into the morning light...
+[End]`;
+
+  return {
+    zh: {
+      title: "飄向北方・破頂之戰 (Drifting to Wall Street)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI史詩饒舌】《飄向北方・破頂之戰》｜致敬那吾克熱×尤長靖〈飄向北方〉！高音副歌×炸裂快嘴唱盡台美股散戶逆襲 (Official Audio)`,
+        `《飄向北方（別問我帳面多淒涼）》｜台積電、輝達大洗盤下的散戶心聲｜史詩高音 × 雙倍速機關槍快嘴 (${bpm} BPM)`,
+        `砍在阿呆谷、熬過融資斷頭必聽！這首《飄向北方・破頂之戰》最後高音與快嘴交疊直接聽哭全網股民 🔥`
+      ],
+      ytDesc: `🌪️「我飄向北方，別問我帳面多淒涼，肩上沉重的槓桿晃呀晃……」
+當台股與美股的散戶北漂華爾街、熬夜盯著台指夜盤與那斯達克，遇上《中國新說唱》那吾克熱 & 尤長靖經典神級現場《飄向北方》曲風基因！
+這首《飄向北方・破頂之戰》以 ${bpm} BPM 淒美磅礴的古典鋼琴與管弦搖滾揭開序幕，融合尤長靖式清澈穿透天靈蓋的抒情高音副歌，以及那吾克熱式令人窒息的雙倍速機關槍快嘴（Double-Time Chop Flow），並在 Bridge 迎來「高音長嘯 × 疾速快嘴」雙軌交疊的史詩級燃炸高潮！
+
+🎧 曲風與編曲亮點：
+• ${bpm} BPM 史詩鋼琴 × 交響弦樂 × 重擊搖滾真鼓 (Cinematic Orchestral Hip-Hop Rock)
+• 尤長靖式穿透高音副歌：「${hookLineZh}，肩上沉重的槓桿晃呀晃」
+• 那吾克熱式雙倍速機關槍快嘴：把無本當沖、天地針長下影線、融資維持率 130% 追繳、關稅暴跌洗盤到台積電 CoWoS 與輝達算力逆襲一氣呵成！
+• Bridge 靈魂雙軌對位：高音主唱與機關槍 Rapper 同步炸裂交疊，情緒張力直接拉滿！
+
+💬 你也曾「砍在阿呆谷、在夜盤裡遊蕩」嗎？在留言區寫下你的逆襲目標，我們一起破頂封王！
+
+#台股 #美股 #飄向北方 #那吾克熱 #尤長靖 #中國新說唱 #中國說唱巔峰對決 #台積電 #輝達 #NVIDIA #TSMC #快嘴饒舌 #高音副歌 #SunoAI #AI音樂 #股票饒舌`
+    },
+    en: {
+      title: "Drifting to Wall Street (Stranger in the Market)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `Drifting to Wall Street (Stranger in the Market) | Soaring High-Tenor Vocal × Machine-Gun Fast Rap Duet`,
+        `"Don't Ask Me Where My Margin's Gone..." 🌪️ Drifting to Wall Street | Epic Orchestral Stock Market Rap (${bpm} BPM)`,
+        `When Breathless Double-Time Chop Flow Meets Powerhouse High Notes 🔥 "Drifting to Wall Street" (NVDA, TSMC)`
+      ],
+      ytDesc: `🌪️ "${hookLineEn}, heavy leverage on my shoulders, swaying til the dawn..."
+Inspired by the legendary live duet performance of "Stranger in the North (飄向北方)" by Nawukere & Azora Chin, "Drifting to Wall Street" fuses a ${bpm} BPM melancholic grand piano and sweeping orchestral rock arrangement with a soaring high-tenor vocal chorus and breathless double-time machine-gun rap verses—culminating in an overlapping vocal-and-rap stadium climax!
+
+#StockMarketRap #StrangerInTheNorth #FastRap #OrchestralHipHop #TSMC #NVDA #WallStreet #SunoAI #AIMusic #TraderAnthem`
+    }
+  };
 }
 
 function buildGunfirePackage(p, bpm, flags) {
@@ -1728,6 +1928,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "drift-north") {
+    return buildDriftNorthPackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "fox-victorywine") {
     return buildVictoryWinePackage(p, bpm, {

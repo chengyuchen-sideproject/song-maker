@@ -33,7 +33,7 @@
       <section class="card">
         <div class="card-header">
           <h2>1️⃣ 參考 YouTube 網址與曲風基因</h2>
-          <span class="status-pill" id="url-status">已載入福克斯《慶功酒》國風戲腔江湖基因</span>
+          <span class="status-pill" id="url-status">已載入尤長靖&那吾克熱《飄向北方》史詩高音×炸裂快嘴基因</span>
         </div>
         <div class="form-group">
           <label for="yt-url">YouTube 參考歌曲網址</label>
@@ -41,27 +41,27 @@
             <input
               type="url"
               id="yt-url"
-              value="https://www.youtube.com/watch?v=MywfB-ZXe8o&list=RDMywfB-ZXe8o&start_radio=1"
+              value="https://www.youtube.com/watch?v=IBaWc3C00kU&list=RDz-4GQPIxppw&index=10"
               placeholder="貼上 YouTube 連結 (例如：https://www.youtube.com/watch?v=...)"
             />
             <button id="btn-analyze-url" class="btn-accent">🔍 解析曲風</button>
           </div>
-          <small class="hint">支援一鍵解析《慶功酒》(MywfB-ZXe8o)、《Ghost Face》(GNPZZ55pBck)、《在Cypher裏》(VslVrOUnJX0)、《離開》(Qey0V-UtK6U)、《除了說唱我什麼都不會》(IjltoDcgtV0)、《攀登》(z-4GQPIxppw)、《槍火》(FqRiJA8KOO0)、《王牌冤家》(lEKuorDbaCQ)。</small>
+          <small class="hint">支援一鍵解析《飄向北方》(IBaWc3C00kU)、《慶功酒》(MywfB-ZXe8o)、《Ghost Face》(GNPZZ55pBck)、《在Cypher裏》(VslVrOUnJX0)、《離開》(Qey0V-UtK6U)、《除了說唱我什麼都不會》(IjltoDcgtV0)、《攀登》(z-4GQPIxppw)、《槍火》(FqRiJA8KOO0)、《王牌冤家》(lEKuorDbaCQ)。</small>
         </div>
 
         <div id="ref-song-card" class="ref-song-box">
           <div class="ref-thumb">
-            <img id="ref-thumb-img" src="https://i.ytimg.com/vi/MywfB-ZXe8o/hqdefault.jpg" alt="Reference Thumbnail" />
-            <span class="ref-bpm-tag" id="ref-bpm-display">95 BPM</span>
+            <img id="ref-thumb-img" src="https://i.ytimg.com/vi/IBaWc3C00kU/hqdefault.jpg" alt="Reference Thumbnail" />
+            <span class="ref-bpm-tag" id="ref-bpm-display">92 BPM</span>
           </div>
           <div class="ref-meta">
-            <h3 id="ref-title">福克斯 FOX《慶功酒 (Jungle Juice)》國風戲腔江湖說唱</h3>
-            <p id="ref-vibe">京劇老生戲腔取樣開場 × 古箏竹笛融合現代 Trap 808 (95 BPM) × 武俠豪傑傲骨敘事 Flow × 豪邁舉杯旋律副歌 (Turn it up / Drink up)</p>
+            <h3 id="ref-title">那吾克熱 & 尤長靖《飄向北方 (Stranger in the North)》史詩高音×機關槍快嘴 Live</h3>
+            <p id="ref-vibe">史詩古典鋼琴與管弦樂搖滾 Hip-Hop (92 BPM) × 尤長靖清澈穿透高音抒情副歌 × 那吾克熱窒息式雙倍速機關槍快嘴 × 結尾高音與快嘴燃炸交疊</p>
             <div class="dna-tags" id="ref-dna-tags">
-              <span>🎭 京劇老生戲腔開場</span>
-              <span>🪕 古箏/竹笛 × Trap 808</span>
-              <span>⚔️ 武俠豪傑江湖敘事 Flow</span>
-              <span>🍶 豪邁舉杯副歌 (Turn it up!)</span>
+              <span>🎹 史詩鋼琴×管弦搖滾</span>
+              <span>🎤 尤長靖式穿透高音副歌</span>
+              <span>⚡ 那吾克熱機關槍快嘴</span>
+              <span>🔥 高音×快嘴雙軌交疊高潮</span>
             </div>
           </div>
         </div>
@@ -69,7 +69,8 @@
         <div class="form-group">
           <label for="style-preset">曲風整改模板 (可自由切換)</label>
           <select id="style-preset">
-            <option value="fox-victorywine" selected>🍶 福克斯《慶功酒》風：京劇戲腔開場 × 古箏國風 Trap × 豪邁舉杯慶功副歌 (95 BPM)</option>
+            <option value="drift-north" selected>🌪️ 那吾克熱&尤長靖《飄向北方》風：史詩鋼琴管弦 × 穿透高音副歌 × 炸裂機關槍快嘴 (92 BPM)</option>
+            <option value="fox-victorywine">🍶 福克斯《慶功酒》風：京劇戲腔開場 × 古箏國風 Trap × 豪邁舉杯慶功副歌 (95 BPM)</option>
             <option value="pharaoh-ghostface">🎭 法老《Ghost Face》風：憂鬱鋼琴 Boom-Bap × 底層逆襲敘事 × 窒息技術流快嘴 (93 BPM)</option>
             <option value="cypher-fourkings">👑 《在Cypher裏》四人接力風：歐陽靖雙語 × 小春江湖 × 李佳隆旋律 × 瘦子壓軸 (98 BPM)</option>
             <option value="leave-raprock">🎸 張震嶽&熱狗《離開》風：滄桑搖滾吶喊副歌 × 盯盤成癮寫實饒舌 (88 BPM)</option>
@@ -153,8 +154,8 @@
             <input type="text" id="custom-hook" placeholder="留空則使用該曲風經典改編副歌" />
           </div>
           <div class="form-group">
-            <label for="custom-bpm">目標 BPM：<span id="bpm-val">93</span></label>
-            <input type="range" id="custom-bpm" min="75" max="155" value="93" />
+            <label for="custom-bpm">目標 BPM：<span id="bpm-val">92</span></label>
+            <input type="range" id="custom-bpm" min="75" max="155" value="92" />
           </div>
         </div>
 
