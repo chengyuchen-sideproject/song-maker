@@ -10,6 +10,13 @@
  */
 
 const KNOWN_YT_REFS = {
+  "MywfB-ZXe8o": {
+    title: "福克斯 FOX《慶功酒 (Jungle Juice)》國風戲腔江湖說唱",
+    bpm: 95,
+    preset: "fox-victorywine",
+    vibe: "京劇老生戲腔取樣開場 × 古箏竹笛融合現代 Trap 808 (95 BPM) × 武俠豪傑傲骨敘事 Flow × 豪邁舉杯旋律副歌 (Turn it up / Drink up)",
+    dna: ["🎭 京劇老生戲腔開場", "🪕 古箏/竹笛 × Trap 808", "⚔️ 武俠豪傑江湖敘事 Flow", "🍶 豪邁舉杯副歌 (Turn it up!)"]
+  },
   GNPZZ55pBck: {
     title: "法老 PHARAOH《Ghost Face》硬核敘事技術流快嘴",
     bpm: 93,
@@ -62,6 +69,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "fox-victorywine": {
+    nameZh: "福克斯《慶功酒》風：京劇戲腔開場 × 古箏國風 Trap × 豪邁舉杯慶功副歌",
+    defaultBpm: 95,
+    sunoStyleZh:
+      "Chinese traditional opera sample intro, guzheng and dizi flute fused with hard-hitting modern trap 808 drums, {BPM} BPM, heroic wuxia chivalrous mandarin hip-hop, theatrical and confident male rapper with crisp articulation, anthemic celebratory melodic vocal hook with English hype ad-libs (Turn it up, Drink up), triumphant banquet energy",
+    sunoStyleEn:
+      "East-meets-West cinematic wuxia trap hip-hop, {BPM} BPM, traditional Chinese opera vocal sample and guzheng plucks fused with heavy modern 808 trap drums, heroic charismatic male rapper, anthemic celebratory melodic chorus with hype ad-libs (Turn it up, Drink up), victorious banquet energy",
+    sunoExclude: "sad acoustic ballad, western country, lo-fi whisper, heavy metal screaming",
+    dnaTags: ["🎭 京劇老生戲腔開場", "🪕 古箏/竹笛 × Trap 808", "⚔️ 武俠豪傑江湖敘事 Flow", "🍶 豪邁舉杯副歌 (Turn it up!)"]
+  },
   "pharaoh-ghostface": {
     nameZh: "法老《Ghost Face》風：憂鬱鋼琴 Boom-Bap × 底層逆襲敘事 × 窒息技術流快嘴",
     defaultBpm: 93,
@@ -166,8 +183,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "pharaoh-ghostface",
-  bpm: 93,
+  preset: "fox-victorywine",
+  bpm: 95,
   topics: new Set([
     "nvda",
     "tsmc",
@@ -1516,6 +1533,192 @@ Put on the Ghost Face. Kill the emotion. See you at the bell.
   };
 }
 
+function buildVictoryWinePackage(p, bpm, flags) {
+  const hookLineZh = currentState.customHook || "舉杯痛飲這碗慶功酒";
+  const hookLineEn = currentState.customHook || "Raise the glass and drink this bowl of victory wine";
+
+  const lyricsZh = `[Intro: Vintage Peking Opera Laosheng High-Pitched Vocal Sample, Guzheng Plucks and Dizi Flute, Heavy Trap 808 Bass Drops]
+[Traditional Opera Vocal]
+今日痛飲慶功酒，壯志未酬誓不休！
+來日方長顯身手，甘灑熱血寫春秋——！
+[Rapper]
+Yeah! 漲停鎖死！開香檳、倒滿這碗慶功酒！Turn it up! Let's go!
+
+[Verse 1: Heroic Chivalrous Male Rapper, crisp theatrical articulation, bouncy wuxia trap flow]
+我舉杯喝下這碗漲停慶功酒
+瀟灑地滿倉跨上多頭向四萬點大路走
+君子在此立誓，主升段絕不回頭
+直到空軍彈盡糧絕，也絕不會輕易收手
+我曾在股版面前斷言
+這世間身懷信仰的人都值得被時刻關注
+我們抄底在別人不敢進場的阿呆谷路
+懷揣著翻倍的目標，台北與華爾街共同呼吸
+卻擁有不可一世的定力，從不畏懼洗盤躲避
+度過每一個早盤與夜盤的更替
+這盤面沒你想的那麼完美
+被融資維持率追繳壓住，也沒機會還嘴
+但它未曾讓我害怕，熬過了外資陰險狡詐的假跌破
+也看破了天地針長下影線背後被掩蓋住的贏家
+${flags.hasTsmc ? "我是單槍匹馬鎖定台積電的孤勇者" : "我是單槍匹馬鎖定龍頭股的孤勇者"}
+${flags.hasNvda ? "看皮衣男黃仁勳橫刀向天笑，輝達算力震蒼穹" : "看科技巨頭橫刀向天笑，AI 算力震蒼穹"}
+${flags.hasTariff ? "不畏懼任何關稅風暴，買單握緊在手中" : "不畏懼任何利空風暴，買單握緊在手中"}
+笑我衝動、笑我滿倉做著財富自由的白日夢
+五線合一黃金交叉，伴我同行生死與共！
+
+[Chorus: Anthemic Heroic Melodic Male Vocal, Guzheng and 808 Bass Full Drop]
+${hookLineZh}
+不扶牆再邁開大步，迎著紅Ｋ向前走
+Turn it up!
+你我共飲這杯慶功酒
+軋空之際看我如何為你顯身手
+Drink up!
+${hookLineZh}
+不扶牆再邁開大步，迎著紅Ｋ向前走
+Turn it up!
+你我共飲這杯慶功酒
+破頂之際看我如何為你顯身手
+
+[Verse 2: Heroic Chivalrous Male Rapper, rapid-fire internal rhymes with Peking opera cadence]
+能結出複利的果，摩擦出軋空的花火
+驀然回首，那些看空的過客早已斷頭斑駁
+而我依然是鎮住空妖的護國神山寶塔
+與莊家鬥、與演算法鬥、與時間價值奮力去爭奪
+擦亮我手中的鍵盤，上一炷開盤的清香
+風蕭蕭兮易水寒，我帶著京劇的腔
+嘆空軍無際的荒涼，融券回補的傷
+${flags.hasWhipsaw ? "風水輪流轉，一天暴漲三千三百點斷了多少空頭念想" : "風水輪流轉，一根旱地拔蔥長紅斷了多少空頭念想"}
+震盪未免惆悵跌宕，但你不可失去信仰
+就像是 CoWoS 產能流暢、獨特有樣才越拉越爽
+我們用多頭正能量，擊潰做空負能量
+懂行的戰友都能跟著加碼、跟著上，掃平那些隔日沖蝦兵蟹將
+我身居散戶之群，卻心懷主力之志
+這一張張紅通通的對帳單，全部發自內心來源於真實
+華爾街操盤手看後，都會敬我是條漢子
+誰上岸、誰期盼，週三結算背水一戰，我樂意之至！
+
+[Chorus: Anthemic Heroic Melodic Male Vocal, Maximum Banquet Celebration Energy]
+${hookLineZh}
+不扶牆再邁開大步，迎著紅Ｋ向前走
+Turn it up!
+你我共飲這杯慶功酒
+軋空之際看我如何為你顯身手
+Drink up!
+
+[Outro: Peking Opera String & Guzheng Finale with 808 Sub-Bass]
+[Traditional Opera Vocal]
+甘灑熱血寫春秋——！
+[Rapper]
+漲停鎖死！乾了這碗慶功酒！Turn it up!
+[End]`;
+
+  const lyricsEn = `[Intro: Vintage Chinese Opera High-Pitched Vocal Sample, Guzheng Plucks and Bamboo Flute, Heavy Trap 808 Bass Drops]
+[Traditional Opera Vocal]
+Raise the cup of victory wine tonight, our ambition burns through the sky!
+[Rapper]
+Yeah! Limit-up locked! Pop the bottles, pour the victory wine! Turn it up! Let's go!
+
+[Verse 1: Heroic Charismatic Male Rapper, crisp theatrical articulation, bouncy wuxia trap flow]
+I raise my cup and drink this bowl of limit-up victory wine
+Riding the bull trend saddle straight past the all-time high line
+A warrior takes an oath right here, never looking back in the run
+Until the short-sellers run out of ammo, my mission isn't done
+I called the bottom in front of the crowd when everyone was shaking
+True conviction traders deserve the history we're making
+We bought the blood on the streets where nobody dared to tread
+Breathing the same volatility from Taipei to Wall Street's fed
+Unstoppable courage in our chest, never hiding from the storm
+Watching day session turn to night session as the breakout starts to form
+This market ain't as gentle as a fairytale dream
+Crushed by 130 percent margin maintenance, couldn't even scream
+But I never flinched, survived the hedge fund stop-hunt wicked traps
+Saw right through the fake breakdowns on the candlestick maps
+Riding solo like a kung-fu master holding TSMC to the core
+While leather-jacket Jensen laughs at the sky, Nvidia compute begins to roar
+Fists clenched tight against the tariff winds blowing in the night
+Five moving averages golden-crossed, we ride together in this fight!
+
+[Chorus: Anthemic Heroic Melodic Male Vocal, Guzheng and 808 Bass Full Drop]
+${hookLineEn}
+Marching forward into the green candles, leaving the bears behind
+Turn it up!
+You and I toast this cup of victory wine
+Watch me show my kung-fu when the short squeeze crosses the line
+Drink up!
+${hookLineEn}
+Marching forward into the green candles, leaving the bears behind
+Turn it up!
+You and I toast this cup of victory wine
+At the moment of breakout, watch the diamond hands shine
+
+[Verse 2: Heroic Charismatic Male Rapper, rapid-fire internal rhymes with theatrical cadence]
+Compounding bears the fruit, friction sparks the gamma flame
+Looking back, all the bearish doubters got liquidated out the game
+And I still stand tall like the Silicon Shield tower on the hill
+Fighting the algos, fighting the theta decay with an iron will
+Polish my mechanical keyboard, light an incense for the opening bell
+Cold wind blowing across the floor, I bring that opera swell
+Mourning the barren wasteland of the short-sellers' margin call
+Three thousand points in a single day, watch their empire fall
+A retail warrior walking among the crowd with an institutional mind
+Every green brokerage statement earned from the realest grind
+Even Wall Street hedge fund bosses salute the way I hold the line
+Wednesday 0DTE final battle, pour another cup of victory wine!
+
+[Chorus: Anthemic Heroic Melodic Male Vocal, Maximum Banquet Celebration Energy]
+${hookLineEn}
+Marching forward into the green candles, leaving the bears behind
+Turn it up!
+You and I toast this cup of victory wine
+Watch me show my kung-fu when the short squeeze crosses the line
+Drink up!
+
+[Outro: Guzheng & Flute Finale with 808 Sub-Bass]
+[Rapper]
+Limit-up locked! Drink up the victory wine! Turn it up!
+[End]`;
+
+  return {
+    zh: {
+      title: "漲停慶功酒 (Limit-Up Victory Wine)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI國風饒舌】《漲停慶功酒》｜致敬福克斯〈慶功酒〉京劇戲腔×江湖說唱！台股美股軋空破頂必聽神曲 (Official Audio)`,
+        `《漲停慶功酒》Limit-Up Victory Wine｜「舉杯痛飲這碗慶功酒，迎著紅Ｋ向前走！」台積電×輝達多軍戰歌 (${bpm} BPM)`,
+        `熬過暴跌洗盤、迎來暴漲三千點！開盤播放這首《漲停慶功酒》直接氣勢拉滿！🍶🔥`
+      ],
+      ytDesc: `🍶「今日痛飲慶功酒，壯志未酬誓不休！我舉杯喝下這碗漲停慶功酒，瀟灑地滿倉跨上多頭向四萬點大路走！」
+致敬福克斯 FOX 經典國風江湖說唱神曲〈慶功酒 (Jungle Juice)〉，這首《漲停慶功酒》以 ${bpm} BPM 將高亢激昂的京劇老生戲腔、古箏與竹笛民樂，完美融合現代重低音 Trap 808 節拍！
+獻給每一位熬過融資維持率追繳、天地針長下影線假跌破、外資借券洗盤與關稅黑天鵝，最終在台積電（2330）CoWoS 與輝達（NVIDIA）AI 算力狂潮中迎來史詩級長紅漲停的股市俠客！
+
+🎧 曲風與編曲亮點：
+• ${bpm} BPM 國風戲曲江湖 Trap（京劇老生《智取威虎山》戲腔開場 + 古箏/竹笛 + 炸裂 808）
+• 武俠豪傑敘事主歌：「我是單槍匹馬鎖定台積電的孤勇者，五線合一黃金交叉伴我同行生死與共！」
+• 豪氣干雲慶功副歌：「${hookLineZh}，不扶牆再邁開大步迎著紅Ｋ向前走！Turn it up! Drink up!」
+
+💬 今天帳面收紅的戰友們，在留言區刷一排「乾了這碗漲停慶功酒 🍶」！
+
+#台股 #美股 #慶功酒 #福克斯 #中國風說唱 #戲腔 #台積電 #輝達 #NVIDIA #TSMC #漲停 #軋空 #SunoAI #AI音樂 #中文饒舌 #股票戰歌`
+    },
+    en: {
+      title: "Limit-Up Victory Wine (Jungle Juice)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `Limit-Up Victory Wine (Jungle Juice) | Chinese Opera × Wuxia Trap Stock Market Anthem (NVDA, TSMC)`,
+        `"Raise the Glass & Drink This Victory Wine!" 🍶 Limit-Up Victory Wine | Epic Bull Run Celebration Rap`,
+        `When Guzheng & Peking Opera Meet Wall Street Short Squeeze 🔥 "Limit-Up Victory Wine" (${bpm} BPM Official Audio)`
+      ],
+      ytDesc: `🍶 "I raise my cup and drink this bowl of limit-up victory wine, riding the bull trend saddle straight past the all-time high line!"
+Fusing a traditional Peking Opera vocal sample, ancient guzheng & bamboo flute melodies with hard-hitting ${bpm} BPM modern trap 808s, "Limit-Up Victory Wine (Jungle Juice)" is a wuxia-style celebration anthem for traders who survived the stop-hunt wicks and margin calls to ride the TSMC & NVDA bull run.
+
+#StockMarketRap #ChineseTrap #WuxiaRap #TSMC #NVDA #WallStreet #ShortSqueeze #SunoAI #AIMusic #VictoryAnthem`
+    }
+  };
+}
+
 function buildSongPackage() {
   const p = STYLE_PRESETS[currentState.preset];
   const bpm = currentState.bpm;
@@ -1525,6 +1728,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "fox-victorywine") {
+    return buildVictoryWinePackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "pharaoh-ghostface") {
     return buildGhostfacePackage(p, bpm, {
