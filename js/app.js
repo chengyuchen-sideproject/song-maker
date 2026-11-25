@@ -10,6 +10,13 @@
  */
 
 const KNOWN_YT_REFS = {
+  S3IQwuYX_ls: {
+    title: "One Direction《What Makes You Beautiful》陽光衝浪吉他 Pop-Rock × 男團多巴胺饒舌",
+    bpm: 125,
+    preset: "oned-beautiful",
+    vibe: "標誌性清脆衝浪搖滾電吉他 Riff × 125 BPM 青春熱血 Power-Pop 四四拍鼓點 × 少年男團活力接力 Melodic Rap ×「Baby you light up my account like nobody else!」超洗腦多巴胺大合唱（Na-na-na）",
+    dna: ["🎸 陽光衝浪電吉他 Riff", "👦 125 BPM 男團接力 Pop-Rap", "✨ \"You Light Up My Account!\"", "🏖️ \"Na-na-na\" 漲停多巴胺大合唱"]
+  },
   vx2u5uUu3DE: {
     title: "Bon Jovi《It's My Life》傳奇體育館硬式搖滾 × 華爾街熱血 Rap-Rock 戰歌",
     bpm: 120,
@@ -118,6 +125,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "oned-beautiful": {
+    nameZh: "One Direction《What Makes You Beautiful》風：陽光衝浪吉他 × 男團多巴胺接力 Rap × 超洗腦大合唱",
+    defaultBpm: 125,
+    sunoStyleZh:
+      "Upbeat sunny teen pop-rock and power-pop boyband anthem fused with bouncy melodic pop-rap, {BPM} BPM, iconic bright surf-rock electric guitar riff and cowbell intro, driving four-on-the-floor live drums and punchy bass, charismatic youthful male vocal group trading verses and playful rapid-fire melodic rap bars, explosive euphoric gang-vocal sing-along chorus with handclaps and Na-na-na post-chorus chant, pure summer beach party dopamine energy",
+    sunoStyleEn:
+      "Upbeat British boyband power-pop and pop-rock anthem fused with playful melodic pop-rap, {BPM} BPM, iconic bright surf-rock electric guitar riff and cowbell intro, energetic live drums and driving bass, five youthful charismatic male vocalists trading verses, harmonies and bouncy rap bars, massive euphoric stadium sing-along chorus (Baby you light up my chart like nobody else!) and Na-na-na hook, pure sunshine feel-good energy",
+    sunoExclude: "dark depressing ballad, heavy metal screaming, slow doom, gritty underground drill, funeral organ",
+    dnaTags: ["🎸 陽光衝浪電吉他 Riff", "👦 125 BPM 男團接力 Pop-Rap", "✨ \"You Light Up My Account!\"", "🏖️ \"Na-na-na\" 漲停多巴胺大合唱"]
+  },
   "bonjovi-mylife": {
     nameZh: "Bon Jovi《It's My Life》風：Talk-Box 哇音電吉他 × 體育館硬式搖滾嘶吼 × 熱血 Rap-Rock 戰歌",
     defaultBpm: 120,
@@ -302,8 +319,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "bonjovi-mylife",
-  bpm: 120,
+  preset: "oned-beautiful",
+  bpm: 125,
   topics: new Set([
     "nvda",
     "tsmc",
@@ -898,6 +915,194 @@ function analyzeYoutubeUrl() {
   randomizeSongKeywords(false);
   renderAll();
   showToast("🔍 已完成曲風解析並隨機抽取全新關鍵字創作歌詞！");
+}
+
+function buildOneDBeautifulPackage(p, bpm, flags) {
+  const hookLineZh =
+    currentState.customHook ||
+    "Baby, you light up my account like nobody else! 那根漲停紅Ｋ讓我徹底淪陷";
+  const hookLineEn =
+    currentState.customHook ||
+    "Baby, you light up my account like nobody else! The way you gap up gets me overwhelmed";
+
+  const stockList =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.zh.split(" ")[0]).join("、")
+      : "台積電、輝達、鴻海";
+  const stockListEn =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.en.split(" ")[0]).join(", ")
+      : "TSMC, Nvidia, Foxconn";
+
+  const lyricsZh = `[Intro: Iconic Bright Surf-Rock Electric Guitar Riff & Punchy Cowbell Beat, Sunny Beach Party Vibes!]
+[Boyband Vocalist A & Rapper Hype]
+One, two, three, four!
+早盤九點鐘的陽光灑進交易室，今天不唱悲歌，我們只唱漲停板的多巴胺！
+Let's go boys!
+
+[Verse 1: Youthful Charismatic Male Vocal A & B trading lines, Palm-Muted Pop-Rock Guitar]
+你總是低調在底部盤整，不知道自己有多迷人
+每次看外資報告把你低估，我都忍不住笑出聲
+你根本不需要投顧老師畫大餅，五日線一抬頭全場都目不轉睛
+他們說你本益比太高別追，我卻看見你主升段最閃耀的靈魂！
+
+[Pre-Chorus: Boyband Vocal C, Building Drums & Handclaps]
+全市場都在盯著你的五檔委買跳動
+只有你還安靜站在起漲點不為所動——
+
+[Chorus: Full 5-Member Boyband Euphoric Harmony Explosion, Bright Power-Pop Guitars!]
+${hookLineZh}
+看你帶量突破頸線的那一瞬間
+You don't know, oh-oh
+You don't know you're parabolic!
+如果只有散戶看得見你的護城河有多美
+當你跳空鎖死一字線，空頭只能流眼淚
+You don't know, oh-oh
+You don't know you're beautiful!
+That's what makes ${stockList} so beautiful!
+
+[Verse 2: Playful Bouncy Boyband Pop-Rapper D & E trading rapid-fire bars]
+（男團陽光活力雙人接力 Pop-Rap Flow）
+Hey! 以前我也在無本當沖跟天地針長下影線裡被洗到頭暈
+直到遇見了 ${stockList} 的黃金交叉，我的對帳單終於放晴
+看那隔日沖分點在早盤九點半倒貨想要嚇退我的真心
+我反手逢低加碼一張不賣，讓空軍在限空令下強制回補到懷疑人生
+不用看聯準會臉色、不怕半夜關稅推文來敲門
+當你亮起紅通通的漲停燈號，整個台北到那斯達克都為你沸騰！
+
+[Chorus: Full 5-Member Boyband Euphoric Harmony Explosion!]
+${hookLineZh}
+看你帶量突破頸線的那一瞬間
+You don't know, oh-oh
+You don't know you're parabolic!
+That's what makes ${stockList} so beautiful!
+
+[Bridge: Sing-Along Handclap Breakdown & Boyband Rap Counterpoint]
+[All Boys] Na-na-na-na-na-na, na-na-na! ([Rapper] 漲停鎖死十萬張排隊買單！)
+[All Boys] Na-na-na-na-na-na! ([Rapper] 把空頭全部軋上陽光海灘！)
+[Lead Tenor Solo, acoustic guitar strums]
+Baby, 你點亮了我的交割帳戶，沒有任何一檔妖股能把你取代
+回測月線不破的那個微笑，讓我決定滿倉抱緊你不放開——！
+
+[Chorus: Final Maximum Dopamine Boyband Key-Change Climax, High-Note Ad-libs!]
+${hookLineZh}
+從阿呆谷底一路噴上歷史高點
+You don't know, oh-oh
+You don't know you're parabolic!
+You don't know, oh-oh
+That's what makes ${stockList} so beautiful!
+
+[Outro: Iconic Surf-Rock Guitar Riff Finale & Cheering]
+[All Boys]
+Na-na-na-na-na-na!
+You light up my account! 漲停漂亮收盤！
+[End]`;
+
+  const lyricsEn = `[Intro: Iconic Bright Surf-Rock Electric Guitar Riff & Punchy Cowbell Beat, Sunny Beach Party Vibes!]
+[Boyband Vocalist A & Rapper Hype]
+One, two, three, four!
+Nine-thirty AM sunshine hitting the trading screens—no sad drawdown songs today, pure breakout dopamine!
+Let's go boys!
+
+[Verse 1: Youthful Charismatic Male Vocal A & B trading lines, Palm-Muted Pop-Rock Guitar]
+You're consolidating quiet at the base, don't know what you're worth
+Every time the Wall Street analysts downgrade you, it's the funniest thing on earth
+You don't need no CNBC hype-man, one green candle and you steal the show
+Everyone says you're overbought today, I can't wait to watch your multiple grow!
+
+[Pre-Chorus: Boyband Vocal C, Building Drums & Handclaps]
+Every whale in the room is staring at your Level-two order book glow
+And you're just sitting at the breakout line ready to blow—
+
+[Chorus: Full 5-Member Boyband Euphoric Harmony Explosion, Bright Power-Pop Guitars!]
+${hookLineEn}
+When you rip right through resistance at the opening bell
+You don't know, oh-oh
+You don't know you're parabolic!
+If only you saw what the diamond hands can see
+You'll understand why I'm all-in on this buying spree
+Right now I'm looking at my screen and I can't believe
+You don't know, oh-oh
+You don't know you're beautiful!
+That's what makes ${stockListEn} so beautiful!
+
+[Verse 2: Playful Bouncy Boyband Pop-Rapper D & E trading rapid-fire bars]
+(Bouncy Boyband Pop-Rap Relay Flow)
+Yo! Used to get shaken out by stop-hunt lower wicks and zero-day chop
+Until I locked onto ${stockListEn} golden cross heading straight to the top
+Let the overnight whales dump at nine-thirty thinking we're gonna fold
+We scoop the dip with a smile on our face, turning every share into gold
+Don't care about the midnight tariff tweets or the hawkish Fed talk tonight
+When your ticker flashes green across the board, everything feels so right!
+
+[Chorus: Full 5-Member Boyband Euphoric Harmony Explosion!]
+${hookLineEn}
+When you rip right through resistance at the opening bell
+You don't know, oh-oh
+You don't know you're parabolic!
+That's what makes ${stockListEn} so beautiful!
+
+[Bridge: Sing-Along Handclap Breakdown & Boyband Rap Counterpoint]
+[All Boys] Na-na-na-na-na-na, na-na-na! ([Rapper] Hundred-thousand buy orders queued at the top!)
+[All Boys] Na-na-na-na-na-na! ([Rapper] Short squeeze summer party never gonna stop!)
+[Lead Tenor Solo, stripped-back guitar]
+Baby, you light up my brokerage account like nobody else in the game
+That bounce off the Fibonacci support made me forget every margin-call pain—!
+
+[Chorus: Final Maximum Dopamine Boyband Key-Change Climax, High-Note Ad-libs!]
+${hookLineEn}
+From the bottom of the valley to the all-time high bell
+You don't know, oh-oh
+You don't know you're parabolic!
+You don't know, oh-oh
+That's what makes ${stockListEn} so beautiful!
+
+[Outro: Iconic Surf-Rock Guitar Riff Finale & Cheering]
+[All Boys]
+Na-na-na-na-na-na!
+That's what makes my portfolio beautiful! Market closed!
+[End]`;
+
+  return {
+    zh: {
+      title: "What Makes My Portfolio Beautiful (那根漲停讓我淪陷)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI多巴胺饒舌】《What Makes My Portfolio Beautiful》｜致敬 One Direction 破十億神曲！把漲停板唱成陽光男團情歌 (Official Audio)`,
+        `《那根漲停讓我淪陷》｜「Baby, you light up my account like nobody else!」衝浪電吉他 × 男團接力 Pop-Rap (${bpm} BPM)`,
+        `帳面收紅必聽的快樂神曲！當 One Direction《What Makes You Beautiful》遇上台積電與輝達噴出 🏖️✨`
+      ],
+      ytDesc: `🏖️「Baby, you light up my account like nobody else! 那根漲停紅Ｋ讓我徹底淪陷！You don't know you're parabolic!」
+誰說股票歌一定要苦大仇深？致敬英國傳奇男團 One Direction 全球破十億點擊代表作《What Makes You Beautiful》，這首《What Makes My Portfolio Beautiful (那根漲停讓我淪陷)》以 ${bpm} BPM 最經典的陽光衝浪搖滾電吉他 Riff 與青春四四拍鼓點，把你手上的核心飆股（${stockList}）當成暗戀對象來告白！
+結合五人男團輪流接力主唱、中段活力雙人 Pop-Rap 快嘴，以及超洗腦的「Na-na-na-na-na-na」漲停沙灘派對大合唱，一秒注入滿滿股市多巴胺！
+
+🎧 曲風與編曲亮點：
+• ${bpm} BPM 陽光衝浪電吉他 Riff (Surf-Rock Guitar) + 青春 Power-Pop 真鼓與拍手節奏
+• 五人男團和聲 × 俏皮接力 Melodic Pop-Rap 主歌
+• 超洗腦多巴胺副歌：「You light up my account like nobody else! You don't know you're parabolic!」
+
+💬 今天哪一檔股票「點亮了你的帳戶」？在留言區對你的愛股大聲告白吧 ✨！
+
+#台股 #美股 #OneDirection #WhatMakesYouBeautiful #多巴胺音樂 #男團饒舌 #PopRap #台積電 #輝達 #鴻海 #漲停板 #SunoAI #AI音樂 #股票情歌`
+    },
+    en: {
+      title: "What Makes You Parabolic (You Light Up My Account)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `What Makes You Parabolic (You Light Up My Account) | One Direction Style Boyband Pop-Rock × Stock Rap (${bpm} BPM)`,
+        `"Baby, You Light Up My Account Like Nobody Else!" 🏖️✨ Feel-Good Bull Market Anthem (Official AI Audio)`,
+        `When a 2010s Boyband Sings a Love Song to Their Breakout Stocks 🔥 "What Makes You Parabolic" (NVDA, TSMC)`
+      ],
+      ytDesc: `🏖️ "${hookLineEn}! You don't know, oh-oh, you don't know you're parabolic!"
+Inspired by One Direction's iconic power-pop smash hit "What Makes You Beautiful", this ${bpm} BPM sunshine surf-rock and boyband pop-rap anthem turns a breakout bull run on ${stockListEn} into an irresistible feel-good love song complete with five-part harmonies, bouncy rap verses, and a "Na-na-na" short-squeeze beach party bridge!
+
+#StockMarketRap #OneDirection #WhatMakesYouBeautiful #PowerPop #BoybandRap #BullMarket #TSMC #NVDA #SunoAI #AIMusic`
+    }
+  };
 }
 
 function buildBonJoviMyLifePackage(p, bpm, flags) {
@@ -3384,6 +3589,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "oned-beautiful") {
+    return buildOneDBeautifulPackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "bonjovi-mylife") {
     return buildBonJoviMyLifePackage(p, bpm, {
