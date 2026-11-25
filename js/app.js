@@ -10,6 +10,13 @@
  */
 
 const KNOWN_YT_REFS = {
+  x3bDhtuC5yk: {
+    title: "茄子蛋 EggPlantEgg《浪子回頭 (Back Here Again)》台式滄桑藍調搖滾 × 散戶浪子饒舌",
+    bpm: 78,
+    preset: "prodigal-return",
+    vibe: "催淚雙電吉他 Solo 與復古 Hammond 風琴 (78 BPM) × 阿斌式極致沙啞撕裂滄桑菸酒嗓（「菸一支一支一支地點，酒一杯一杯一杯地乾」）× 台語國語交錯走心散戶浪子敘事 Rap × 萬人KTV熱血大合唱",
+    dna: ["🎸 催淚藍調電吉他×復古風琴", "🚬 「單一張一張地敲」沙啞菸酒嗓", "🍺 台式浪子國台語交錯走心 Rap", "😭 結尾雙吉他 Solo 萬人大合唱"]
+  },
   K1j4kneapVY: {
     title: "PACT 派克特 & 寶石Gem《你也是個Rapper》全場群嘲 Satire × 雙段變奏硬核說唱",
     bpm: 98,
@@ -104,6 +111,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "prodigal-return": {
+    nameZh: "茄子蛋《浪子回頭》風：催淚藍調電吉他 × 沙啞菸酒嗓大合唱 × 台式浪子走心饒舌",
+    defaultBpm: 78,
+    sunoStyleZh:
+      "Taiwanese Hokkien and Mandarin indie blues rock ballad fused with heartfelt street storytelling rap, {BPM} BPM, soulful weeping vintage electric guitar intro and warm Hammond B3 organ chords, slow heavy live acoustic drums and bass, deeply raspy weathered emotional male rock vocalist screaming with raw heartbreak, gritty Taiwanese street-poet male rapper delivering remorseful yet defiant late-night trader confession verses, anthemic tavern gang-vocal sing-along chorus, epic crying twin-guitar solo finale",
+    sunoStyleEn:
+      "Heartland blues-rock ballad fused with gritty conscious storytelling hip-hop, {BPM} BPM, weeping vintage Stratocaster guitar lead and warm Hammond organ over slow heavy live drums, deeply raspy whisky-soaked male rock vocalist belting an emotional tavern sing-along chorus, raw street-poet male rapper confessing late-night trading scars and redemption in the verses, soaring crying guitar solo finale",
+    sunoExclude: "EDM, techno, bubblegum pop, cute female vocal, fast trap cowbell, robotic autotune",
+    dnaTags: ["🎸 催淚藍調電吉他×復古風琴", "🚬 「單一張一張地敲」沙啞菸酒嗓", "🍺 台式浪子國台語交錯走心 Rap", "😭 結尾雙吉他 Solo 萬人大合唱"]
+  },
   "you-too-rapper": {
     nameZh: "派克特&寶石Gem《你也是個Rapper》風：辛辣群嘲假股神 × 洗腦大合唱 × 硬核 Beat Switch 快嘴",
     defaultBpm: 98,
@@ -268,8 +285,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "you-too-rapper",
-  bpm: 98,
+  preset: "prodigal-return",
+  bpm: 78,
   topics: new Set([
     "nvda",
     "tsmc",
@@ -864,6 +881,165 @@ function analyzeYoutubeUrl() {
   randomizeSongKeywords(false);
   renderAll();
   showToast("🔍 已完成曲風解析並隨機抽取全新關鍵字創作歌詞！");
+}
+
+function buildProdigalReturnPackage(p, bpm, flags) {
+  const hookLineZh =
+    currentState.customHook ||
+    "菸一支一支一支地點，酒一杯一杯一杯地乾，單一張一張一張地敲，停損一筆一筆一筆地砍";
+  const hookLineEn =
+    currentState.customHook ||
+    "Cigarettes lit one by one, whiskey shots downed one by one, margin orders clicked one by one";
+
+  const stockList =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.zh.split(" ")[0]).join("、")
+      : "台積電、輝達、鴻海";
+  const stockListEn =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.en.split(" ")[0]).join(", ")
+      : "TSMC, Nvidia, Foxconn";
+
+  const lyricsZh = `[Intro: Weeping Vintage Blues Electric Guitar Solo & Warm Hammond Organ Chords, Rain & Neon Izakaya Ambience]
+[Raspy Weathered Taiwanese Rock Male Vocal (EggPlantEgg style), raw emotional gravelly voice]
+${hookLineZh}
+請你要體諒我，我酒量不好賣給我衝康
+時間一天一天一天地走，汗一滴一滴一滴地流
+有一天，咱都老，帶某子一起，浪子回頭……
+
+[Verse 1: Raspy Blues Rock Vocal & Street-Poet Rapper, Taiwanese Hokkien & Mandarin blend]
+親愛的，可愛的，英俊的，少年股神朋友
+垃圾的，沒品的，沒路用的，追高殺低那個我
+佇這個五檔跳動的無情早盤
+看著 ${stockList} 開高走低，我的心肝一直抖
+以前總以為滿倉當沖，就能翻身做大爺
+結果一根天地針長下影線，把我的嫁妝本全部洗乾
+營業員打電話來催交割，我躲在熱炒店的廁所不敢接
+看著鏡子裡通紅的目睭，才知影什麼叫作散戶的悲哀
+
+[Verse 2: Gritty Taiwanese Street Storytelling Male Rapper, raw emotional boom-bap rock flow]
+（台式江湖浪子走心饒舌 — 國台語氣口交錯）
+拎北以前在股版也是喊水會結凍，每天看那斯達克夜盤當作在逛夜市
+聽投顧老師畫大餅、跟隔日沖分點搶帽子，以為財富自由只是幾根漲停板的事
+${flags.hasWhipsaw ? "誰知影昨天暴漲三千點還在開香檳，今天關稅利空重挫兩千點直接送進加護病房" : "誰知影昨天跳空創高還在開香檳，今天外資借券倒貨直接把多軍送進加護病房"}
+融資維持率跌破一百三的那封簡訊，比寒流半夜的冷風還要刺骨冰涼
+看著某子熟睡的臉龐，我把當沖的槓桿一筆一筆關掉
+浪子回頭不是離開這片市場，是學會不再把身家當作賭場的籌碼亂拋
+鎖定 ${stockList} 的基本面護城河，守住五線合一與交易紀律的底線
+這一次，我不做少年賭徒，我要做能帶家人平安上岸的掌舵手！
+
+[Chorus: Maximum Raspy Rock Vocal & Tavern Gang-Vocal Sing-Along, Heavy Live Drums & Crying Guitar]
+${hookLineZh}
+請主力體諒我，我本金不多賣給我洗盤
+Ｋ線一根一根一根地走，淚一滴一滴一滴地流
+有一天，咱都老，抱緊核心持股，浪子回頭！
+
+[Guitar Solo: Epic Weeping Twin-Electric-Guitar Blues Rock Solo with Screaming Bends & Hammond Organ Swell]
+
+[Bridge: Raspy Vocal Screaming Belt & Rapper Overlapping Oath, Raw Live Stadium Emotion]
+[Raspy Rock Vocal] 時間一天一天一天地走——汗一滴一滴一滴地流——！
+[Rapper] （戒掉無本當沖的毒，戒掉追高殺低的狂！看MACD底背離亮起紅燈，時間的複利會還我們公道！）
+[Raspy Rock Vocal] 有一天——咱都老——！
+[Rapper] （走過阿呆谷底的滄桑，握緊 ${stockList} 的信仰，散戶浪子終究會破頂回頭！）
+
+[Outro: Slow Acoustic Guitar Strums & Weeping Electric Guitar Fade Out]
+[Raspy Rock Vocal]
+菸一支一支一支地點…… 酒一杯一杯一杯地乾……
+有一天，咱都老…… 浪子回頭……
+[Rapper]
+少年股神下台一鞠躬，價值投資浪子回頭。收盤。
+[End]`;
+
+  const lyricsEn = `[Intro: Weeping Vintage Blues Electric Guitar Solo & Warm Hammond Organ Chords, Late-Night Tavern Ambience]
+[Raspy Weathered Blues-Rock Male Vocal, raw whisky-soaked gravelly voice]
+${hookLineEn}
+Stop-losses cut one by one, please have mercy on my fragile account tonight
+Candles ticking day by day, cold sweat dripping drop by drop
+Someday when we all grow old, taking our families home... the prodigal trader returns...
+
+[Verse 1: Raspy Blues-Rock Vocal, intimate and weathered confession]
+My dear, my reckless, my handsome young bull-market friend
+And the foolish, greedy, broken gambler I became in the end
+Under the merciless neon glow of the nine-AM opening bell
+Watching ${stockListEn} gap up and fade into a red candle hell
+Used to think full-margin scalping would buy me a mansion on the hill
+Until one wicked stop-hunt lower wick drained the last dollar in my till
+Hiding in the diner bathroom while the broker's margin-call phone rings loud
+Staring at my bloodshot eyes in the mirror, far away from the cheering crowd
+
+[Verse 2: Gritty Street-Poet Male Rapper, raw emotional blues-rock boom-bap flow]
+(Heartland Blues-Rock Storytelling Rap — Raw Remorse & Redemption)
+I used to talk big on the forums like I owned the Nasdaq night session floor
+Chasing overnight whales at nine-thirty, begging the leverage gods for more
+Three thousand points up yesterday popping champagne, two thousand down today in the pouring rain
+130 percent maintenance liquidation text cutting deeper than a rusty chain
+Looking at my family sleeping in the next room, I finally closed the reckless leverage tab
+Being a prodigal trader returning doesn't mean quitting—it means burying the gambler's habit I had
+Locking onto the real silicon moat of ${stockListEn}, respecting the moving averages and the trend
+No longer a zero-day lotto addict—I'm building compounding wealth that lasts till the end!
+
+[Chorus: Maximum Raspy Rock Vocal & Tavern Gang-Vocal Sing-Along, Heavy Live Drums & Crying Guitar]
+${hookLineEn}
+Market makers hear my plea, don't shake out the last conviction in me
+Candles ticking day by day, tears falling drop by drop along the way
+Someday when we all grow old, holding our core positions... back here again!
+
+[Guitar Solo: Epic Weeping Twin-Electric-Guitar Blues Rock Solo with Screaming Bends & Hammond Organ Swell]
+
+[Bridge: Raspy Vocal Screaming Belt & Rapper Overlapping Oath, Raw Live Stadium Emotion]
+[Raspy Rock Vocal] Time keeps rolling day by day—sweat keeps falling drop by drop—!
+[Rapper] (Burn the FOMO addiction, bury the reckless leverage! MACD divergence flashing green from the valley floor!)
+[Raspy Rock Vocal] Someday—when we all grow old—!
+[Rapper] (From the ashes of the margin call, holding ${stockListEn} to the all-time high, the prodigal trader returns!)
+
+[Outro: Slow Guitar Strums & Weeping Blues Lead Fade Out]
+[Raspy Rock Vocal]
+Cigarettes lit one by one... whiskey shots downed one by one...
+Someday when we all grow old... back here again...
+[Rapper]
+The gambler steps down, the disciplined trader returns. Market closed.
+[End]`;
+
+  return {
+    zh: {
+      title: "散戶回頭 (浪子回頭股市版)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI台式搖滾饒舌】《散戶回頭》｜致敬茄子蛋〈浪子回頭〉！「菸一支一支地點，單一張一張地敲…」唱哭全網當沖客 (Official Audio)`,
+        `《散戶回頭（浪子回頭股市版）》｜「請主力體諒我，我本金不多賣給我洗盤！」沙啞菸酒嗓 × 台語走心說唱 (${bpm} BPM)`,
+        `當沖輸到躲廁所不敢接營業員電話？聽完這首《散戶回頭》戒掉賭徒心態，抱緊台積電浪子回頭 🚬🍺`
+      ],
+      ytDesc: `🚬「菸一支一支一支地點，酒一杯一杯一杯地乾，單一張一張一張地敲，停損一筆一筆一筆地砍！請主力體諒我，我本金不多賣給我洗盤……」
+致敬華語破億神曲、茄子蛋 EggPlantEgg 經典代表作《浪子回頭 (Back Here Again)》，這首《散戶回頭》以 ${bpm} BPM 催淚至極的藍調雙電吉他 Solo 與復古 Hammond 風琴揭開序幕！
+結合阿斌式極致沙啞滄桑的菸酒嗓大合唱，與國台語交錯的台式江湖浪子走心 Rap，把一個曾經沉迷無本當沖、追高殺低、在暴漲暴跌與融資維持率 130% 追繳中遍體鱗傷的少年賭徒，最終為了家人（「帶某子一起，浪子回頭」）戒掉浮躁槓桿、回歸 ${stockList} 基本面與交易紀律的救贖故事唱得淋漓盡致！
+
+🎧 曲風與編曲亮點：
+• ${bpm} BPM 台式滄桑藍調搖滾 (Taiwanese Indie Blues Rock) × 走心敘事說唱
+• 復古 Hammond B3 風琴 + 結尾靈魂雙電吉他哭腔 Solo
+• 國台語氣口交錯：「親愛的、可愛的、英俊的少年股神朋友，垃圾的、沒品的、追高殺低那個我……」
+
+💬 你也曾在股海裡衝動當沖、如今學會「浪子回頭」守住紀律了嗎？在留言區敬自己一杯：「有一天，咱都老，浪子回頭 🍺」！
+
+#台股 #美股 #浪子回頭 #茄子蛋 #台語搖滾 #台式饒舌 #當沖 #散戶心聲 #台積電 #輝達 #鴻海 #SunoAI #AI音樂 #股票饒舌`
+    },
+    en: {
+      title: "Back to the Charts Again (Prodigal Trader's Return)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `Back to the Charts Again (Prodigal Trader) | Raspy Blues-Rock × Heartfelt Trader Redemption Rap (${bpm} BPM)`,
+        `"Cigarettes Lit One by One, Margin Orders Clicked One by One..." 🚬🍺 Prodigal Trader Anthem (Official AI Audio)`,
+        `When Weeping Blues Guitar Meets Wall Street Confession 🔥 "Back to the Charts Again" (TSMC, NVDA)`
+      ],
+      ytDesc: `🚬 "${hookLineEn}..."
+Inspired by EggPlantEgg's iconic blues-rock anthem "Back Here Again (浪子回頭)", this ${bpm} BPM heartland blues-rock and storytelling rap crossover pairs weeping vintage Stratocaster guitar solos and warm Hammond organ chords with a whisky-soaked raspy chorus and a raw, redemptive rap verse about leaving reckless day-trading behind for disciplined conviction on ${stockListEn}.
+
+#StockMarketRap #EggPlantEgg #BackHereAgain #BluesRockRap #TraderRedemption #TSMC #NVDA #SunoAI #AIMusic`
+    }
+  };
 }
 
 function buildYouTooRapperPackage(p, bpm, flags) {
@@ -2985,6 +3161,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "prodigal-return") {
+    return buildProdigalReturnPackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "you-too-rapper") {
     return buildYouTooRapperPackage(p, bpm, {
