@@ -1,0 +1,8 @@
+{
+  "name": "歌曲製造機 Pro - AI 曲風整改與台美股饒舌工作站",
+  "short_name": "歌曲製造機",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b0f17",
+  "theme_color": "#f59e0b"
+}

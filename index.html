@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>歌曲製造機 Pro | AI 曲風整改 × 台美股饒舌 × Suno & YouTube 全套工作站</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0d1117" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand-icon">🎛️</span>
+      <div>
+        <h1>歌曲製造機 <span class="badge-pro">PRO</span></h1>
+        <p class="subtitle">YouTube 曲風基因提取 × 台美股時事饒舌整改 × Suno AI & YouTube 雙語產出引擎</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="lang-switch" role="group" aria-label="語言版本切換">
+        <button id="btn-lang-zh" class="lang-btn active" data-lang="zh">🇹🇼 中文版</button>
+        <button id="btn-lang-en" class="lang-btn" data-lang="en">🇺🇸 English</button>
+        <button id="btn-lang-bi" class="lang-btn" data-lang="bilingual">🌐 中英雙語對照</button>
+      </div>
+      <button id="btn-export-json" class="btn-secondary" title="匯出完整專案包">📥 匯出全套文案 (.md)</button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <!-- 左側控制面板：參考網址與台美股話題配置 -->
+    <aside class="control-panel">
+      <section class="card">
+        <div class="card-header">
+          <h2>1️⃣ 參考 YouTube 網址與曲風基因</h2>
+          <span class="status-pill" id="url-status">已載入《王牌冤家》基因</span>
+        </div>
+        <div class="form-group">
+          <label for="yt-url">YouTube 參考歌曲網址</label>
+          <div class="input-with-btn">
+            <input
+              type="url"
+              id="yt-url"
+              value="https://www.youtube.com/watch?v=lEKuorDbaCQ&list=RDK1j4kneapVY&index=12"
+              placeholder="貼上 YouTube 連結 (例如：https://www.youtube.com/watch?v=...)"
+            />
+            <button id="btn-analyze-url" class="btn-accent">🔍 解析曲風</button>
+          </div>
+          <small class="hint">系統會自動識別參考歌曲之 BPM、配器、唱腔反差與段落結構，進行無版權爭議之同曲風整改。</small>
+        </div>
+
+        <div id="ref-song-card" class="ref-song-box">
+          <div class="ref-thumb">
+            <img id="ref-thumb-img" src="https://i.ytimg.com/vi/lEKuorDbaCQ/hqdefault.jpg" alt="Reference Thumbnail" />
+            <span class="ref-bpm-tag" id="ref-bpm-display">96 BPM</span>
+          </div>
+          <div class="ref-meta">
+            <h3 id="ref-title">《中國新說唱》ICE & 李榮浩《王牌冤家》Live 改編版</h3>
+            <p id="ref-vibe">慵懶都會 R&B / Pop Rock 旋律 × 強勢俐落 Melodic Trap 說唱 × 結尾高張力交錯對唱 (Call & Response)</p>
+            <div class="dna-tags" id="ref-dna-tags">
+              <span>🎸 Funky 電吉他 Riff</span>
+              <span>🥁 現場真鼓 + 808</span>
+              <span>🎤 雙男聲反差對唱</span>
+              <span>⚡ Bridge 交錯疊句</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="style-preset">曲風整改模板 (可自由切換)</label>
+          <select id="style-preset">
+            <option value="ace-rivals" selected>🔥 王牌冤家風：慵懶都會 R&B × 強勢 Melodic Rap 對唱 (96 BPM)</option>
+            <option value="wallstreet-drill">🦍 華爾街狼性 Drill：重低音 808 滑音 × 疾速三連音硬核饒舌 (142 BPM)</option>
+            <option value="cyber-phonk">⚡ 矽谷 AI 狂潮 Phonk：賽博合成器 × 狂暴 Cowbell 軋空節奏 (130 BPM)</option>
+            <option value="lofi-chill-rap">☕ 凌晨夜盤 Lo-Fi Rap：微醺爵士鋼琴 × 敘事靈魂說唱 (85 BPM)</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>2️⃣ 台股 & 美股時事關鍵字注入</h2>
+          <button id="btn-select-all-tags" class="btn-text">全選熱門</button>
+        </div>
+        <p class="section-desc">點選要寫進歌詞的近期台美股核心話題（可複選）：</p>
+        <div class="topic-chips" id="topic-chips">
+          <button class="chip active" data-topic="nvda">🧥 輝達黃仁勳閃電回歸 & AI 算力</button>
+          <button class="chip active" data-topic="tsmc">🛡️ 台積電 (2330) CoWoS 護國神山</button>
+          <button class="chip active" data-topic="whipsaw">🎢 台股單日暴漲 3300 點又重挫洗盤</button>
+          <button class="chip active" data-topic="tariff">🦅 美國關稅戰 & 聯準會鷹派降息博弈</button>
+          <button class="chip active" data-topic="squeeze">🚀 限空令軋空 vs. 融資斷頭多空對決</button>
+          <button class="chip" data-topic="options">📊 台指夜盤 & 選擇權莊家雙巴</button>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="custom-hook">自訂副歌口號 (選填)</label>
+            <input type="text" id="custom-hook" placeholder="預設：就是冤家 / 認了吧認了認了唄" />
+          </div>
+          <div class="form-group">
+            <label for="custom-bpm">目標 BPM：<span id="bpm-val">96</span></label>
+            <input type="range" id="custom-bpm" min="75" max="155" value="96" />
+          </div>
+        </div>
+
+        <button id="btn-generate" class="btn-primary-large">
+          ⚡ 立即生成曲風整改全套作品 (Suno + Lyrics + YouTube)
+        </button>
+      </section>
+
+      <!-- Web Audio 即時曲風 Groove 試聽器 -->
+      <section class="card beat-box-card">
+        <div class="card-header">
+          <h2>3️⃣ 即時曲風 Groove 節奏預覽器</h2>
+          <span class="beat-indicator" id="beat-status">STOPPED</span>
+        </div>
+        <p class="section-desc">使用內建 Web Audio 合成引擎模擬此曲風的鼓組、Slap Bass 與電吉他 Riff，邊聽邊對 Flow：</p>
+        <div class="beat-controls">
+          <button id="btn-play-beat" class="btn-beat-play">▶ 播放曲風伴奏 Groove</button>
+          <button id="btn-stop-beat" class="btn-beat-stop" disabled>⏹ 停止</button>
+        </div>
+        <canvas id="beat-visualizer" width="380" height="64"></canvas>
+      </section>
+    </aside>
+
+    <!-- 右側產出工作區：Suno Prompt、雙語歌詞、YouTube 標題與描述 -->
+    <section class="output-panel">
+      <!-- Suno AI 餵食區 -->
+      <div class="card suno-card">
+        <div class="card-header">
+          <div>
+            <span class="tag-suno">SUNO AI V3.5 / V4 READY</span>
+            <h2>🎹 Suno AI 直接餵食設定區</h2>
+          </div>
+          <button class="btn-copy" data-copy-target="all-suno">📋 一鍵複製全部 Suno 設定</button>
+        </div>
+
+        <div class="suno-grid">
+          <div class="suno-field">
+            <div class="field-top">
+              <label>🎵 歌名 (Song Title)</label>
+              <button class="btn-copy-mini" data-copy-el="out-song-title">複製歌名</button>
+            </div>
+            <div class="copy-box title-box" id="out-song-title"></div>
+          </div>
+
+          <div class="suno-field">
+            <div class="field-top">
+              <label>🎛️ 曲風描述 (Style of Music Prompt — 貼入 Suno Style 欄位)</label>
+              <button class="btn-copy-mini" data-copy-el="out-suno-style">複製 Style Prompt</button>
+            </div>
+            <div class="copy-box code-box" id="out-suno-style"></div>
+          </div>
+
+          <div class="suno-field">
+            <div class="field-top">
+              <label>🚫 排除曲風 (Exclude Styles / Negative Prompt)</label>
+              <button class="btn-copy-mini" data-copy-el="out-suno-exclude">複製排除項</button>
+            </div>
+            <div class="copy-box code-box muted" id="out-suno-exclude"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 歌詞區 (含 Suno 結構標籤) -->
+      <div class="card lyrics-card">
+        <div class="card-header">
+          <div>
+            <span class="tag-lyrics">CUSTOM LYRICS WITH META TAGS</span>
+            <h2>🎤 完整饒舌歌詞 (含 Suno 唱腔與段落導引標籤)</h2>
+          </div>
+          <div class="card-actions">
+            <button id="btn-copy-clean-lyrics" class="btn-secondary-sm">📄 複製純字幕版 (無 [標籤])</button>
+            <button class="btn-copy" data-copy-el="out-lyrics">📋 複製 Suno 標籤版歌詞</button>
+          </div>
+        </div>
+        <div class="lyrics-container" id="out-lyrics"></div>
+      </div>
+
+      <!-- YouTube 上傳建議標題與描述 -->
+      <div class="card youtube-card">
+        <div class="card-header">
+          <div>
+            <span class="tag-yt">YOUTUBE SEO OPTIMIZED</span>
+            <h2>📺 YouTube 上傳建議標題、描述、時間軸與 Hashtags</h2>
+          </div>
+          <button class="btn-copy" data-copy-target="all-yt">📋 一鍵複製 YouTube 全套文案</button>
+        </div>
+
+        <div class="yt-section">
+          <div class="field-top">
+            <label>🔥 高點擊率建議標題 (點擊任一標題即可直接複製)</label>
+          </div>
+          <div id="out-yt-titles" class="yt-titles-list"></div>
+        </div>
+
+        <div class="yt-section">
+          <div class="field-top">
+            <label>📝 YouTube 影片描述 (含介紹、曲風亮點、章節時間軸與熱門標籤)</label>
+            <button class="btn-copy-mini" data-copy-el="out-yt-desc">複製完整描述</button>
+          </div>
+          <pre class="copy-box yt-desc-box" id="out-yt-desc"></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" aria-live="polite">已複製到剪貼簿！</div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
