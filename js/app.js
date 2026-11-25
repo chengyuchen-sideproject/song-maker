@@ -10,6 +10,13 @@
  */
 
 const KNOWN_YT_REFS = {
+  "z-4GQPIxppw": {
+    title: "《中國新說唱》潘瑋柏 & 鄧紫棋 & 艾熱《攀登》Live 版",
+    bpm: 90,
+    preset: "climb-anthem",
+    vibe: "史詩級體育館聖歌 Hip-Hop Pop-Rock × 高亢穿透力女聲 Diva 副歌 × 高密度多押熱血勵志說唱",
+    dna: ["🎹 史詩鋼琴 & 管弦樂", "👩‍🎤 鄧紫棋式高音女聲 Hook", "🔥 高密度雙押/三押勵志 Flow", "🏟️ 萬人體育館大合唱氛圍"]
+  },
   lEKuorDbaCQ: {
     title: "《中國新說唱》ICE & 李榮浩《王牌冤家》Live 改編版",
     bpm: 96,
@@ -27,6 +34,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "climb-anthem": {
+    nameZh: "《攀登》史詩聖歌風：高亢女聲 Diva 副歌 × 熱血多押勵志說唱",
+    defaultBpm: 90,
+    sunoStyleZh:
+      "Mandarin stadium anthem hip-hop pop rock, {BPM} BPM, grand piano and orchestral brass intro, soaring powerhouse female vocal chorus with angelic high notes, passionate melodic and hard-hitting male rap verses, epic live concert energy, uplifting and triumphant vibe",
+    sunoStyleEn:
+      "Stadium anthem hip-hop pop rock, {BPM} BPM, grand piano and gospel choir intro, soaring powerhouse female diva chorus, passionate multi-syllable male rap verses, Coldplay Hymn for the Weekend inspired live band production, triumphant and uplifting energy",
+    sunoExclude: "mumble rap, lo-fi whisper, monotone, heavy metal screaming, country",
+    dnaTags: ["🎹 史詩鋼琴 & 管弦樂", "👩‍🎤 高音穿透力女聲 Diva Hook", "🔥 高密度雙押/三押勵志 Flow", "🏟️ 萬人體育館大合唱氛圍"]
+  },
   "gunfire-hk": {
     nameZh: "寶石Gem《槍火》風：90年代港片江湖 Boom Bap × 密集連押 × 熱血港風副歌",
     defaultBpm: 92,
@@ -81,8 +98,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "gunfire-hk",
-  bpm: 92,
+  preset: "climb-anthem",
+  bpm: 90,
   topics: new Set(["nvda", "tsmc", "whipsaw", "tariff", "squeeze"]),
   customHook: ""
 };
@@ -434,6 +451,197 @@ Inspired by 90s Hong Kong action cinema and gritty East Coast boom-bap, "Margin 
   };
 }
 
+function buildClimbPackage(p, bpm, flags) {
+  const hookChant = currentState.customHook || "Oh AI, oh AI, oh AI";
+
+  const lyricsZh = `[Intro: Grand Piano Chords and Atmospheric Strings, Stadium Crowd Ambience]
+[Powerhouse Female Vocal, soulful and soaring]
+有時候我會問自己，到底為了什麼盯緊
+翻過幾座山才叫贏，你曾否問自己
+我們明白每次震盪，當你醒來渴望破浪
+但盤面總變幻，並不是你想像的模樣
+
+[Verse 1: Male Rapper A, melodic high-density internal rhyme flow]
+有人在暴跌中蛻變，想在反彈中兌現
+畫過的趨勢線，更多的時候，都被洗盤成碎片
+是因為信仰要繼續，想在恐慌裡獲得驚喜
+要更多要定力，更精細更盡力
+讓籌碼跟算力，更親密更凝聚
+這就是我想要的，在歷史高點被銘記
+想忘記那些，華爾街浮誇的看空預言
+滑稽的利空裡，藏著洗盤卻又很莊嚴
+
+[Pre-Chorus: Male Rapper A, building intensity]
+Do what I do，是因為不想停止邁步
+不是不在乎，而是我看穿主力的意圖
+回檔的幅度，可能大到讓人牴觸
+但時間的複利，就是你最大的禮物
+別畏懼，${flags.hasTariff ? "哪怕關稅風暴再次密佈" : "哪怕黑天鵝烏雲再次密佈"}
+讓紅Ｋ徹底照亮你，每一寸帳戶
+
+[Chorus: Powerhouse Female Vocal, explosive stadium anthem with choir backing]
+${hookChant}
+Got the market flying high
+So high, so high
+${hookChant}
+From Taipei to New York sky
+So high, so high
+
+[Verse 2: Male Rapper B, powerful old-school stadium flow]
+I trade for myself, I hold for my hood
+價值藏在晶片裡，Keep real for my world
+我為我自己買單，不會砍在阿呆谷底
+我自己對抗震盪，哪怕跌破所有均線壓力
+我曾經如此隨和，跟著散戶的規則
+新聞說什麼就信什麼，看著帳面卻是綠色，沉睡著
+多努力追上，市場太看重的短線訊號
+我逐一對抗，空頭在煽動的做空報告，根本都不重要
+${flags.hasNvda && flags.hasTsmc ? "皮衣男再登高，每當我動搖，撐著我是台積的護城河道" : "基本面再登高，每當我動搖，撐著我是核心的護城河道"}
+我的忠告別追高殺低覆轍重蹈
+一切的回報，來自${flags.hasWhipsaw ? "暴跌三千點時" : "恐慌殺盤那刻"}依然沒放手的驕傲
+
+[Verse 3: Female Rapper & Male Rappers trading bars, fiery fast flow]
+Yo shout out to Jensen, shout out to TSMC
+Put your hands up, so just bounce if you feel me
+不要放肆，學著紀律像個戰士，勇往向前去
+回撤再痛不要放棄，CoWoS 的時代才剛開始而已
+為了什麼意義，不就是為了見證新高破頂的奇蹟
+We spit fire on the chart，帶整個世代飛向 higher
+證明晶圓代工跟 AI 算力本身就是個傳奇
+現在可以好好入睡，因為世界都是算力的詞彙
+
+[Chorus: Powerhouse Female Vocal & All Rappers, maximum stadium climax]
+有時候我會問自己，到底為了什麼努力
+穿過多少黑夜才見黎明，現在我能告訴你
+${hookChant}
+Got the market flying high
+So high, so high
+${hookChant}
+From Taipei to New York sky
+So high, so high
+
+[Outro: Soaring Female High Note Ad-libs, Grand Piano and Live Drums Finale]
+So high... 破頂攀登，創下歷史新高！
+So high, so high!
+[End]`;
+
+  const lyricsEn = `[Intro: Grand Piano Chords and Atmospheric Strings, Stadium Crowd Ambience]
+[Powerhouse Female Vocal, soulful and soaring]
+Sometimes I ask myself at night, what are we fighting for
+How many crashes must we climb before we reach the shore
+We know the market breaks our hearts when morning bells collide
+When reality turns red and leaves us nowhere left to hide
+
+[Verse 1: Male Rapper A, melodic high-density internal rhyme flow]
+Some people transform in the crash, waiting to cash the rebound flash
+Every trendline that we drew got shattered into ashes fast
+Gotta keep the vision alive, looking for light inside the dive
+Need more patience, need more grit, refining every single bit
+Let the silicon and the code come together and explode
+That's the legacy I want when we hit the all-time high road
+Forget the Wall Street pundits preaching doom on TV screens
+Behind their solemn warnings lies a shakeout machine
+
+[Pre-Chorus: Male Rapper A, building intensity]
+Do what I do, 'cause I refuse to stop the climb
+Not that I'm blind, I see the market maker's mind
+The drawdown depth might feel too heavy to endure
+But compounding through the storm is the only proven cure
+Don't be afraid when tariff clouds block out the view
+Let the green breakout candles shine right through to you
+
+[Chorus: Powerhouse Female Vocal, explosive stadium anthem with choir backing]
+${hookChant}
+Got the market flying high
+So high, so high
+${hookChant}
+From Taipei to New York sky
+So high, so high
+
+[Verse 2: Male Rapper B, powerful old-school stadium flow]
+I trade for myself, I hold for my hood
+Value etched in wafers, keep it real for my world
+I pay my own dues, never panic at the bottom floor
+Standing tall against the margin call when bears begin to roar
+I used to follow every headline, trading by the herd's design
+Watching portfolios turn grey while waiting for a sign
+Chasing every noisy rumor that the algos amplify
+Fighting short-seller reports that were built upon a lie
+When my conviction starts to shake, the silicon shield holds me tight
+Learn from the past, never sell the bottom in the night
+Every reward comes from the courage when the index dropped three grand
+
+[Verse 3: Female Rapper & Male Rappers trading bars, fiery fast flow]
+Yo shout out to Jensen, shout out to TSMC
+Put your hands up, so just bounce if you feel me
+Stay disciplined like a warrior marching through the fire
+No matter how deep the pullback, CoWoS takes us higher
+What are we doing this for? To witness history on the chart
+Spitting fire on the floor, taking this era to the stars
+Now we can finally sleep tonight, the future's written in the light
+
+[Chorus: Powerhouse Female Vocal & All Rappers, maximum stadium climax]
+Sometimes I ask myself at night, what are we fighting for
+Through every dark correction, now we're knocking on heaven's door
+${hookChant}
+Got the market flying high
+So high, so high
+${hookChant}
+From Taipei to New York sky
+So high, so high
+
+[Outro: Soaring Female High Note Ad-libs, Grand Piano and Live Drums Finale]
+So high... Scaling the peak, all-time high!
+So high, so high!
+[End]`;
+
+  return {
+    zh: {
+      title: "破頂攀登 (Scaling the Peak)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI饒舌】《破頂攀登》｜致敬《攀登》潘瑋柏×鄧紫棋×艾熱曲風！獻給在台股美股暴跌洗盤中依然堅定的你 (Official Audio)`,
+        `《破頂攀登》Scaling the Peak｜Oh AI, Got the Market Flying High!｜台積電×輝達史詩級勵志說唱 (${bpm} BPM)`,
+        `被洗盤到懷疑人生？聽完這首《破頂攀登》重燃信仰！高音女聲 Hook × 雙男聲燃炸饒舌 🔥`
+      ],
+      ytDesc: `🏔️「有人在暴跌中蛻變，想在反彈中兌現；畫過的趨勢線，更多的時候都被洗盤成碎片……」
+當台股與美股歷經單日三千點的史詩級暴漲暴跌，你是否也曾在凌晨夜盤問自己：到底為了什麼努力？
+這首《破頂攀登 (Scaling the Peak)》致敬經典舞台《攀登》的宏大格局，以 ${bpm} BPM 莊嚴的鋼琴與管弦樂鋪陳，結合穿透力十足的女高音副歌（"${hookChant}, got the market flying high, so high!"）與高密度雙押熱血饒舌，獻給每一位在輝達（NVIDIA）、台積電（2330）與 AI 浪潮中穿越震盪、堅持到底的投資人！
+
+🎧 曲風與編曲亮點：
+• ${bpm} BPM 體育館聖歌級 Hip-Hop Pop-Rock（宏大鋼琴 + 管弦銅管 + 炸裂真鼓）
+• 高亢穿透力女聲 Diva 副歌 × 雙男聲高密度連珠炮勵志饒舌
+• 結尾三人交錯飆詞 + 萬人大合唱高音收尾
+
+💬 哪一句歌詞最戳中你的看盤心聲？在留言區寫下你的信仰標的，我們山頂見！
+
+#台股 #美股 #攀登 #鄧紫棋 #潘瑋柏 #艾熱 #台積電 #輝達 #NVIDIA #TSMC #AI音樂 #SunoAI #中文饒舌 #勵志說唱 #投資信仰`
+    },
+    en: {
+      title: "Scaling the Peak (So High)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `Scaling the Peak (So High) | Epic Stadium Rap × Powerhouse Female Vocal Anthem (NVDA, TSMC, AI Bull Run)`,
+        `"Oh AI, Got the Market Flying High!" 🏔️ Scaling the Peak | Uplifting Wall Street & Taipei Trader Anthem`,
+        `Hold Through the Storm: "Scaling the Peak" (${bpm} BPM Official AI Audio) | Hip-Hop Pop-Rock Stadium Duet`
+      ],
+      ytDesc: `🏔️ "Some people transform in the crash, waiting to cash the rebound flash..."
+Inspired by stadium hip-hop anthems and Coldplay-style piano-rock hooks, "Scaling the Peak (So High)" combines a powerhouse female chorus with passionate, multi-syllable rap verses about surviving market shakeouts, tariff volatility, and riding the NVDA & TSMC AI revolution to all-time highs.
+
+🎧 Track Highlights:
+• ${bpm} BPM grand piano, orchestral strings & stadium live drums
+• Soaring female diva hook ("${hookChant}, got the market flying high, so high!")
+• Dual male & female rap verses packed with internal rhymes and trader conviction
+
+#StockMarketRap #WallStreet #TSMC #NVDA #StadiumAnthem #AIMusic #SunoAI #HipHopRock #TradingMotivation #AllTimeHigh`
+    }
+  };
+}
+
 function buildSongPackage() {
   const p = STYLE_PRESETS[currentState.preset];
   const bpm = currentState.bpm;
@@ -443,6 +651,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "climb-anthem") {
+    return buildClimbPackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "gunfire-hk") {
     return buildGunfirePackage(p, bpm, {
