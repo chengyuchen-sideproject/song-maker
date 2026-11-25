@@ -10,6 +10,13 @@
  */
 
 const KNOWN_YT_REFS = {
+  "j-iN8RD44dI": {
+    title: "楊宗緯 & 寶石Gem & 王宇宙《若月亮沒來》治癒哭腔 × 催淚走心敘事說唱",
+    bpm: 84,
+    preset: "moon-notcome",
+    vibe: "溫暖鋼琴與木吉他 R&B 抒情 Hip-Hop (84 BPM) × 王宇宙清亮治癒副歌（「若是月亮還沒來，路燈也可照窗台」）× 楊宗緯細膩催淚哭腔 × 寶石老舅深夜走心散戶獨白 Rap",
+    dna: ["🌙 溫暖鋼琴×木吉他 R&B", "😭 楊宗緯式深情催淚哭腔", "🎙️ 寶石老舅深夜走心敘事 Rap", "🏮 「若是月亮還沒來」治癒大合唱"]
+  },
   "s4pxJ-1QLQg": {
     title: "G.E.M. 鄧紫棋《差不多姑娘 (Miss Similar)》女王覺醒快嘴×鐵肺高音",
     bpm: 94,
@@ -90,6 +97,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "moon-notcome": {
+    nameZh: "《若月亮沒來》楊宗緯&寶石Gem風：治癒旋律副歌 × 催淚哭腔 × 深夜走心敘事說唱",
+    defaultBpm: 84,
+    sunoStyleZh:
+      "Mandarin emotional healing melodic hip-hop R&B ballad trio, {BPM} BPM, warm acoustic guitar and gentle grand piano intro with soft boom-bap R&B drums and lush strings, breathy tearful soulful male balladeer with signature emotional sobbing vibrato, warm clear youthful chorus vocal singing a comforting poetic melody, deep resonant narrative male rapper delivering heartfelt late-night working-class storytelling verses, tear-jerking live stage empathy",
+    sunoStyleEn:
+      "Emotional healing melodic hip-hop R&B ballad duet, {BPM} BPM, warm acoustic guitar and grand piano with gentle boom-bap R&B drums and sweeping strings, soulful tearful male vocalist singing a comforting poetic chorus with emotional vibrato, deep heartfelt storytelling male rapper delivering late-night struggle and resilience verses, raw live stage emotion",
+    sunoExclude: "aggressive screaming metal, fast techno, EDM, dark drill, trap cowbell, harsh distortion",
+    dnaTags: ["🌙 溫暖鋼琴×木吉他 R&B", "😭 楊宗緯式深情催淚哭腔", "🎙️ 寶石老舅深夜走心敘事 Rap", "🏮 「若是月亮還沒來」治癒大合唱"]
+  },
   "gem-misssimilar": {
     nameZh: "鄧紫棋《差不多姑娘》風：經典鋼琴 Loop ×「差不多的」排比快嘴 × 鐵肺女高音覺醒",
     defaultBpm: 94,
@@ -234,8 +251,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "gem-misssimilar",
-  bpm: 94,
+  preset: "moon-notcome",
+  bpm: 84,
   topics: new Set([
     "nvda",
     "tsmc",
@@ -830,6 +847,170 @@ function analyzeYoutubeUrl() {
   randomizeSongKeywords(false);
   renderAll();
   showToast("🔍 已完成曲風解析並隨機抽取全新關鍵字創作歌詞！");
+}
+
+function buildMoonNotComePackage(p, bpm, flags) {
+  const hookLineZh = currentState.customHook || "若是牛市還沒來，路燈也可照看盤的窗台";
+  const hookLineEn = currentState.customHook || "If the bull market hasn't come tonight, the streetlight still shines upon my trading desk";
+
+  const stockList =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.zh.split(" ")[0]).join("、")
+      : "台積電、輝達";
+  const stockListEn =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.en.split(" ")[0]).join(", ")
+      : "TSMC and Nvidia";
+
+  const lyricsZh = `[Intro: Gentle Grand Piano & Warm Acoustic Guitar Arpeggios, Late-Night City Breeze Ambience]
+[Soulful Tearful Male Vocalist (Yang Zongwei style), breathy emotional sobbing vibrato]
+抬頭看，那斯達克夜盤閃爍的微光
+在凌晨兩點半的書房，把影子拉得好長
+我們都只是在紅綠Ｋ線裡，尋找一點點希望……
+
+[Verse 1: Gentle Narrative Vocal, intimate and weary late-night confession]
+下班的捷運穿過信義區的霓虹燈海
+手機螢幕裡的自選股，還停在綠色的無奈
+${flags.hasWhipsaw ? "昨天才暴漲三千點以為終於能夠苦盡甘來\n今天卻又重挫洗盤，把剛燃起的期待摔進塵埃" : "看著別人貼出翻倍的對帳單在股版喝采\n自己卻在追高與停損之間，一次次被震盪淘汰"}
+買了一碗超商打折的便當，配著還沒冷掉的看盤軟體
+其實我想要的並不多，只是想給家人好一點的風景
+
+[Chorus: Warm Clear Healing Male Vocal & Tearful Balladeer Harmony, sweeping strings enter]
+${hookLineZh}
+照著六點半剛收盤的發呆，照著還沒解套的無奈
+若是漲停還沒來，晨風也可吹散交割的陰霾
+吹乾眼角那滴不甘心的淚，溫暖你獨自盯盤的現在
+
+[Verse 2: Deep Resonant Storytelling Male Rapper (Gem style), warm empathetic northern conversational flow]
+（寶石老舅式深夜走心敘事說唱，充滿煙火氣與共情力）
+嘿，兄弟，我看見你在凌晨三點還亮著的那盞檯燈
+螢幕上跳動著 ${stockList} 的分時走勢，你揉著通紅的眼睛不敢出聲
+你說你不是貪心想當什麼華爾街之狼，你只是想讓父母看病時不用再看標價
+你只是想在房貸扣款的隔天，能微笑著給孩子買她最愛的那盒積木玩具啊
+可是這盤面太冷酷，${flags.hasTariff ? "一則半夜的關稅推文、一句聯準會的鷹派發言" : "一趟主力假跌破的洗盤、一根刺穿底部的天地針"}
+就能讓你在辦公室廁所裡，看著融資維持率的簡訊偷偷紅了眼眶
+我們都在Ｋ線的迷宮裡受過傷，都曾在砍在阿呆谷的午後懷疑過自己的信仰
+但你看窗外那盞昏黃的路燈，就算烏雲遮住了滿天星斗與月亮
+只要手裡的本金還在、心中的紀律不慌，這點微光也能陪你熬過最冷的寒霜！
+
+[Chorus: Trio Harmony — Clear Healing Vocal + Tearful High Tenor + Resonant Rapper Backing]
+${hookLineZh}
+照著被洗盤後的空白，照著不肯認輸的胸懷
+若是主升段還沒來，時間的複利會替你把花開
+撫平每一道追高砍低的傷痕，陪你走過最漫長的等待
+
+[Bridge: Overlapping Emotional Climax — Tearful High-Note Belt & Heartfelt Rap Monologue]
+[Tearful Balladeer] 就算這世界偶爾對散戶太殘忍——
+[Rapper] （別怕，擦乾眼淚！看五日線已經慢慢走平，MACD 在谷底亮起了第一根紅柱！）
+[Tearful Balladeer] 就算風暴吹落了滿身的傷痕——
+[Rapper] （我們不是天生被收割的韭菜，守住 ${stockList} 的護城河，黎明前的夜盤總是最黑！）
+[Tearful Balladeer] 若是月亮還沒來——路燈也會為你而亮——！
+
+[Outro: Lone Acoustic Guitar and Soft Piano Chords, gentle comforting hum]
+[Rapper]
+關上電腦吧，今晚好好睡一覺。
+就算月亮還沒來，明天九點，太陽依然會升起。
+[Tearful Balladeer]
+路燈也可照窗台…… 照亮你破頂的未來……
+[End]`;
+
+  const lyricsEn = `[Intro: Gentle Grand Piano & Warm Acoustic Guitar Arpeggios, Late-Night City Breeze Ambience]
+[Soulful Tearful Male Vocalist, breathy emotional vibrato]
+Looking up at the glowing Nasdaq futures in the dark
+Two-thirty AM in a quiet room, chasing a tiny spark
+We're all just searching for a little peace inside the red and green...
+
+[Verse 1: Gentle Narrative Vocal, intimate and weary late-night confession]
+Evening subway rolling past the downtown neon lights
+Staring at a portfolio bleeding through another sleepless night
+Three thousand points up yesterday made us believe the storm had passed
+Two thousand down today shattered the fragile dream so fast
+Heating up a late-night dinner by the glowing monitor screen
+All I ever wanted was a better life for the ones who count on me
+
+[Chorus: Warm Clear Healing Male Vocal & Soulful Harmony, sweeping strings enter]
+${hookLineEn}
+Shining on the weary eyes at dawn, shining on the drawdowns we hold on
+If the limit-up hasn't come today, the morning breeze will blow the margin clouds away
+Drying the quiet tears upon your face, keeping you warm inside this lonely race
+
+[Verse 2: Deep Resonant Storytelling Male Rapper, warm empathetic conversational flow]
+(Heartfelt Late-Night Storytelling Rap — Raw Empathy & Warmth)
+Hey brother, I see your desk lamp burning at three in the morning
+Tickers of ${stockListEn} flashing while the quiet city's yawning
+You never wanted to be a greedy Wall Street wolf in a tailored suit
+You just wanted to pay the mortgage down and give your family a softer route
+To buy your kid that birthday gift without checking the account balance twice
+To let your parents rest without worrying about the hospital price
+But this market can be merciless—one midnight tariff tweet or stop-hunt wick
+Can leave you staring at a margin-call text feeling broken and sick
+We've all been bruised inside this candlestick maze, sold the bottom in the rain
+Questioned every ounce of our conviction while carrying the quiet pain
+But look outside your window at that humble amber streetlight standing tall
+Even when the clouds hide the moon and the index takes a fall
+As long as your discipline is breathing, that little light will guide you through it all!
+
+[Chorus: Full Trio Harmony — Clear Vocal + Soulful High Tenor + Resonant Rapper Backing]
+${hookLineEn}
+Shining on the scars of the shakeout, shining on the faith we never sold out
+If the breakout wave hasn't arrived, compounding patience keeps the dream alive
+Healing every wound from the volatility, walking with you till the morning sky
+
+[Bridge: Overlapping Emotional Climax — Soaring Tearful High Note & Heartfelt Rap Monologue]
+[Soulful Vocal] Even when the market feels too cold to bear—
+[Rapper] (Hold on, wipe your eyes! The moving averages are curling up, MACD divergence flashing at the bottom!)
+[Soulful Vocal] Even when the drawdown leaves you standing there—
+[Rapper] (We're not born to be harvested! Holding ${stockListEn} through the darkest hour before the dawn!)
+[Soulful Vocal] If the moon hasn't come tonight—the streetlight still shines for you—!
+
+[Outro: Lone Acoustic Guitar and Soft Piano Chords, gentle comforting hum]
+[Rapper]
+Close the laptop now, get some rest tonight.
+Even if the moon hasn't come yet, the opening bell will bring the morning sun.
+[Soulful Vocal]
+The streetlight still shines upon your desk... lighting up the dawn...
+[End]`;
+
+  return {
+    zh: {
+      title: "若牛市沒來 (路燈下的看盤人)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI催淚饒舌】《若牛市沒來》｜致敬楊宗緯×寶石Gem×王宇宙〈若月亮沒來〉！獨特哭腔搭配走心說唱，聽哭百萬股民 (Official Audio)`,
+        `《若牛市沒來（若是牛市還沒來，路燈也可照窗台）》｜獻給深夜還在盯美股夜盤的你｜治癒抒情 × 走心敘事 Rap (${bpm} BPM)`,
+        `被洗盤、套牢、砍在阿呆谷的夜晚必聽…這首《若牛市沒來》把散戶的心酸與溫柔唱進骨子裡 🌙😭`
+      ],
+      ytDesc: `🌙「若是牛市還沒來，路燈也可照看盤的窗台；照著六點半剛收盤的發呆，照著還沒解套的無奈……」
+致敬《天賜的聲音5》楊宗緯、寶石Gem（董寶石）與王宇宙神級催淚舞台《若月亮沒來》，這首《若牛市沒來 (路燈下的看盤人)》以 ${bpm} BPM 溫暖的鋼琴與木吉他 R&B 律動，結合楊宗緯式深情細膩的催淚哭腔、王宇宙式清澈治癒的副歌旋律，以及寶石老舅式充滿人間煙火氣的深夜走心 Rap！
+沒有浮誇的炫富，只有每個普通散戶為了家人、為了房貸、為了生活，在台股早盤與美股夜盤（${stockList}）的震盪洗盤中默默咬牙堅持的真實縮影。
+
+🎧 曲風與編曲亮點：
+• ${bpm} BPM 溫暖木吉他 & 古典鋼琴 R&B 抒情 Hip-Hop 編曲
+• 楊宗緯式細膩哭腔主歌 × 清亮治癒大合唱副歌：「${hookLineZh}」
+• 寶石Gem式深夜走心敘事說唱：句句共情，獻給凌晨三點還亮著檯燈的看盤人
+
+💬 今晚如果帳面還沒有月亮，願這首歌像窗外的路燈一樣陪你度過震盪。在留言區給自己和戰友留一句「明天太陽依然會升起 🌙」！
+
+#台股 #美股 #若月亮沒來 #楊宗緯 #寶石Gem #王宇宙 #天賜的聲音 #催淚說唱 #治癒音樂 #台積電 #輝達 #SunoAI #AI音樂 #散戶心聲 #股票饒舌`
+    },
+    en: {
+      title: "If the Bull Market Hasn't Come (Streetlight by the Screen)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `If the Bull Market Hasn't Come | Healing R&B Vocal × Heartfelt Late-Night Trader Storytelling Rap`,
+        `"If the Bull Market Hasn't Come Tonight, the Streetlight Still Shines..." 🌙 Emotional Stock Trader Ballad (${bpm} BPM)`,
+        `For Every Trader Holding Through a Sleepless Drawdown 😭 "If the Bull Market Hasn't Come" (Official AI Audio)`
+      ],
+      ytDesc: `🌙 "${hookLineEn}..."
+Inspired by the viral live performance of "If the Moon Hasn't Come (若月亮沒來)" by Aska Yang (楊宗緯), Gem (寶石老舅), and Wang Yuzhou, this ${bpm} BPM healing R&B hip-hop ballad blends a tearful, soulful chorus with an empathetic late-night storytelling rap verse dedicated to everyday retail traders holding ${stockListEn} through market volatility.
+
+#StockMarketRap #IfTheMoonHasntCome #HealingMusic #EmotionalRap #TraderLife #TSMC #NVDA #SunoAI #AIMusic`
+    }
+  };
 }
 
 function buildMissSimilarPackage(p, bpm, flags) {
@@ -2604,6 +2785,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "moon-notcome") {
+    return buildMoonNotComePackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "gem-misssimilar") {
     return buildMissSimilarPackage(p, bpm, {

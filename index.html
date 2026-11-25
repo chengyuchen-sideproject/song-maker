@@ -33,7 +33,7 @@
       <section class="card">
         <div class="card-header">
           <h2>1️⃣ 參考 YouTube 網址與曲風基因</h2>
-          <span class="status-pill" id="url-status">已載入鄧紫棋《差不多姑娘》女王覺醒快嘴×高音基因</span>
+          <span class="status-pill" id="url-status">已載入楊宗緯&寶石Gem&王宇宙《若月亮沒來》催淚敘事說唱基因</span>
         </div>
         <div class="form-group">
           <label for="yt-url">YouTube 參考歌曲網址</label>
@@ -41,27 +41,27 @@
             <input
               type="url"
               id="yt-url"
-              value="https://www.youtube.com/watch?v=s4pxJ-1QLQg&list=RDz-4GQPIxppw&index=39"
+              value="https://www.youtube.com/watch?v=j-iN8RD44dI&list=RDj-iN8RD44dI&start_radio=1"
               placeholder="貼上 YouTube 連結 (例如：https://www.youtube.com/watch?v=...)"
             />
             <button id="btn-analyze-url" class="btn-accent">🔍 解析曲風</button>
           </div>
-          <small class="hint">支援一鍵解析《差不多姑娘》(s4pxJ-1QLQg)、《苦行僧》(50BCt8bptDg)、《飄向北方》(IBaWc3C00kU)、《慶功酒》(MywfB-ZXe8o)、《Ghost Face》(GNPZZ55pBck)、《在Cypher裏》(VslVrOUnJX0)、《離開》(Qey0V-UtK6U)、《除了說唱我什麼都不會》(IjltoDcgtV0)、《攀登》(z-4GQPIxppw)、《槍火》(FqRiJA8KOO0)、《王牌冤家》(lEKuorDbaCQ)。</small>
+          <small class="hint">支援一鍵解析《若月亮沒來》(j-iN8RD44dI)、《差不多姑娘》(s4pxJ-1QLQg)、《苦行僧》(50BCt8bptDg)、《飄向北方》(IBaWc3C00kU)、《慶功酒》(MywfB-ZXe8o)、《Ghost Face》(GNPZZ55pBck)、《在Cypher裏》(VslVrOUnJX0)、《離開》(Qey0V-UtK6U)、《除了說唱我什麼都不會》(IjltoDcgtV0)、《攀登》(z-4GQPIxppw)、《槍火》(FqRiJA8KOO0)、《王牌冤家》(lEKuorDbaCQ)。</small>
         </div>
 
         <div id="ref-song-card" class="ref-song-box">
           <div class="ref-thumb">
-            <img id="ref-thumb-img" src="https://i.ytimg.com/vi/s4pxJ-1QLQg/hqdefault.jpg" alt="Reference Thumbnail" />
-            <span class="ref-bpm-tag" id="ref-bpm-display">94 BPM</span>
+            <img id="ref-thumb-img" src="https://i.ytimg.com/vi/j-iN8RD44dI/hqdefault.jpg" alt="Reference Thumbnail" />
+            <span class="ref-bpm-tag" id="ref-bpm-display">84 BPM</span>
           </div>
           <div class="ref-meta">
-            <h3 id="ref-title">G.E.M. 鄧紫棋《差不多姑娘 (Miss Similar)》女王覺醒快嘴×鐵肺高音</h3>
-            <p id="ref-vibe">致敬熱狗《差不多先生》古典鋼琴迴圈 × 現代 Trap Boom-Bap 重鼓點 (94 BPM) ×「差不多的…」犀利排比反諷主歌 × 鄧紫棋式爆發力女聲快嘴與鐵肺高音覺醒副歌</p>
+            <h3 id="ref-title">楊宗緯 & 寶石Gem & 王宇宙《若月亮沒來》治癒哭腔 × 催淚走心敘事說唱</h3>
+            <p id="ref-vibe">溫暖鋼琴與木吉他 R&B 抒情 Hip-Hop (84 BPM) × 王宇宙清亮治癒副歌（「若是月亮還沒來，路燈也可照窗台」）× 楊宗緯細膩催淚哭腔 × 寶石老舅深夜走心散戶獨白 Rap</p>
             <div class="dna-tags" id="ref-dna-tags">
-              <span>🎹 經典鋼琴 Loop×Trap 808</span>
-              <span>👑 鄧紫棋式女聲快嘴+鐵肺高音</span>
-              <span>🔁 「差不多的…」排比反諷 Flow</span>
-              <span>🔥 撕掉韭菜標籤覺醒高潮</span>
+              <span>🌙 溫暖鋼琴×木吉他 R&B</span>
+              <span>😭 楊宗緯式深情催淚哭腔</span>
+              <span>🎙️ 寶石老舅深夜走心敘事 Rap</span>
+              <span>🏮 「若是月亮還沒來」治癒大合唱</span>
             </div>
           </div>
         </div>
@@ -69,7 +69,8 @@
         <div class="form-group">
           <label for="style-preset">曲風整改模板 (可自由切換)</label>
           <select id="style-preset">
-            <option value="gem-misssimilar" selected>👑 鄧紫棋《差不多姑娘》風：經典鋼琴 Loop ×「差不多的」排比快嘴 × 鐵肺女高音覺醒 (94 BPM)</option>
+            <option value="moon-notcome" selected>🌙 《若月亮沒來》楊宗緯&寶石Gem風：治癒旋律副歌 × 催淚哭腔 × 深夜走心敘事說唱 (84 BPM)</option>
+            <option value="gem-misssimilar">👑 鄧紫棋《差不多姑娘》風：經典鋼琴 Loop ×「差不多的」排比快嘴 × 鐵肺女高音覺醒 (94 BPM)</option>
             <option value="gai-ascetic">🐉 GAI《苦行僧》風：搖滾電吉他×國風古琴 Trap × 霸氣江湖草莽說唱 × 蒼涼大合唱 (90 BPM)</option>
             <option value="drift-north">🌪️ 那吾克熱&尤長靖《飄向北方》風：史詩鋼琴管弦 × 穿透高音副歌 × 炸裂機關槍快嘴 (92 BPM)</option>
             <option value="fox-victorywine">🍶 福克斯《慶功酒》風：京劇戲腔開場 × 古箏國風 Trap × 豪邁舉杯慶功副歌 (95 BPM)</option>
@@ -157,8 +158,8 @@
             <input type="text" id="custom-hook" placeholder="留空則使用該曲風經典改編副歌" />
           </div>
           <div class="form-group">
-            <label for="custom-bpm">目標 BPM：<span id="bpm-val">94</span></label>
-            <input type="range" id="custom-bpm" min="75" max="155" value="94" />
+            <label for="custom-bpm">目標 BPM：<span id="bpm-val">84</span></label>
+            <input type="range" id="custom-bpm" min="75" max="155" value="84" />
           </div>
         </div>
 
