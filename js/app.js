@@ -10,6 +10,13 @@
  */
 
 const KNOWN_YT_REFS = {
+  GNPZZ55pBck: {
+    title: "法老 PHARAOH《Ghost Face》硬核敘事技術流快嘴",
+    bpm: 93,
+    preset: "pharaoh-ghostface",
+    vibe: "自傳敘事意識說唱 (Conscious Boom-Bap, 93 BPM) × 憂鬱古典鋼琴迴圈 × 層層堆疊窒息式多押快嘴 × 靈魂排比催淚高潮",
+    dna: ["🎹 憂鬱古典鋼琴 Boom-Bap", "⚡ 窒息感技術流雙倍速快嘴", "🎭 No way 直到戴上 Ghost Face", "🔥 小散戶以紀律對抗巨鱷資本"]
+  },
   VslVrOUnJX0: {
     title: "瘦子E.SO & 歐陽靖 & 李佳隆 & 小春《在Cypher裏》",
     bpm: 98,
@@ -55,6 +62,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "pharaoh-ghostface": {
+    nameZh: "法老《Ghost Face》風：憂鬱鋼琴 Boom-Bap × 底層逆襲敘事 × 窒息技術流快嘴",
+    defaultBpm: 93,
+    sunoStyleZh:
+      "Mandarin conscious storytelling boom-bap hip-hop, {BPM} BPM, melancholic classical piano loop, heavy gritty boom bap drums, deep upright bass, raw emotional male rapper building from calm narrative into explosive rapid-fire technical fast flow, intense dramatic delivery, underground hardcore rap masterpiece",
+    sunoStyleEn:
+      "Conscious storytelling hardcore boom-bap hip-hop, {BPM} BPM, melancholic classical piano loop, heavy dusty boom bap drums, raw emotional male rapper building from gritty narrative into breathless double-time technical fast flow, Eminem Stan meets 90s East Coast underground intensity",
+    sunoExclude: "happy dance pop, EDM, autotune mumble rap, country, trap cowbell",
+    dnaTags: ["🎹 憂鬱古典鋼琴 Boom-Bap", "⚡ 窒息感技術流雙倍速快嘴", "🎭 No way 直到戴上 Ghost Face", "🔥 小散戶以紀律對抗巨鱷資本"]
+  },
   "cypher-fourkings": {
     nameZh: "《在Cypher裏》四人接力風：歐陽靖雙語 × 小春江湖 × 李佳隆旋律 × 瘦子壓軸",
     defaultBpm: 98,
@@ -149,8 +166,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "cypher-fourkings",
-  bpm: 98,
+  preset: "pharaoh-ghostface",
+  bpm: 93,
   topics: new Set(["nvda", "tsmc", "whipsaw", "tariff", "squeeze"]),
   customHook: ""
 };
@@ -1202,6 +1219,170 @@ In the trading cypher. Market closed!
   };
 }
 
+function buildGhostfacePackage(p, bpm, flags) {
+  const hookEndZh = currentState.customHook || "Just no way, no way，直到我戴上了 Ghost Face!";
+  const hookEndEn = currentState.customHook || "Just no way, no way, until I put on the Ghost Face!";
+
+  const lyricsZh = `[Intro: Melancholic Classical Piano Loop, Vinyl Crackle, Heavy Boom-Bap Drums Slowly Drop]
+[Rapper, calm, deep, reflective storytelling tone]
+從我開戶那天，我就想要戰勝這市場
+因為我租屋處的桌上，擺著幾本泛黃的波浪理論與Ｋ線圖表
+一部財經紀錄片，關於華爾街之狼，關於矽谷與信義區的霓虹燈光
+我慢慢地走入了自己佈的槓桿，開始相信天上真的會掉下財富自由的聖杯……
+
+[Verse 1: Emotional Storytelling Male Rapper, steady gritty boom-bap cadence, dense rhymes]
+一張交割單帶我駛向夢想中的聖地
+開始在紅綠跳動中維持我的生計
+冷風吹進凌晨三點盯著夜盤的衛衣
+融資維持率的警訊刺骨般的鋒利
+想過銷戶，但卻滿身骨氣
+表面看似隨意，實則背地悲寂
+老媽問我今年賺沒，Yeah maybe, maybe
+一個散戶挺直背脊，與外資巨鱷對立
+
+[Verse 2: Hardcore Male Rapper, aggressive tone, accelerating into technical rapid-fire double-time flow]
+所以那些曬假對帳單的老師別來和我比慘
+老子的交割紀錄他媽的滿是遺憾
+沒有內線的籍貫，滿倉操作極端
+眼看停損被掃穿，但卻無法阻攔
+你們只懂在股版裡面鍵盤避難
+討論區裡你可以是一個少年股神
+可以是巴菲特，可以沒有負擔
+可以走上神壇，也可以在隔天徹底輸慘
+${flags.hasWhipsaw ? "昨天台股暴漲三千三百點你高喊財富自由\n今天關稅重挫一千九百點你連呼吸都在發抖" : "昨天跳空創高你高喊財富自由\n今天長黑殺破支撐你連呼吸都在發抖"}
+我在斷頭的邊緣把每一根分時Ｋ線刻進骨頭
+${flags.hasNvda ? "看皮衣男人閃電回歸，輝達的算力刺穿空頭的胸口" : "看科技龍頭強勢回歸，多頭的算力刺穿空頭的胸口"}
+
+[Chorus: Intense Emotional Male Rapper, explosive rapid-fire climax with haunting piano]
+你是否想過跌停板可以鎖死你的退路呢？
+你是否想過超商便當可以配著夜盤微波爐熱？
+你是否見過男人因為一根長下影線在深夜裡哭了？
+當三次斷頭一個人在承受，他還怎麼輸呢？
+不過 No way, no way, no way, no way, know?
+當你沒有主力籌碼一切就 No way, no way, know?
+${flags.hasTsmc ? "除了握緊你的台積電跟信仰你 No way, no way, no" : "除了握緊你的核心部位跟紀律你 No way, no way, no"}
+${hookEndZh}
+
+[Verse 3: Technical Fast-Flow Male Rapper, breathless machine-gun rhyme density, triumphant grit]
+一個小散戶生活在全自動演算法的城市
+嘗試用鋼鐵般的紀律去對抗資本的物質
+我受夠了洗盤，受夠了踏空
+受夠了追高被套在山頂吹著冷風
+受夠了禿鷹的做空報告，你不懂
+我受夠了做夠了功課算盡了 CoWoS 產能的一切
+卻在聯準會一句話後換來帳戶的撕裂
+所以我戴上面具，把情緒全部抽離
+像個沒有感情的幽靈在恐慌殺盤裡逢低扣扳機
+直到我又默默站上績效榜單的第一
+打敗心裡的貪婪與恐懼，才是我賦予這場交易的意義！
+
+[Outro: Piano Loop Solo Fades Out with Distant Rain and Heartbeat]
+[Rapper, quiet resolute whisper]
+一個小散戶，在巨鱷的城市……
+戴上 Ghost Face，砍掉情緒，我們盤中見。
+[End]`;
+
+  const lyricsEn = `[Intro: Melancholic Classical Piano Loop, Vinyl Crackle, Heavy Boom-Bap Drums Slowly Drop]
+[Rapper, calm, deep, reflective storytelling tone]
+From the day I funded my first account, I wanted to conquer Wall Street
+Because on the desk of my tiny studio apartment sat a stack of worn-out candlestick charts
+A documentary playing about the trading floor, neon lights reflecting off the glass
+I slowly walked into the leverage trap I built myself, believing the market owed me a miracle...
+
+[Verse 1: Emotional Storytelling Male Rapper, steady gritty boom-bap cadence, dense rhymes]
+One wire transfer took me to the promised land of greed
+Trying to survive inside the red and green ticker feed
+Cold wind blowing through my hoodie at three AM watching futures bleed
+Margin maintenance warnings cutting deeper than a blade indeed
+Thought about quitting, but my pride wouldn't let me fold
+Acting calm on the outside, fighting a lonely war untold
+Mom asks if I made money this year, yeah maybe, maybe
+One retail kid standing tall against the hedge fund navy
+
+[Verse 2: Hardcore Male Rapper, aggressive tone, accelerating into technical rapid-fire double-time flow]
+So all those fake gurus flexing paper accounts don't talk to me about pain
+My brokerage statements are written in blood and pouring rain
+No insider pedigree, trading on the ragged edge
+Watching my stop-loss get hunted right off the cliff's ledge
+You only know how to hide behind a keyboard on Reddit threads
+Online you can pretend to be a billionaire oracle in your head
+Can be a legend, can trade without a single scar
+Can climb the altar or lose everything inside a single bar
+Three thousand points rally yesterday, everybody screaming we made it
+Two thousand points tariff crash today, now your conviction faded
+Carving every five-minute wick into my bones on the brink of ruin
+Leather jacket returns to Nvidia, AI compute is the storm we're brewing
+
+[Chorus: Intense Emotional Male Rapper, explosive rapid-fire climax with haunting piano]
+Have you ever seen a limit-down lock every exit door in sight?
+Have you ever heated up cheap instant noodles watching Nasdaq at midnight?
+Have you ever seen a grown man cry over a long lower wick in the dark?
+When a man survives three wipeouts alone, how can he lose his spark?
+But it's no way, no way, no way, no way, you know?
+When you ain't got institutional money it's no way, no way, you know?
+Except holding onto TSMC and your iron discipline, no way, no way, no
+${hookEndEn}
+
+[Verse 3: Technical Fast-Flow Male Rapper, breathless machine-gun rhyme density, triumphant grit]
+A broke kid living in a city ruled by high-frequency machines
+Trying to use spiritual discipline to fight a billion-dollar regime
+I'm sick of the shakeouts, sick of missing the run
+Sick of buying the top and freezing when the dump has begun
+Sick of the short-seller hit pieces, you don't understand the grind
+I did all the CoWoS research, left every retail excuse behind
+Only to watch a single Fed sentence tear my equity curve apart
+So I put on the Ghost Face, drained every drop of emotion from my heart
+Moving like a phantom sniper buying the blood when the panic peaks
+Until I quietly climbed to the top of the leaderboard after all those weeks
+Defeating my own fear and greed is the only meaning I seek!
+
+[Outro: Piano Loop Solo Fades Out with Distant Rain]
+[Rapper, quiet resolute whisper]
+A retail kid in a city of Wall Street giants...
+Put on the Ghost Face. Kill the emotion. See you at the bell.
+[End]`;
+
+  return {
+    zh: {
+      title: "操盤假面 (Ghost Face Trader)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI硬核饒舌】《操盤假面 Ghost Face》｜致敬法老PHARAOH快嘴神作！講述散戶底層逆襲台股美股的催淚史詩 (Official Audio)`,
+        `《操盤假面 Ghost Face》｜「你是否見過男人因為一根下影線哭了？當一切一個人在承受他還怎麼輸呢！」(${bpm} BPM 技術流說唱)`,
+        `一個小散戶在巨鱷的城市，用信仰對抗資本！聽完這首《操盤假面》技術流快嘴直接起雞皮疙瘩 🔥`
+      ],
+      ytDesc: `🎭「你是否想過超商便當可以配著夜盤微波爐熱？你是否見過男人因為一根長下影線在深夜裡哭了？當一切一個人在承受，他還怎麼輸呢！」
+致敬華語硬核敘事說唱神作——法老 PHARAOH《Ghost Face》，這首《操盤假面 (Ghost Face Trader)》以 ${bpm} BPM 憂鬱深沉的古典鋼琴採樣與厚重 Boom-Bap 鼓點，講述一個沒有內線、沒有背景的普通散戶，在經歷融資斷頭、台股單日三千點暴漲暴跌洗盤、外資演算法獵殺後，決定戴上沒有情緒的「操盤假面（Ghost Face）」，緊握台積電（2330）與輝達（NVIDIA）核心信仰，從底層完成絕地逆襲的技術流快嘴詩篇。
+
+🎧 曲風與技術流亮點：
+• ${bpm} BPM 意識敘事說唱 (Conscious Storytelling Boom-Bap)
+• 從壓抑低語層層推進至中後段窒息感十足的「超高密度連珠炮快嘴」
+• 直擊靈魂的催淚排比高潮：「No way, no way... 直到我戴上了 Ghost Face！」
+
+💬 這首歌獻給每一個在深夜獨自扛下虧損、卻依然沒有放棄精進自己的交易者。哪一句最觸動你？留言告訴我們。
+
+#台股 #美股 #法老 #GhostFace #硬核說唱 #技術流快嘴 #台積電 #輝達 #NVIDIA #SunoAI #AI音樂 #中文饒舌 #散戶逆襲 #股票饒舌`
+    },
+    en: {
+      title: "Ghost Face Trader (Against The Algos)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `Ghost Face Trader (Against The Algos) | Technical Fast-Flow Storytelling Stock Market Rap (NVDA, TSMC)`,
+        `"When a Man Survives Three Wipeouts Alone, How Can He Lose?" 🎭 Ghost Face Trader | Hardcore Boom-Bap`,
+        `A Retail Trader in a City of Wall Street Giants | "Ghost Face Trader" (${bpm} BPM Official AI Audio)`
+      ],
+      ytDesc: `🎭 "Have you ever heated up cheap instant noodles watching Nasdaq at midnight? Have you ever seen a grown man cry over a long lower wick in the dark?"
+"Ghost Face Trader (Against The Algos)" is a ${bpm} BPM conscious storytelling boom-bap epic. Over a haunting classical piano loop, it builds from a raw, autobiographical narrative of retail trading struggle into a breathless, double-time technical fast flow about killing emotion, putting on the "Ghost Face," and riding TSMC & NVDA conviction against Wall Street algorithms.
+
+#StockMarketRap #StorytellingRap #FastFlow #BoomBap #TSMC #NVDA #WallStreet #RetailTrader #SunoAI #AIMusic #ConsciousHipHop`
+    }
+  };
+}
+
 function buildSongPackage() {
   const p = STYLE_PRESETS[currentState.preset];
   const bpm = currentState.bpm;
@@ -1211,6 +1392,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "pharaoh-ghostface") {
+    return buildGhostfacePackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "cypher-fourkings") {
     return buildCypherPackage(p, bpm, {
