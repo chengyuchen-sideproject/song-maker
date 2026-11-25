@@ -16,10 +16,27 @@ const KNOWN_YT_REFS = {
     preset: "ace-rivals",
     vibe: "慵懶都會 R&B / Pop Rock 旋律 × 強勢俐落 Melodic Trap 說唱 × 結尾高張力交錯對唱 (Call & Response)",
     dna: ["🎸 Funky 電吉他 Riff", "🥁 現場真鼓 + 808", "🎤 雙男聲反差對唱", "⚡ Bridge 交錯疊句"]
+  },
+  FqRiJA8KOO0: {
+    title: "寶石Gem《槍火 (相對那就針鋒相對)》港片江湖說唱",
+    bpm: 92,
+    preset: "gunfire-hk",
+    vibe: "90年代港產警匪片電影感 Boom Bap × 機關槍密集連押 Flow × 滄桑熱血港風旋律副歌",
+    dna: ["🔫 港片江湖銅管 & 電吉他", "🥁 硬派 Boom Bap 重鼓點", "🔥 八連押韻機關槍 Flow", "🎬 熱血港風旋律副歌"]
   }
 };
 
 const STYLE_PRESETS = {
+  "gunfire-hk": {
+    nameZh: "寶石Gem《槍火》風：90年代港片江湖 Boom Bap × 密集連押 × 熱血港風副歌",
+    defaultBpm: 92,
+    sunoStyleZh:
+      "90s Hong Kong action movie soundtrack hip-hop, cinematic gangster boom bap rap, {BPM} BPM, gritty brass stabs, melancholic vintage electric guitar, heavy punchy drums, aggressive rapid-fire rhyming male rapper in verse, dramatic anthemic retro HK pop-rock vocal chorus, intense street battle energy",
+    sunoStyleEn:
+      "90s cinematic crime thriller hip-hop, gritty East Coast boom bap meets Hong Kong action movie score, {BPM} BPM, dramatic brass hits, vintage tremolo guitar, hard-hitting drums, aggressive rapid-fire internal rhyme male rapper, anthemic heroic rock-soul chorus",
+    sunoExclude: "bubblegum pop, EDM, techno, cute female vocal, acoustic country",
+    dnaTags: ["🔫 港片江湖銅管 & 電吉他", "🥁 硬派 Boom Bap 重鼓點", "🔥 八連押韻機關槍 Flow", "🎬 熱血港風旋律副歌"]
+  },
   "ace-rivals": {
     nameZh: "王牌冤家風：慵懶都會 R&B × 強勢 Melodic Rap 對唱",
     defaultBpm: 96,
@@ -64,8 +81,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "ace-rivals",
-  bpm: 96,
+  preset: "gunfire-hk",
+  bpm: 92,
   topics: new Set(["nvda", "tsmc", "whipsaw", "tariff", "squeeze"]),
   customHook: ""
 };
@@ -223,6 +240,200 @@ function analyzeYoutubeUrl() {
   showToast("🔍 已完成 YouTube 參考網址曲風基因提取與整改！");
 }
 
+function buildGunfirePackage(p, bpm, flags) {
+  const hookLineZh = currentState.customHook || "在盤中得我一個";
+  const hookLineEn = currentState.customHook || "Standing alone in the storm tonight";
+
+  const lyricsZh = `[Intro]
+[Cinematic 90s Hong Kong thriller string tension, metallic gun-cocking sound effect, heavy boom bap drums drop]
+[Rapper]
+Yeah... 九點鐘開盤鈴聲一響，這條街沒有人講情面
+外資、主力、散戶，籌碼上膛
+開盤那就針鋒相對！Let's go!
+
+[Verse 1: Aggressive Male Rapper, tight rapid-fire quadruple rhyme scheme, gritty street delivery]
+對決那就針鋒相對
+台北華爾街夜盤相會
+所有籌碼就一步到位
+我敲下買單讓成交清脆
+這盤面難免人心向背
+空頭當道有大戶作祟
+那嗜血禿鷹的他們都想洗退
+就集中火力我將空單報廢
+
+這喋血盤面在滋養慣犯
+在開盤瞬間也會遭到暗算
+我逢低地加碼讓空軍癱瘓
+就算滿倉槓桿也把他軋爆
+你看跌停板都拉不住我
+筆筆抄底我滿腔怒火
+${flags.hasTsmc ? "讓台積電打開漲停鎖" : "讓主力鎖碼打開漲停鎖"}
+看這漫天的銀彈都無處躲
+
+[Chorus: Anthemic Retro Hong Kong Cinema Vocal, dramatic and heroic melody]
+${hookLineZh}
+紅Ｋ一片穿過
+任震盪激發璀璨真我
+就不應得過且過
+把空單頂起撕破
+用雙手打拚一世槍火
+
+[Verse 2: Aggressive Male Rapper, bouncy confident gangster flow]
+${flags.hasNvda ? "當我高喊皮衣男回歸會有大事發生\n先把輝達加上兩倉再配幾杯美式" : "當我高喊突破頸線會有大事發生\n先把槓桿加上兩倍再配幾杯美式"}
+${flags.hasWhipsaw ? "趁著跳空就發瘋準備軋空\n看我暴拉三千點教訓這些空頭" : "趁著拉回就發瘋準備搶攻\n看我旱地拔蔥教訓這些空頭"}
+穿上防彈衣哥們準備狙你
+不得猶豫從來不得虛你
+華爾街算老幾想跟我再洗一局
+我們必須和韭菜保持距離
+
+Yeah 四線合一隨時出發
+${flags.hasTariff ? "關稅利空是隨機觸發" : "黑天鵝利空是隨機觸發"}
+我停利按下是零點三八
+把做空渣滓就地正法
+你是真多是假多拉出來遛遛
+惹誰不好你惹到護國神山
+跪下來求求我別對你軋空
+給你回補也不中用啊都不用在意
+
+[Chorus: Anthemic Retro Hong Kong Cinema Vocal, full orchestral brass & electric guitar]
+${hookLineZh}
+紅Ｋ一片穿過
+任震盪激發璀璨真我
+就不應得過且過
+把空單頂起撕破
+用雙手打拚一世槍火
+
+[Bridge: Intense rapid-fire rap over stripped-down heavy drums]
+[Rapper]
+昨天暴漲三千三，今天重挫一千九
+這場槍火沒有退路，只有贏家能出走
+CoWoS 產能全開，AI 算力是我的左輪手槍
+限空令的街頭，看誰能站到最後收盤！
+
+[Outro: Vintage HK movie guitar solo fades out with echo]
+[Vocal]
+${hookLineZh}……
+用雙手打拚一世槍火……
+[Rapper]
+開盤那就針鋒相對。收盤！
+[End]`;
+
+  const lyricsEn = `[Intro]
+[Cinematic 90s crime thriller string tension, metallic click sound, heavy boom bap drums drop]
+[Rapper]
+Yeah... Opening bell rings out, no mercy on this street
+Wall Street to Taipei, liquidity locked and loaded
+Eye for an eye, tick for tick! Let's go!
+
+[Verse 1: Aggressive Male Rapper, tight rapid-fire rhyme scheme, gritty street delivery]
+Face to face, we go tick for tick
+Taipei and Wall Street orders click
+All my margin deployed so quick
+I pull the trigger and the candle sticks
+This market turns on a dime so cold
+Hedge fund vultures tryna shake the hold
+All those greedy bears acting way too bold
+Concentrate the fire till their shorts all fold
+
+Blood on the trading floor breeds the crime
+Ambush waiting at the opening chime
+Reloading my bids every single time
+Squeeze 'em to the top while the tickers climb
+Ten circuit breakers couldn't hold me back
+Headshot precision on the counter-attack
+TSMC breaking through the ceiling track
+Bullets in the order book, fading to black
+
+[Chorus: Anthemic Cinematic Rock-Soul Vocal, dramatic and heroic melody]
+${hookLineEn}
+Green candles blazing through the firelight
+Let the volatility ignite my soul
+Never backing down, taking full control
+Rip through the shorts, break the resistance line
+Fighting with my hands in this crossfire grind
+
+[Verse 2: Aggressive Male Rapper, bouncy confident gangster flow]
+When the leather jacket walks back in, you know it's going down
+Load up on Nvidia shares before we run the town
+Gap up in the morning, watch the short sellers drown
+Three thousand points rally, yeah we wearing the crown
+Put the trench coat on, I'm sniping the dip
+Never hesitate, never let the leverage slip
+Who do Wall Street suits think they playing today
+Keep the paper hands a hundred miles away
+
+Yeah, four screens glowing, ready to ride
+Tariff headlines hitting from the blindside
+Fibonacci locked at zero-three-eight
+Liquidating bears at the Pearly Gate
+Show me your conviction, put your cards on the table
+Messing with the silicon king, you ain't able
+Begging for a pullback while the rockets ignite
+Too late to cover now, kiss your margin goodnight
+
+[Chorus: Anthemic Cinematic Rock-Soul Vocal, full orchestral brass & electric guitar]
+${hookLineEn}
+Green candles blazing through the firelight
+Let the volatility ignite my soul
+Never backing down, taking full control
+Rip through the shorts, break the resistance line
+Fighting with my hands in this crossfire grind
+
+[Outro: Vintage crime movie guitar solo fades out]
+[Vocal]
+${hookLineEn}...
+Fighting with my hands in this crossfire grind...
+[Rapper]
+Tick for tick. Market closed.
+[End]`;
+
+  return {
+    zh: {
+      title: "籌碼槍火 (開盤那就針鋒相對)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI饒舌】《籌碼槍火》｜開盤那就針鋒相對！致敬寶石Gem〈槍火〉港片江湖風 × 台股美股極致大洗盤 (Official Audio)`,
+        `《籌碼槍火（開盤那就針鋒相對）》｜台積電、輝達多空喋血街頭｜港風江湖硬派說唱 (${bpm} BPM)`,
+        `台股暴漲3300點又重挫？這首《籌碼槍火》把股市唱成港產警匪大片！「讓台積電打開漲停鎖！」🔥`
+      ],
+      ytDesc: `🔫「對決那就針鋒相對，台北華爾街夜盤相會！所有籌碼就一步到位，我敲下買單讓成交清脆！」
+當台股與美股的史詩級多空洗盤，遇上 90 年代港產警匪電影《槍火》的江湖硬派說唱！
+這首《籌碼槍火》以 ${bpm} BPM 緊湊的八連押韻機關槍 Flow 搭配熱血滄桑的港風副歌，把輝達（NVIDIA）黃仁勳回歸、台積電（2330）護國神山、外資禿鷹洗盤、關稅利空突襲與限空令軋空大戰，譜成一場喋血街頭的金融江湖大片。
+
+🎧 曲風與編曲亮點：
+• 90 年代港片黑幫電影配樂感 (${bpm} BPM) + 硬派 Boom Bap 重鼓點與復古銅管
+• 機關槍式密集押韻主歌 (相對 / 相會 / 到位 / 清脆 / 向背 / 作祟 / 洗退 / 報廢)
+• 熱血港風旋律副歌：「${hookLineZh}，紅Ｋ一片穿過！」
+
+💬 這場台美股槍火大戰，你手上的籌碼還握得住嗎？留言刷一排「開盤那就針鋒相對」！
+
+#台股 #美股 #槍火 #寶石Gem #中文饒舌 #台積電 #輝達 #NVIDIA #SunoAI #AI音樂 #港風說唱 #股票饒舌 #軋空 #多空對決`
+    },
+    en: {
+      title: "Margin Crossfire (Tick for Tick)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `Margin Crossfire (Tick for Tick) | Cinematic Crime-Thriller Stock Market Rap (NVDA, TSMC, Wall Street)`,
+        `When Trading Feels Like a 90s Action Movie 🔫 "Margin Crossfire" | Gritty Boom Bap × Anthemic Hook`,
+        `"Tick for Tick!" The Ultimate Short-Squeeze Anthem | Margin Crossfire (${bpm} BPM Official AI Audio)`
+      ],
+      ytDesc: `🔫 "Face to face, we go tick for tick! Taipei and Wall Street orders click!"
+Inspired by 90s Hong Kong action cinema and gritty East Coast boom-bap, "Margin Crossfire (Tick for Tick)" turns the high-stakes volatility of NVDA, TSMC, tariff whipsaws, and short squeezes into a ${bpm} BPM cinematic street-battle anthem.
+
+🎧 Track Highlights:
+• ${bpm} BPM cinematic crime-thriller boom-bap production with brass stabs & vintage guitar
+• Rapid-fire multi-syllable rhyme schemes in the verses
+• Heroic, anthemic chorus built for traders holding through the storm
+
+#StockMarketRap #WallStreet #TSMC #NVDA #BoomBap #CinematicRap #SunoAI #AIMusic #ShortSqueeze #TradingAnthem`
+    }
+  };
+}
+
 function buildSongPackage() {
   const p = STYLE_PRESETS[currentState.preset];
   const bpm = currentState.bpm;
@@ -232,6 +443,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "gunfire-hk") {
+    return buildGunfirePackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   const hookWordZh = currentState.customHook || "就是冤家";
   const hookWordEn = currentState.customHook || "We're born rivals";
