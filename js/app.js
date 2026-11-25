@@ -10,6 +10,13 @@
  */
 
 const KNOWN_YT_REFS = {
+  "Qey0V-UtK6U": {
+    title: "《中國說唱巔峰對決》張震嶽 & 熱狗《離開》Live 版",
+    bpm: 88,
+    preset: "leave-raprock",
+    vibe: "滄桑抒情搖滾說唱 (Melodic Rap Rock) × 犀利剖析螢幕成癮寫實饒舌 × 張震嶽式靈魂吶喊副歌 × 機械呢喃 Outro",
+    dna: ["🎸 木吉他轉破音搖滾電吉他", "🎤 張震嶽式滄桑搖滾副歌", "📱 盯盤成癮寫實批判饒舌", "🤖 開盤/收盤/待機/當機 Outro"]
+  },
   IjltoDcgtV0: {
     title: "MC HotDog 熱狗《除了說唱我什麼都不會》Live 版",
     bpm: 94,
@@ -41,6 +48,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "leave-raprock": {
+    nameZh: "張震嶽&熱狗《離開》風：滄桑搖滾吶喊副歌 × 盯盤成癮寫實饒舌",
+    defaultBpm: 88,
+    sunoStyleZh:
+      "Mandarin rap rock and alternative hip-hop duet, {BPM} BPM, melancholic acoustic guitar intro building into heavy distorted rock electric guitar and live acoustic drums, gritty realistic storytelling male rapper in verses, raspy emotional rock male vocalist belting the anthemic chorus, raw live stadium emotion",
+    sunoStyleEn:
+      "Alternative rap rock duet, {BPM} BPM, melancholic acoustic guitar intro building into heavy distorted rock electric guitar and live drums, gritty conscious storytelling male rapper in verses, raspy soulful rock male vocalist belting the emotional chorus, Linkin Park meets 90s indie rock energy",
+    sunoExclude: "happy bubblegum pop, EDM, dance, cute female vocal, fast trap",
+    dnaTags: ["🎸 木吉他轉破音搖滾電吉他", "🎤 張震嶽式滄桑搖滾副歌", "📱 盯盤成癮寫實批判饒舌", "🤖 開盤/收盤/待機/當機 Outro"]
+  },
   "hotdog-oldschool": {
     nameZh: "熱狗《除了說唱我什麼都不會》風：Old School 爵士 Boom Bap × 自嘲狂妄 OG 說唱",
     defaultBpm: 94,
@@ -115,8 +132,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "hotdog-oldschool",
-  bpm: 94,
+  preset: "leave-raprock",
+  bpm: 88,
   topics: new Set(["nvda", "tsmc", "whipsaw", "tariff", "squeeze"]),
   customHook: ""
 };
@@ -831,6 +848,181 @@ Bringing back the golden-era 90s Jazz Boom-Bap vibe (${bpm} BPM) with turntable 
   };
 }
 
+function buildLeavePackage(p, bpm, flags) {
+  const hookLineZh = currentState.customHook || "離開我的盤面，離開我的世界";
+  const hookLineEn = currentState.customHook || "Walk away from the market, walk away from the game";
+
+  const lyricsZh = `[Intro: Melancholic Acoustic Guitar Strumming, Distant City Traffic and Notification Pings, Heavy Boom Bap Rock Drums Enter]
+[Raspy Rock Male Vocal, emotional and raw]
+${hookLineZh}
+離開我的槓桿，離開我的貪婪，離開我的自己……
+
+[Verse 1: Gritty Storytelling Male Rapper, realistic and piercing delivery]
+我忘了怎麼生活，甚至忘了怎麼睡覺
+如果沒有Ｋ線跳動，我連呼吸都找不到訊號
+在真實世界我對家人說我投資都很穩健
+在股版裡面我用匿名帳號問天台還有沒有空位
+沒有人要抬頭看風景，大家都在滑手機
+紅的綠的數字閃爍，無聊的散戶擠爆了討論區
+${flags.hasNvda ? "看那皮衣男人閃電回歸，輝達昨晚又噴了三十個百分點" : "看那科技巨頭財報開出，美股昨晚又噴了十幾個百分點"}
+你的多單早就洗出場，只能在螢幕前面流著悔恨的眼淚
+${flags.hasTsmc ? "我被關在五吋的螢幕裡，看著台積電的 ADR 決定今天的心情" : "我被關在五吋的螢幕裡，看著期貨夜盤的點數決定今天的心情"}
+以為掌握了全世界的算力，其實只是演算法手裡的一枚棋
+
+[Chorus: Raspy Rock Male Vocal, soaring emotional rock guitar and crashing drums]
+我永遠不知道，明天開盤會發生什麼事
+結果到底會如何，要怎麼去面對
+我是個散戶，我不堅強，我沒有內線
+偶爾夜盤跳水，會流下莫名的淚水
+住在擁擠的Ｋ線裡，卻迷失在籌碼堆
+而我愛的人愛我的人，卻被我冷落在電腦後面
+${hookLineZh}
+離開我的融資，離開我的執念，離開我的虧損
+現在就要離開，現在就要離開
+
+[Verse 2: Gritty Storytelling Male Rapper, building urgency and frustration]
+${flags.hasWhipsaw ? "昨天暴漲三千三百點，每個人都覺得自己是股神轉世\n今天關稅新聞一出來，重挫一千九百點像世界末日" : "昨天跳空大漲創高，每個人都覺得自己是股神轉世\n今天利空新聞一出來，長黑灌破月線像世界末日"}
+我們活在聯準會的嘴裡，活在鮑爾每一個字句的標點符號
+為了零點幾趴的殖利率，把大好青春全部拿去抵押燃燒
+到底是多少的未平倉，才能填滿心裡的空虛
+到底要設幾條均線，才不會在震盪裡面失去自己
+你笑別人追高殺低是韭菜，卻沒發現自己也離不開這座賭場
+${flags.hasSqueeze ? "當限空令的紅燈亮起，誰還記得當初進場只是想過更好的日常" : "當維持率的警鈴響起，誰還記得當初進場只是想過更好的日常"}
+
+[Chorus: Raspy Rock Male Vocal, maximum rock band explosion with emotional grit]
+我永遠不知道，明天開盤會發生什麼事
+結果到底會如何，要怎麼去面對
+我是個散戶，我不堅強，我沒有內線
+偶爾夜盤跳水，會流下莫名的淚水
+住在擁擠的Ｋ線裡，卻迷失在籌碼堆
+而我愛的人愛我的人，卻被我冷落在電腦後面
+${hookLineZh}
+離開我的融資，離開我的執念，離開我的自己
+現在就要離開，現在就要離開
+
+[Bridge: Robotic rhythmic chant with glitching synth and heavy bass]
+[Rapper]
+開盤、收盤、夜盤、洗盤
+追高、殺低、滿倉、斷頭
+開機、關機、待機、當機
+開盤、收盤、夜盤、當機……
+我們都被關在這個框框裡，出不去，也捨不得出去。
+
+[Outro: Emotional Electric Guitar Solo, Raspy Rock Vocal fading out]
+[Raspy Rock Vocal]
+${hookLineZh}……
+關掉螢幕吧，就算只是一天也好……
+[End]`;
+
+  const lyricsEn = `[Intro: Melancholic Acoustic Guitar Strumming, Notification Pings, Heavy Rock Drums Enter]
+[Raspy Rock Male Vocal, emotional and raw]
+${hookLineEn}
+Walk away from the leverage, walk away from the greed, walk away from myself...
+
+[Verse 1: Gritty Storytelling Male Rapper, realistic and piercing delivery]
+I forgot how to live my life, I even forgot how to sleep
+Without the candlesticks flashing red and green, my pulse doesn't even beat
+In the real world I tell my family my portfolio is safe and sound
+On anonymous forums I'm asking strangers why my margin just hit the ground
+Nobody looks up at the sky anymore, everybody's glued to the glass
+Refreshing pre-market tickers while the best years of our lives just pass
+Watch the leather jacket walk back on stage, Nvidia up thirty percent overnight
+Your stop-loss got wicked out yesterday, now you're staring at the screen in spite
+Trapped inside a six-inch display, letting TSMC ADR decide my mood
+Thinking we control the AI revolution, while the algos eat us for food
+
+[Chorus: Raspy Rock Male Vocal, soaring emotional rock guitar and crashing drums]
+I never know what the opening bell is gonna bring tomorrow
+How the candles will close, or how to face the sorrow
+I'm just a retail trader, I'm not that strong, I got no inside line
+Sometimes when the futures crash at midnight, tears fall down without a sign
+Living in a crowded order book, yet lost inside the ticker stream
+Leaving the ones who truly love me behind a glowing monitor screen
+${hookLineEn}
+Walk away from the margin call, walk away from the shame
+I gotta walk away right now, gotta walk away right now
+
+[Verse 2: Gritty Storytelling Male Rapper, building urgency and frustration]
+Three thousand points rally yesterday, everybody felt like a genius king
+Two thousand points tariff crash today, now the margin bells begin to ring
+We live inside the Federal Reserve's mouth, hanging onto Powell's every word
+Trading away our peace of mind for a volatility dream that's absurd
+How much open interest does it take to fill the emptiness inside
+How many moving averages must we draw before we got nowhere left to hide
+You laugh at the crowd for chasing the top, yet you're chained to the very same chair
+When the circuit breaker flashes red, do you remember why you even went there
+
+[Chorus: Raspy Rock Male Vocal, maximum rock band explosion with emotional grit]
+I never know what the opening bell is gonna bring tomorrow
+How the candles will close, or how to face the sorrow
+I'm just a retail trader, I'm not that strong, I got no inside line
+Sometimes when the futures crash at midnight, tears fall down without a sign
+Living in a crowded order book, yet lost inside the ticker stream
+Leaving the ones who truly love me behind a glowing monitor screen
+${hookLineEn}
+Walk away from the margin call, walk away from the shame
+I gotta walk away right now, gotta walk away right now
+
+[Bridge: Robotic rhythmic chant with glitching synth and heavy bass]
+[Rapper]
+Open, close, pre-market, shakeout
+Buy the top, sell the drop, full margin, wipeout
+Power on, power off, standby, system crash
+Open, close, night session, system crash...
+We're all locked inside this glowing box.
+
+[Outro: Emotional Electric Guitar Solo, Raspy Rock Vocal fading out]
+[Raspy Rock Vocal]
+${hookLineEn}...
+Turn off the monitors tonight...
+[End]`;
+
+  return {
+    zh: {
+      title: "離開盤面 (Log Off The Market)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI饒舌搖滾】《離開盤面》｜致敬張震嶽&熱狗〈離開〉！獻給每個被台股美股夜盤綁架的靈魂 (Official Audio)`,
+        `《離開盤面》Log Off The Market｜「我是個散戶我不堅強我沒有內線…」聽哭全網股民的搖滾說唱神曲 (${bpm} BPM)`,
+        `每天滑手機看台積電ADR、輝達夜盤到失眠？這首《離開盤面》唱出股民最深沉的吶喊！🎸`
+      ],
+      ytDesc: `🎸「在真實世界我對家人說我投資都很穩健，在股版裡面我用匿名帳號問天台還有沒有空位……」
+致敬張震嶽與熱狗 MC HotDog 的經典搖滾說唱神曲〈離開〉，這首《離開盤面 (Log Off The Market)》以 ${bpm} BPM 滄桑的木吉他與破音電吉他，搭配直白犀利的社會觀察饒舌，深刻剖析當代投資人被看盤軟體、台股暴漲暴跌三千點、輝達（NVIDIA）與台積電（2330）夜盤跳動、以及聯準會與關稅推播通知徹底綁架的焦慮與掙扎。
+
+🎧 曲風與編曲亮點：
+• ${bpm} BPM 華語搖滾說唱（Melodic Rap Rock / Alternative Hip-Hop）
+• 熱狗式犀利寫實主歌 × 張震嶽式滄桑搖滾吶喊副歌（「我永遠不知道，明天開盤會發生什麼事…」）
+• 結尾經典機械式迷失呢喃：「開盤、收盤、夜盤、洗盤；開機、關機、待機、當機…」
+
+💬 今晚收盤後，給自己一點時間關掉螢幕、陪陪身邊重要的人吧。哪一句歌詞最戳中你？歡迎留言分享。
+
+#台股 #美股 #離開 #張震嶽 #熱狗 #MCHotDog #搖滾說唱 #台積電 #輝達 #NVIDIA #SunoAI #AI音樂 #股票音樂 #投資心聲 #散戶日常`
+    },
+    en: {
+      title: "Log Off The Market (Walk Away)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `Log Off The Market (Walk Away) | Emotional Rap Rock Trader Anthem (NVDA, TSMC, Wall Street Burnout)`,
+        `"I'm Just a Retail Trader, I Got No Inside Line..." 🎸 Log Off The Market | Alternative Rap Rock Duet`,
+        `Trapped in the Candlesticks: "Log Off The Market" (${bpm} BPM Official AI Audio) | Gritty Hip-Hop × Rock Ballad`
+      ],
+      ytDesc: `🎸 "In the real world I tell my family my portfolio is safe and sound; on anonymous forums I'm asking why my margin hit the ground..."
+Blending raw, observational hip-hop verses with a soaring, raspy rock chorus (${bpm} BPM), "Log Off The Market (Walk Away)" captures the emotional toll of 24/7 stock trading, late-night Nasdaq & TSMC futures, NVDA FOMO, and tariff whipsaws.
+
+🎧 Track Highlights:
+• ${bpm} BPM Alternative Rap-Rock production (acoustic guitar intro building into heavy distorted rock guitars)
+• Piercing storytelling rap verses × emotional rock vocal chorus
+• Haunting glitch-chant bridge: "Open, close, pre-market, shakeout / Power on, power off, standby, system crash"
+
+#StockMarketRap #RapRock #WallStreet #TraderLife #TSMC #NVDA #SunoAI #AIMusic #AlternativeHipHop #RetailTrader`
+    }
+  };
+}
+
 function buildSongPackage() {
   const p = STYLE_PRESETS[currentState.preset];
   const bpm = currentState.bpm;
@@ -840,6 +1032,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "leave-raprock") {
+    return buildLeavePackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "hotdog-oldschool") {
     return buildHotdogPackage(p, bpm, {
