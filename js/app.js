@@ -10,6 +10,13 @@
  */
 
 const KNOWN_YT_REFS = {
+  "s4pxJ-1QLQg": {
+    title: "G.E.M. 鄧紫棋《差不多姑娘 (Miss Similar)》女王覺醒快嘴×鐵肺高音",
+    bpm: 94,
+    preset: "gem-misssimilar",
+    vibe: "致敬熱狗《差不多先生》古典鋼琴迴圈 × 現代 Trap Boom-Bap 重鼓點 (94 BPM) ×「差不多的…」犀利排比反諷主歌 × 鄧紫棋式爆發力女聲快嘴與鐵肺高音覺醒副歌",
+    dna: ["🎹 經典鋼琴 Loop×Trap 808", "👑 鄧紫棋式女聲快嘴+鐵肺高音", "🔁 「差不多的…」排比反諷 Flow", "🔥 撕掉韭菜標籤覺醒高潮"]
+  },
   "50BCt8bptDg": {
     title: "GAI 周延《苦行僧 (Ascetic Monk)》江湖搖滾國風 Trap 說唱",
     bpm: 90,
@@ -83,6 +90,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "gem-misssimilar": {
+    nameZh: "鄧紫棋《差不多姑娘》風：經典鋼琴 Loop ×「差不多的」排比快嘴 × 鐵肺女高音覺醒",
+    defaultBpm: 94,
+    sunoStyleZh:
+      "Mandarin female hip-hop R&B pop-rap anthem, {BPM} BPM, melancholic classical piano loop sampled over punchy modern trap boom-bap 808 drums, charismatic powerhouse female vocalist switching seamlessly between sharp rhythmic satirical rap verses, explosive double-time fast flow, and soaring diva belt high-note chorus, fierce empowering real-talk vibe",
+    sunoStyleEn:
+      "Female conscious pop-rap and R&B hip-hop anthem, {BPM} BPM, classical piano loop over hard-hitting modern trap boom-bap 808 bass, powerhouse female artist delivering sharp satirical anaphora rap verses, breathless double-time fast flow breakdown, and soaring soulful diva high notes on the hook, empowering awakening energy",
+    sunoExclude: "male vocal only, heavy metal screaming, country, EDM, techno, lo-fi mumble",
+    dnaTags: ["🎹 經典鋼琴 Loop×Trap 808", "👑 鄧紫棋式女聲快嘴+鐵肺高音", "🔁 「差不多的…」排比反諷 Flow", "🔥 撕掉韭菜標籤覺醒高潮"]
+  },
   "gai-ascetic": {
     nameZh: "GAI《苦行僧》風：搖滾電吉他×國風古琴 Trap × 霸氣江湖草莽說唱 × 蒼涼大合唱",
     defaultBpm: 90,
@@ -217,8 +234,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "gai-ascetic",
-  bpm: 90,
+  preset: "gem-misssimilar",
+  bpm: 94,
   topics: new Set([
     "nvda",
     "tsmc",
@@ -507,6 +524,173 @@ function analyzeYoutubeUrl() {
 
   renderAll();
   showToast("🔍 已完成 YouTube 參考網址曲風基因提取與整改！");
+}
+
+function buildMissSimilarPackage(p, bpm, flags) {
+  const hookLineZh = currentState.customHook || "差不多的韭菜，追著差不多的浪";
+  const hookLineEn = currentState.customHook || "Almost the same retail traders, chasing almost the same wave";
+
+  const lyricsZh = `[Intro: Melancholic Classical Piano Loop, Vinyl Crackle, Punchy Trap Boom-Bap Drums Fade In]
+[Powerhouse Female Rapper & Vocalist, calm ironic spoken-word building into melodic rap]
+我抽著差不多的孤單，盯著差不多的盤
+喝著差不多的冰美式，熬著差不多的夜盤
+他們說差不多的散戶，就該認命當差不多的韭菜
+Wait... 誰跟你差不多？Let's go!
+
+[Verse 1: Charismatic Female Rapper, sharp rhythmic satirical "Chabuduo" anaphora flow]
+差不多的早上九點，打開差不多的軟體
+聽著差不多的投顧老師，畫著差不多的大餅
+買在差不多的山頂，吹著差不多的風
+看著差不多的隔日沖分點，在九點半差不多的倒貨一空
+差不多的無本當沖，搶著差不多的 tick 價差
+差不多的撮合排隊，在差不多的滑價裡蒸發
+差不多的五檔委買，掛著差不多的假單護盤
+一根差不多的天地針長下影線，把差不多的停損全部掃完
+${flags.hasWhipsaw ? "差不多的昨天暴漲三千點，全網都在差不多的狂歡\n差不多的今天重挫兩千點，股版又是差不多的哀嘆" : "差不多的昨天跳空創高，全網都在差不多的狂歡\n差不多的今天殺破月線，股版又是差不多的哀嘆"}
+差不多的融資維持率，跌到差不多的一百三
+差不多的清晨追繳簡訊，催著差不多的 T加2 交割款！
+
+[Chorus: Powerhouse Female Diva Vocal, soaring emotional belt & lush harmonies]
+${hookLineZh}
+差不多的散戶，受著差不多的傷
+都想在差不多的Ｋ線裡，抓到差不多的光
+卻在差不多的阿呆谷底，繳出差不多的投降
+差不多姑娘，不想再當差不多的羔羊！
+
+[Verse 2: Fierce Female Rapper, shifting into breathless Double-Time Fast Flow awakening]
+（節奏驟變！鄧紫棋式爆發力雙倍速女聲快嘴 Double-Time Awakening Flow）
+夠了！把那些差不多的跟風明牌全部丟進垃圾桶裡燒掉
+別再用差不多的藉口安慰自己只是運氣差了一點才被套牢
+你看那外資借券賣出幾萬張、演算法在內外盤搓合裡設下圈套
+如果還用差不多的心態隨波逐流，怎麼在華爾街的狼群裡站穩腳步微笑
+我開始看懂每一根長下影線背後主力吸籌的訊號
+我開始算準費波南希零點六一八回撤位與 MACD 底背離的轉折力道
+${flags.hasTsmc ? "當別人恐慌拋售，我鎖定台積電 CoWoS 獨一無二的晶圓護城河道" : "當別人恐慌拋售，我鎖定核心龍頭獨一無二的護城河道"}
+${flags.hasNvda ? "看皮衣男黃仁勳帶著輝達算力引爆下一個世代的風暴" : "看科技巨頭帶著 AI 算力引爆下一個世代的風暴"}
+${flags.hasTariff ? "不管關稅消息怎麼干擾、聯準會嘴砲怎麼咆哮" : "不管黑天鵝消息怎麼干擾、聯準會嘴砲怎麼咆哮"}
+我的交易紀律從此不再差不多，一分一毫我都要精準抓牢！
+
+[Bridge: Stripped-back Piano & Sub-Bass, Soulful Female Vocal building to an Ultra-High G5 Belt]
+曾經我也差一點就被洗出場
+差一點就相信散戶注定只能陪葬
+但從今天起，我撕掉「差不多」的標籤
+看五線合一黃金交叉，限空令下把空頭全部軋上青天——！
+（Woah-oh-oh-oh——！High Note Belt!）
+
+[Chorus: Maximum Diva Climax, Powerhouse Female Vocal + Gospel Choir + Heavy 808 Drop]
+不再做差不多的韭菜，我踏上破頂的浪！
+每一筆買單都帶著信仰，不再迷失方向
+從台北早盤到華爾街夜盤，綻放我獨一無二的光
+這不是差不多姑娘，這是破頂的女王！
+
+[Outro: Classical Piano Loop returns with confident Female Rapper ad-libs]
+[Female Rapper]
+差一點就砍在谷底，好險我沒差不多。
+台積、輝達，破頂新高。
+這一次，絕不差不多。
+[End]`;
+
+  const lyricsEn = `[Intro: Melancholic Classical Piano Loop, Vinyl Crackle, Punchy Trap Boom-Bap Drums Fade In]
+[Powerhouse Female Rapper & Vocalist, calm ironic spoken-word building into melodic rap]
+Staring at almost the same screen, nursing almost the same cold brew
+Scrolling through almost the same panic, waiting for almost the same clue
+They say retail traders are all the same, born to take almost the same loss
+Wait... who said we're the same? Let's go!
+
+[Verse 1: Charismatic Female Rapper, sharp rhythmic satirical anaphora flow]
+Almost the same nine AM bell, opening almost the same app
+Listening to almost the same gurus setting almost the same trap
+Buying at almost the same peak, feeling almost the same breeze
+Watching overnight whales dump at nine-thirty, bringing bagholders to their knees
+Almost the same zero-capital scalpers fighting for almost the same tick
+Almost the same slippage wiping out paychecks before the orders even click
+Almost the same Level-two spoofed bids flashing on the screen
+One nasty stop-hunt lower wick sweeps almost every stop-loss clean
+Almost the same three-thousand-point rally had everyone cheering loud
+Almost the same two-thousand-point tariff crash broke the whole crowd
+Almost the same margin maintenance crashing under one-thirty again
+Almost the same liquidation text message asking where the money went!
+
+[Chorus: Powerhouse Female Diva Vocal, soaring emotional belt & lush harmonies]
+${hookLineEn}
+Almost the same dreamers, bleeding in almost the same cave
+Looking for a little bit of light inside the candlestick storm
+Capitulating at the exact bottom like it's the only norm
+Miss Similar no more—I refuse to be a lamb on the trading floor!
+
+[Verse 2: Fierce Female Rapper, shifting into breathless Double-Time Fast Flow awakening]
+(Beat Switch! Explosive Double-Time Female Fast Flow Awakening)
+Enough! Throw all those copycat stock tips straight into the fire
+Stop making "almost" excuses while your drawdown climbs higher
+Foreign funds short-lending millions while HFT algos rig the game
+If you trade with an average mindset, you'll end up with the same shame
+Now I read the institutional accumulation behind every lower wick
+Fibonacci zero-six-one-eight and MACD divergence clicking quick
+While the herd panic-sells, I lock onto TSMC's CoWoS silicon moat
+Leather-jacket Jensen and Nvidia compute keeping the whole era afloat
+No matter how loud the tariff rumors or hawkish Fed speakers roar
+My trading discipline is razor-sharp—I don't do "almost" anymore!
+
+[Bridge: Stripped-back Piano & Sub-Bass, Soulful Female Vocal building to an Ultra-High Belt]
+I almost got shaken out before the dawn
+Almost believed the lie that retail is just a pawn
+But today I tear the "Miss Similar" label off my chest
+Five moving averages golden-crossed, short-squeeze putting bears to rest—!
+(Woah-oh-oh-oh—! Soaring High Note!)
+
+[Chorus: Maximum Diva Climax, Powerhouse Female Vocal + Choir + Heavy 808 Drop]
+No longer almost the same trader, I'm riding the breakout wave!
+Every order backed by discipline, fearless and brave
+From Taipei morning bell to Wall Street night, shining one of a kind
+Queen of the all-time high, leaving "almost" far behind!
+
+[Outro: Classical Piano Loop returns with confident Female Rapper ad-libs]
+[Female Rapper]
+Almost sold the bottom... glad I didn't settle for almost.
+TSMC, NVDA, all-time high.
+Never "almost" again.
+[End]`;
+
+  return {
+    zh: {
+      title: "差不多韭菜 (破頂女王覺醒版)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI女聲饒舌】《差不多韭菜》｜致敬鄧紫棋〈差不多姑娘〉Real Talk版！犀利排比×炸裂女聲快嘴×鐵肺高音覺醒 (Official Audio)`,
+        `《差不多韭菜（破頂女王覺醒版）》｜「差不多的散戶，追著差不多的浪…」聽完戒掉追高殺低！台積電×輝達逆襲神曲 (${bpm} BPM)`,
+        `當鄧紫棋《差不多姑娘》遇上台股美股大洗盤！從「差不多的追繳斷頭」唱到「破頂女王」太燃了 👑🔥`
+      ],
+      ytDesc: `👑「差不多的韭菜，追著差不多的浪；差不多的散戶，在差不多的阿呆谷底繳出差不多的投降……」
+致敬 G.E.M. 鄧紫棋經典 Real Talk 說唱代表作《差不多姑娘 (Miss Similar)》（取樣自 MC HotDog 熱狗〈差不多先生〉），這首《差不多韭菜 (破頂女王覺醒版)》以 ${bpm} BPM 經典憂鬱古典鋼琴迴圈融合現代重擊 Trap Boom-Bap 808 鼓點！
+主歌第一段以連珠炮般的「差不多的…」排比句型，犀利嘲諷散戶聽明牌、無本當沖搶 tick、被天地針長下影線掃停損、暴漲三千點狂歡又在關稅重挫裡斷頭追繳的日常；主歌第二段與副歌則瞬間切換「鄧紫棋式雙倍速女聲快嘴 + G5 鐵肺高音」，撕掉差不多韭菜標籤，靠著紀律、台積電（2330）CoWoS 與輝達（NVIDIA）算力信仰覺醒為破頂女王！
+
+🎧 曲風與編曲亮點：
+• ${bpm} BPM 經典古典鋼琴 Loop × 現代 Trap 808 重低音鼓點
+• 第一段高密度「差不多的…」排比反諷 Flow，句句戳中散戶痛點
+• 第二段爆發力女聲雙倍速快嘴 + 鄧紫棋式穿透高音副歌覺醒反轉
+
+💬 你決心撕掉「差不多韭菜」的標籤了嗎？在留言區刷一排「這一次，絕不差不多 👑」！
+
+#台股 #美股 #差不多姑娘 #鄧紫棋 #GEM #差不多先生 #女聲饒舌 #台積電 #輝達 #NVIDIA #TSMC #SunoAI #AI音樂 #股票饒舌 #鐵肺高音`
+    },
+    en: {
+      title: "Miss Almost Bagholder (Queen of the Breakout)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `Miss Almost Bagholder (Queen of the Breakout) | Powerhouse Female Rap × Soaring Diva High-Note Anthem`,
+        `"Almost the Same Traders, Chasing Almost the Same Wave..." 👑 Miss Almost Bagholder (${bpm} BPM Stock Rap)`,
+        `From Retail Traps to Diamond-Hand Awakening 🔥 "Miss Almost Bagholder" (NVDA, TSMC Official AI Audio)`
+      ],
+      ytDesc: `👑 "${hookLineEn}, almost the same dreamers bleeding in almost the same cave..."
+Inspired by G.E.M.'s hit rap-pop anthem "Miss Similar (差不多姑娘)", "Miss Almost Bagholder (Queen of the Breakout)" pairs a ${bpm} BPM classical piano loop and punchy trap boom-bap 808s with sharp satirical anaphora verses, a breathless double-time female fast-rap awakening, and soaring diva belt vocals.
+
+#StockMarketRap #MissSimilar #GEM #FemaleRap #TSMC #NVDA #WallStreet #SunoAI #AIMusic #TradingDiscipline`
+    }
+  };
 }
 
 function buildAsceticMonkPackage(p, bpm, flags) {
@@ -2114,6 +2298,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "gem-misssimilar") {
+    return buildMissSimilarPackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "gai-ascetic") {
     return buildAsceticMonkPackage(p, bpm, {
