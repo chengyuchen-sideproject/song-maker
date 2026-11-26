@@ -1352,6 +1352,71 @@ function bindEvents() {
   // 節奏預覽器
   document.getElementById("btn-play-beat").addEventListener("click", startBeatPreview);
   document.getElementById("btn-stop-beat").addEventListener("click", stopBeatPreview);
+
+  // Suno 免費音檔提取器
+  const extractBtn = document.getElementById("btn-extract-suno");
+  if (extractBtn) {
+    extractBtn.addEventListener("click", extractSunoFreeDownload);
+  }
+}
+
+async function extractSunoFreeDownload() {
+  const inputEl = document.getElementById("suno-share-url");
+  const resultEl = document.getElementById("suno-extract-result");
+  if (!inputEl || !resultEl) return;
+
+  const raw = inputEl.value.trim();
+  if (!raw) {
+    showToast("⚠️ 請先貼上 Suno 的歌曲分享網址！");
+    return;
+  }
+
+  resultEl.style.display = "block";
+  const uuidRegex = /([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})/;
+  let match = raw.match(uuidRegex);
+
+  // 如果是短網址 suno.com/s/xxx，嘗試透過公開 CORS 代理展開真實 UUID
+  if (!match && /suno\.com\/s\/([a-zA-Z0-9_-]+)/.test(raw)) {
+    resultEl.innerHTML = `<span style="color:#38bdf8">⏳ 偵測到 Suno 短網址，正在解析 36 碼歌曲 UUID...</span>`;
+    try {
+      const resp = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(raw)}`);
+      if (resp.ok) {
+        const data = await resp.json();
+        const htmlStr = (data && data.contents) || "";
+        const statusUrl = (data && data.status && data.status.url) || "";
+        match = statusUrl.match(uuidRegex) || htmlStr.match(uuidRegex);
+      }
+    } catch (e) {}
+  }
+
+  if (match) {
+    const uuid = match[1].toLowerCase();
+    const mp3Url = `https://cdn1.suno.ai/${uuid}.mp3`;
+    const mp4Url = `https://cdn1.suno.ai/${uuid}.mp4`;
+    const imgUrl = `https://cdn2.suno.ai/image_${uuid}.jpeg`;
+
+    resultEl.innerHTML = `
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="color:#34d399;font-weight:700">✅ 成功提取 Suno 歌曲 ID：<code>${uuid}</code></div>
+        <audio controls src="${mp3Url}" style="width:100%;height:36px"></audio>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+          <a href="${mp3Url}" target="_blank" rel="noopener" download="${uuid}.mp3" class="btn-accent" style="text-decoration:none;padding:6px 12px;border-radius:6px;font-size:0.8rem;background:#10b981;color:#fff;font-weight:700">🎵 開啟 / 右鍵另存 MP3 原檔</a>
+          <a href="${mp4Url}" target="_blank" rel="noopener" download="${uuid}.mp4" class="btn-secondary-sm" style="text-decoration:none;padding:6px 12px;border-radius:6px;font-size:0.8rem">🎬 開啟 / 另存 MP4 歌詞影片</a>
+          <a href="${imgUrl}" target="_blank" rel="noopener" class="btn-secondary-sm" style="text-decoration:none;padding:6px 12px;border-radius:6px;font-size:0.8rem">🖼️ 下載封面大圖</a>
+        </div>
+        <div style="font-size:0.74rem;color:#94a3b8">💡 點擊上方「🎵 開啟 MP3 原檔」後，在新分頁播放器點選右下角「⋮」或按 <code>Ctrl + S</code> 即可免費存到電腦！</div>
+      </div>
+    `;
+    showToast("🔓 已成功解析 Suno CDN 原生 MP3 下載連結！");
+  } else {
+    resultEl.innerHTML = `
+      <div style="color:#fbbf24;line-height:1.6">
+        ⚠️ 此短網址需透過瀏覽器轉址才能取得 36 碼 UUID。請直接點選以下兩種方式任一即可 100% 免費下載：<br>
+        1️⃣ <strong>最快方法</strong>：先在瀏覽器打開你的短網址，等網址列自動跳轉成 <code>https://suno.com/song/xxxx-xxxx...</code> 後，把完整網址貼回這裡再按一次解析！<br>
+        2️⃣ <strong>直接丟第三方解析站</strong>：點選 <a href="https://sunodown.com/" target="_blank" rel="noopener" style="color:#38bdf8;font-weight:700">SunoDown.com</a> 或 <a href="https://vocuno.com/suno-downloader" target="_blank" rel="noopener" style="color:#38bdf8;font-weight:700">Vocuno Downloader</a> 貼上短網址直接下載。
+      </div>
+    `;
+  }
 }
 
 function analyzeYoutubeUrl() {

@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>歌曲製造機 Pro | AI 曲風整改 × 台美股饒舌 × Suno & YouTube 全套工作站</title>
-  <link rel="stylesheet" href="css/style.css?v=20261126h" />
+  <link rel="stylesheet" href="css/style.css?v=20261126i" />
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#0d1117" />
 </head>
@@ -259,6 +259,32 @@
             <div class="copy-box code-box muted" id="out-suno-exclude"></div>
           </div>
         </div>
+
+        <!-- Suno 免費音檔提取與下載破解區 -->
+        <div style="margin-top:16px;padding:14px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.35);border-radius:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+            <div style="font-weight:800;color:#34d399;font-size:0.95rem">🔓 Suno 免費音檔提取器 (免訂閱直接下載 MP3 / 影片原檔)</div>
+            <span style="font-size:0.75rem;color:#94a3b8">支援貼上 Suno 分享連結 (`suno.com/song/...` 或 `suno.com/s/...`)</span>
+          </div>
+          <div class="input-with-btn" style="margin-bottom:10px">
+            <input
+              type="text"
+              id="suno-share-url"
+              placeholder="在此貼上 Suno 的歌曲分享網址 (例如 https://suno.com/song/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)..."
+            />
+            <button id="btn-extract-suno" class="btn-accent" style="background:#10b981;white-space:nowrap">🎧 解析免費下載連結</button>
+          </div>
+          <div id="suno-extract-result" style="display:none;padding:10px 12px;background:#090d16;border:1px solid #1e293b;border-radius:8px;margin-bottom:10px;font-size:0.84rem"></div>
+          <div style="font-size:0.78rem;color:#cbd5e1;line-height:1.6">
+            💡 <strong>Suno 鎖住免費下載的 3 種破解方式：</strong><br>
+            1️⃣ <strong>CDN 原生直連 (最快)</strong>：在 Suno 點擊歌曲旁「Share (分享) ➔ Copy Link」，若網址含 36 碼歌曲 ID (`suno.com/song/UUID`)，貼上上方欄位即可<strong>直接從 Suno CDN 伺服器抓取無損 MP3 與 MP4 原檔</strong>（右鍵「另存音訊」即可存檔）。<br>
+            2️⃣ <strong>F12 開發者工具秒抓 (100% 成功)</strong>：在 Suno 網頁按鍵盤 <code>F12</code> ➔ 切換到上方 <code>Network (網路)</code> 分頁 ➔ 點選 <code>Media (媒體)</code> ➔ 按下播放歌曲，底下會立刻跳出一條 <code>.mp3</code> 網址，點兩下就能直接免費下載！<br>
+            3️⃣ <strong>第三方免費解析站 (支援短網址 `suno.com/s/...`)</strong>：
+            <a href="https://sunodown.com/" target="_blank" rel="noopener" style="color:#38bdf8;text-decoration:underline;margin-right:8px">🔗 SunoDown.com</a>
+            <a href="https://vocuno.com/suno-downloader" target="_blank" rel="noopener" style="color:#38bdf8;text-decoration:underline;margin-right:8px">🔗 Vocuno Downloader</a>
+            <a href="https://sipsip.ai/suno-downloader/" target="_blank" rel="noopener" style="color:#38bdf8;text-decoration:underline">🔗 SipSip Suno 提取器</a>
+          </div>
+        </div>
       </div>
 
       <!-- 歌詞區 (含 Suno 結構標籤) -->
@@ -306,6 +332,6 @@
 
   <div id="toast" class="toast" aria-live="polite">已複製到剪貼簿！</div>
 
-  <script src="js/app.js?v=20261126h"></script>
+  <script src="js/app.js?v=20261126i"></script>
 </body>
 </html>
