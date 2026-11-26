@@ -1022,6 +1022,11 @@ const TRADING_KEYWORD_ENGINE = {
 
 // 初始化
 document.addEventListener("DOMContentLoaded", () => {
+  const presetEl = document.getElementById("style-preset");
+  if (presetEl && STYLE_PRESETS[presetEl.value]) {
+    currentState.preset = presetEl.value;
+    currentState.bpm = STYLE_PRESETS[presetEl.value].defaultBpm;
+  }
   randomizeSongKeywords(false);
   bindEvents();
   renderAll();
@@ -1428,17 +1433,17 @@ Mwah-ha-ha-ha-ha! A-ha-ha-ha-ha-ha-ha!
 
   return {
     zh: {
-      title: "顫慄夜盤 (Margin-Call Thriller Night)",
+      title: "顫慄夜盤・斷頭驚魂夜 (Margin-Call Thriller Night)",
       sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsZh,
       ytTitles: [
-        `【AI神曲改編】《顫慄夜盤 Thriller Night》｜致敬 Michael Jackson 傳奇神曲！把午夜閃崩與融資斷頭唱成 80s 暗黑放克戰歌 (Official Audio)`,
-        `《顫慄夜盤》｜「'Cause this is Thriller, Margin-Call night!」Minimoog 放克 Bass × 莊家邪惡笑聲獨白 (${bpm} BPM)`,
+        `【AI神曲改編】《顫慄夜盤 Margin-Call Thriller Night》｜致敬 Michael Jackson 傳奇神曲！把午夜閃崩與融資斷頭唱成 80s 暗黑放克戰歌 (Official Audio)`,
+        `《顫慄夜盤 (Margin-Call Thriller Night)》｜「'Cause this is Thriller, Margin-Call night!」Minimoog 放克 Bass × 莊家邪惡笑聲獨白 (${bpm} BPM)`,
         `半夜盯美股與台指夜盤必聽！當流行之王《Thriller 顫慄》遇上天地針洗盤與反手軋空 🧟🌕`
       ],
       ytDesc: `🧟「'Cause this is Thriller, Thriller night! 夜盤崩盤斷頭的午夜誰能逃得開！」
-致敬流行之王 Michael Jackson 史上最暢銷傳奇神曲《Thriller (顫慄)》（參考網址：Thzt3Hi6ihM），這首《顫慄夜盤 (Margin-Call Thriller Night)》完美還原了 ${bpm} BPM 最具標誌性的午夜狼嚎、木門嘎吱聲、傳奇 Minimoog 放克合成器 Bassline 與 80 年代爆發力銅管編曲！
+致敬流行之王 Michael Jackson 史上最暢銷傳奇神曲《Thriller (顫慄)》（參考網址：Thzt3Hi6ihM），這首《顫慄夜盤・斷頭驚魂夜 (Margin-Call Thriller Night)》完美還原了 ${bpm} BPM 最具標誌性的午夜狼嚎、木門嘎吱聲、傳奇 Minimoog 放克合成器 Bassline 與 80 年代爆發力銅管編曲！
 將半夜十二點盯著美股與台指夜盤突遇黑天鵝閃崩、融資維持率逼近 130% 追繳令、股版冥燈反指標與刪 APP 睡公園的地獄迷因，化為張力十足的 80s Dark Synth-Funk × 饒舌舞台劇；結尾更重現了經典 Vincent Price 式「莊家低沉恐怖口白」與邪惡狂笑（Mwah-ha-ha-ha!）！
 
 🎧 曲風與編曲亮點：
@@ -1451,7 +1456,7 @@ Mwah-ha-ha-ha-ha! A-ha-ha-ha-ha-ha-ha!
 #台股 #美股 #MichaelJackson #Thriller #顫慄 #台指夜盤 #融資斷頭 #台積電 #輝達 #股市迷因 #80sFunk #SynthFunk #SunoAI #AI音樂`
     },
     en: {
-      title: "Margin-Call Thriller Night (Liquidation Funk)",
+      title: "顫慄夜盤 (Margin-Call Thriller Night)",
       sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsEn,
@@ -1616,7 +1621,7 @@ That's what makes my portfolio beautiful! Market closed!
 
   return {
     zh: {
-      title: "What Makes My Portfolio Beautiful (那根漲停讓我淪陷)",
+      title: "那根漲停讓我淪陷 (What Makes My Portfolio Beautiful)",
       sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsZh,
@@ -1639,7 +1644,7 @@ That's what makes my portfolio beautiful! Market closed!
 #台股 #美股 #OneDirection #WhatMakesYouBeautiful #多巴胺音樂 #男團饒舌 #PopRap #台積電 #輝達 #鴻海 #漲停板 #SunoAI #AI音樂 #股票情歌`
     },
     en: {
-      title: "What Makes You Parabolic (You Light Up My Account)",
+      title: "那根漲停讓我淪陷 (What Makes You Parabolic)",
       sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsEn,
@@ -1845,7 +1850,7 @@ It's now or never! Market conquered!
 #台股 #美股 #ItsMyLife #BonJovi #搖滾饒舌 #RapRock #交易員戰歌 #台積電 #輝達 #鴻海 #SunoAI #AI音樂 #股票音樂 #熱血搖滾`
     },
     en: {
-      title: "It's My Trade (It's Now or Never)",
+      title: "It's My Life・我的盤面我做主 (It's My Trade)",
       sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsEn,
@@ -1981,7 +1986,7 @@ The gambler steps down, the disciplined trader returns. Market closed.
 
   return {
     zh: {
-      title: "散戶回頭 (浪子回頭股市版)",
+      title: "散戶回頭 (Back to the Charts Again)",
       sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsZh,
@@ -2004,7 +2009,7 @@ The gambler steps down, the disciplined trader returns. Market closed.
 #台股 #美股 #浪子回頭 #茄子蛋 #台語搖滾 #台式饒舌 #當沖 #散戶心聲 #台積電 #輝達 #鴻海 #SunoAI #AI音樂 #股票饒舌`
     },
     en: {
-      title: "Back to the Charts Again (Prodigal Trader's Return)",
+      title: "散戶回頭 (Back to the Charts Again)",
       sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsEn,
@@ -2164,7 +2169,7 @@ Respect the market. Keep it real. Market closed!
 
   return {
     zh: {
-      title: "你也是個少年股神 (誰還不是個股神)",
+      title: "你也是個少年股神 (You're a Trading Guru Too)",
       sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsZh,
@@ -2187,7 +2192,7 @@ Respect the market. Keep it real. Market closed!
 #台股 #美股 #你也是個Rapper #派克特 #寶石Gem #中國說唱巔峰對決 #少年股神 #中文饒舌 #BeatSwitch #台積電 #輝達 #SunoAI #AI音樂 #股票饒舌`
     },
     en: {
-      title: "You're a Trading Guru Too (Everybody's a Guru)",
+      title: "你也是個少年股神 (You're a Trading Guru Too)",
       sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsEn,
@@ -2328,7 +2333,7 @@ The streetlight still shines upon your desk... lighting up the dawn...
 
   return {
     zh: {
-      title: "若牛市沒來 (路燈下的看盤人)",
+      title: "若牛市沒來 (If the Bull Market Hasn't Come)",
       sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsZh,
@@ -2351,7 +2356,7 @@ The streetlight still shines upon your desk... lighting up the dawn...
 #台股 #美股 #若月亮沒來 #楊宗緯 #寶石Gem #王宇宙 #天賜的聲音 #催淚說唱 #治癒音樂 #台積電 #輝達 #SunoAI #AI音樂 #散戶心聲 #股票饒舌`
     },
     en: {
-      title: "If the Bull Market Hasn't Come (Streetlight by the Screen)",
+      title: "若牛市沒來 (If the Bull Market Hasn't Come)",
       sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsEn,
@@ -2495,7 +2500,7 @@ Never "almost" again.
 
   return {
     zh: {
-      title: "差不多韭菜 (破頂女王覺醒版)",
+      title: "差不多韭菜 (Miss Almost Bagholder)",
       sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsZh,
@@ -2518,7 +2523,7 @@ Never "almost" again.
 #台股 #美股 #差不多姑娘 #鄧紫棋 #GEM #差不多先生 #女聲饒舌 #台積電 #輝達 #NVIDIA #TSMC #SunoAI #AI音樂 #股票饒舌 #鐵肺高音`
     },
     en: {
-      title: "Miss Almost Bagholder (Queen of the Breakout)",
+      title: "差不多韭菜 (Miss Almost Bagholder)",
       sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsEn,
@@ -2664,7 +2669,7 @@ The ascetic monk claims the crown. Market closed!
 
   return {
     zh: {
-      title: "股市苦行僧 (從空軋到多)",
+      title: "股市苦行僧 (Market Ascetic Monk)",
       sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsZh,
@@ -2687,7 +2692,7 @@ The ascetic monk claims the crown. Market closed!
 #台股 #美股 #苦行僧 #GAI周延 #中國新說唱 #中國說唱巔峰對決 #中國風說唱 #江湖說唱 #台積電 #輝達 #NVIDIA #TSMC #SunoAI #AI音樂 #股票饒舌 #軋空`
     },
     en: {
-      title: "Market Ascetic Monk (From Bear to Bull)",
+      title: "股市苦行僧 (Market Ascetic Monk)",
       sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsEn,
@@ -2870,7 +2875,7 @@ Drifting to Wall Street... into the morning light...
 #台股 #美股 #飄向北方 #那吾克熱 #尤長靖 #中國新說唱 #中國說唱巔峰對決 #台積電 #輝達 #NVIDIA #TSMC #快嘴饒舌 #高音副歌 #SunoAI #AI音樂 #股票饒舌`
     },
     en: {
-      title: "Drifting to Wall Street (Stranger in the Market)",
+      title: "飄向北方・破頂之戰 (Drifting to Wall Street)",
       sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsEn,
@@ -3036,7 +3041,7 @@ Tick for tick. Market closed.
 
   return {
     zh: {
-      title: "籌碼槍火 (開盤那就針鋒相對)",
+      title: "籌碼槍火 (Margin Crossfire)",
       sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsZh,
@@ -3059,7 +3064,7 @@ Tick for tick. Market closed.
 #台股 #美股 #槍火 #寶石Gem #中文饒舌 #台積電 #輝達 #NVIDIA #SunoAI #AI音樂 #港風說唱 #股票饒舌 #軋空 #多空對決`
     },
     en: {
-      title: "Margin Crossfire (Tick for Tick)",
+      title: "籌碼槍火 (Margin Crossfire)",
       sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsEn,
@@ -3250,7 +3255,7 @@ So high, so high!
 #台股 #美股 #攀登 #鄧紫棋 #潘瑋柏 #艾熱 #台積電 #輝達 #NVIDIA #TSMC #AI音樂 #SunoAI #中文饒舌 #勵志說唱 #投資信仰`
     },
     en: {
-      title: "Scaling the Peak (So High)",
+      title: "破頂攀登 (Scaling the Peak)",
       sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsEn,
@@ -3422,7 +3427,7 @@ See you at the opening bell tomorrow. Peace!
 #台股 #美股 #熱狗 #MCHotDog #除了說唱我什麼都不會 #OldSchool #爵士嘻哈 #台積電 #輝達 #NVIDIA #SunoAI #AI音樂 #股票饒舌 #投資日常 #中文饒舌`
     },
     en: {
-      title: "Nothing But The Charts (Old School Trader)",
+      title: "除了看盤我什麼都不會 (Nothing But The Charts)",
       sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsEn,
@@ -3597,7 +3602,7 @@ Turn off the monitors tonight...
 #台股 #美股 #離開 #張震嶽 #熱狗 #MCHotDog #搖滾說唱 #台積電 #輝達 #NVIDIA #SunoAI #AI音樂 #股票音樂 #投資心聲 #散戶日常`
     },
     en: {
-      title: "Log Off The Market (Walk Away)",
+      title: "離開盤面 (Log Off The Market)",
       sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsEn,
@@ -3763,7 +3768,7 @@ In the trading cypher. Market closed!
 #台股 #美股 #在Cypher裏 #瘦子ESO #歐陽靖 #小春 #李佳隆 #台積電 #輝達 #NVIDIA #TSMC #SunoAI #AI音樂 #中文饒舌 #Cypher #股票饒舌`
     },
     en: {
-      title: "In The Trading Cypher (Four Kings)",
+      title: "在盤中Cypher裏 (In The Trading Cypher)",
       sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsEn,
@@ -3928,7 +3933,7 @@ Put on the Ghost Face. Kill the emotion. See you at the bell.
 #台股 #美股 #法老 #GhostFace #硬核說唱 #技術流快嘴 #台積電 #輝達 #NVIDIA #SunoAI #AI音樂 #中文饒舌 #散戶逆襲 #股票饒舌`
     },
     en: {
-      title: "Ghost Face Trader (Against The Algos)",
+      title: "操盤假面 (Ghost Face Trader)",
       sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsEn,
@@ -4114,7 +4119,7 @@ Limit-up locked! Drink up the victory wine! Turn it up!
 #台股 #美股 #慶功酒 #福克斯 #中國風說唱 #戲腔 #台積電 #輝達 #NVIDIA #TSMC #漲停 #軋空 #SunoAI #AI音樂 #中文饒舌 #股票戰歌`
     },
     en: {
-      title: "Limit-Up Victory Wine (Jungle Juice)",
+      title: "漲停慶功酒 (Limit-Up Victory Wine)",
       sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
       sunoExclude: p.sunoExclude,
       lyrics: lyricsEn,
@@ -4542,7 +4547,7 @@ Don't forget to Like, Subscribe, and share this with your trading squad.
       ytDesc: ytDescZh
     },
     en: {
-      title: `Wall Street Rivals (Bull & Bear)`,
+      title: `多空冤家 (Wall Street Rivals: Bull & Bear)`,
       sunoStyle: sunoStyleEn,
       sunoExclude: p.sunoExclude,
       lyrics: lyricsEn,
