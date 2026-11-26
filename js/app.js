@@ -10,6 +10,13 @@
  */
 
 const KNOWN_YT_REFS = {
+  kXYiU_JCYtU: {
+    title: "Linkin Park《Numb》千禧 Nu-Metal 合成器 × 撕裂嘶吼高音 × 雙主唱交錯 Rap-Rock",
+    bpm: 110,
+    preset: "lp-numb",
+    vibe: "標誌性空靈電子合成器前奏 Loop × 110 BPM 厚重失真 Nu-Metal 電吉他音牆與炸裂真鼓 × Mike 式冷靜犀利快嘴 Rap 與 Chester 式靈魂撕裂高音嘶吼（「I've become so numb!」）雙軌交錯對撞",
+    dna: ["🎹 標誌性空靈電子合成器 Riff", "🎸 110 BPM 厚重 Nu-Metal 吉他音牆", "🔥 \"I've Become So Numb!\" 撕裂嘶吼", "🎤 雙主唱 Mike 快嘴×Chester 高音交疊"]
+  },
   bo_efYhYU2A: {
     title: "Lady Gaga & Bradley Cooper《Shallow》木吉他深情男女對唱 × 靈魂撕裂高音 × 走心股市說唱",
     bpm: 96,
@@ -153,6 +160,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "lp-numb": {
+    nameZh: "Linkin Park《Numb》風：標誌性電子合成器 Loop × 厚重 Nu-Metal 電吉他音牆 × 撕裂高音嘶吼與雙主唱 Rap-Rock",
+    defaultBpm: 110,
+    sunoStyleZh:
+      "2000s nu-metal and alternative rap-rock stadium anthem, {BPM} BPM, iconic haunting electronic synth-pad melody intro and turntable DJ scratch textures, massive wall of drop-D distorted electric guitars and thunderous live acoustic drums, dual male vocalists: calm urgent emotional clean rock tenor in the verses exploding into raw agonizing raspy high-note vocal screams on the chorus (I've become so numb, I can't feel my portfolio!), interlocked with a razor-sharp rhythmic hip-hop male rapper delivering rapid-fire counter-bars, cathartic stadium angst and awakening energy",
+    sunoStyleEn:
+      "2000s Meteora-era nu-metal and alternative rap-rock crossover anthem, {BPM} BPM, signature haunting electronic synth lead intro, massive distorted power-chord guitar wall, heavy bass and punchy live rock drums, dual male vocal interplay between a urgent melodic rock tenor exploding into raw emotional high-register fry-scream chorus belts (I've become so numb!) and a tight rhythmic male rapper trading overlapping counter-verses, pure cathartic arena rock power",
+    sunoExclude: "bubblegum pop, country, gentle jazz lounge, cheerful ukulele, disco",
+    dnaTags: ["🎹 標誌性空靈電子合成器 Riff", "🎸 110 BPM 厚重 Nu-Metal 吉他音牆", "🔥 \"I've Become So Numb!\" 撕裂嘶吼", "🎤 雙主唱 Mike 快嘴×Chester 高音交疊"]
+  },
   "gaga-shallow": {
     nameZh: "Lady Gaga & Bradley Cooper《Shallow》風：木吉他深情男女對唱 ×「Ah-ah-aaaah」核爆女高音 × 走心股市說唱",
     defaultBpm: 96,
@@ -377,8 +394,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "gaga-shallow",
-  bpm: 96,
+  preset: "lp-numb",
+  bpm: 110,
   topics: new Set([
     "nvda",
     "tsmc",
@@ -1315,6 +1332,192 @@ function analyzeYoutubeUrl() {
   randomizeSongKeywords(false);
   renderAll();
   showToast("🔍 已完成曲風解析並隨機抽取全新關鍵字創作歌詞！");
+}
+
+function buildLinkinParkNumbPackage(p, bpm, flags) {
+  const hookLineZh =
+    currentState.customHook ||
+    "I've become so numb! 我對崩盤已經徹底麻木，連融資斷頭的痛都感覺不出";
+  const hookLineEn =
+    currentState.customHook ||
+    "I've become so numb, I can't feel the drawdown there! Become so tired, so much more aware!";
+
+  const stockList =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.zh.split(" ")[0]).join("、")
+      : "台積電、輝達、鴻海";
+  const stockListEn =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.en.split(" ")[0]).join(", ")
+      : "TSMC, Nvidia, Foxconn";
+
+  const lyricsZh = `[Intro: Iconic Haunting 2000s Electronic Synth-Pad Riff, Turntable Scratch & Crashing Drop-D Nu-Metal Distorted Guitar Wall!]
+[Rapper - Mike Style, urgent rhythmic cadence over heavy synth & drums]
+Yeah... 凌晨三點半，看著螢幕上一片綠油油的跌停燈
+從心痛、發抖、補錢，到現在連眼皮都不眨一下……
+當你被主力洗過千百回，最後只剩下徹底的麻木。
+
+[Verse 1: Clean Emotional Male Rock Tenor - Chester Style, Restrained Piano & Bass Pulse]
+我已經厭倦了照著投顧老師的劇本走
+厭倦了聽股版冥燈反指標在那裡指點多空
+每當我以為終於抄到底部、準備迎接反彈的時候
+總有一根無情的天地針長下影線，把我的停損全部刺穿掏空
+Can't you see that you're smothering my margin?
+握得太緊的槓桿，害怕失去最後一筆交割款
+因為分析師說的每一句利多，最後都在五檔抽單裡碎成一灘！
+
+[Pre-Chorus: Building Distorted Guitar Chugs & Snare Crescendo]
+（每一次跳空開低，都把我推向斷頭的懸崖邊）
+每一步踏錯，都比昨天還痛——！
+
+[Chorus: Explosive Nu-Metal Guitar Wall & Raw Raspy High-Note Scream Belt!]
+${hookLineZh}
+被洗盤洗到疲憊，卻比任何時候都還要清醒 (So much more aware!)
+I'm becoming this, all I want to do
+是不再當被你們收割的韭菜，我要拿回我自己 (${stockList}) 的主控權！
+
+[Verse 2: Interlocked Dual Vocals — Mike-Style Rapid-Fire Rap & Chester-Style Melodic Tenor]
+[Rapper] （千禧 Nu-Metal 雙主唱交錯快嘴 Flow）
+看外資借券賣出幾萬張壓著盤面，高頻演算法在毫秒之間獵殺散戶的防線
+口中唸著一張不賣奇蹟自來，短線當沖做成了傳家寶，連阿公都從族譜跳出來問我買了哪支妖股
+昨天還在看信義區豪宅跟藍寶堅尼，今晚關起燈吃泡麵連茶葉蛋都不敢加
+只要我不打開看盤 APP 就沒有賠錢，把軟體調成黑白模式假裝心如止水！
+[Rock Tenor] Can't you see that you're liquidating me?
+維持率跌破一百三的簡訊緊緊掐住我的呼吸
+因為你們畫出的每一個本益比大餅，全在尾盤黑手倒貨裡瓦解殆盡！
+
+[Pre-Chorus: Maximum Tension Build-Up]
+（每一秒五檔跳動，都在考驗最後的信仰底線）
+一秒鐘的猶豫，就會萬劫不復——！
+
+[Chorus: Explosive Nu-Metal Guitar Wall & Raw Raspy High-Note Scream Belt!]
+${hookLineZh}
+被雙巴洗到疲憊，卻比任何時候都還要清醒 (So much more aware!)
+I'm becoming this, all I want to do
+是斬斷所有追高殺低的心魔，用鑽石手抱緊 ${stockList} 走我自己的路！
+
+[Bridge: Stripped-Back Atmospheric Synth & Piano Building into Cathartic Dual-Vocal Scream Climax!]
+[Rock Tenor, soaring agonizing high belt]
+And I know—— 我也可能在半山腰再次被套牢
+But I know—— 就算跌進處置五分盤，我也再也不會像以前那樣慌張逃跑！
+[Rapper & Rock Tenor Overlapping Roar]
+([Rapper] 把所有恐懼跟貪婪全部關掉！當我對短線的震盪徹底麻木，就是空頭惡夢的開始！)
+[Rock Tenor, Maximum Fry-Scream High Note]
+I've become so NUUUUUUUMB——!
+
+[Chorus: Final Maximum Stadium Nu-Metal Climax, Dual Vocals Overlapping!]
+${hookLineZh}
+([Rapper] I'm tired of being what the market makers want me to be!)
+不再為幾根黑Ｋ流眼淚，我看穿了莊家最大痛點的詭計
+I'm becoming this, all I want to do
+是站在破頂的歷史高點，做我自己交易的王 (Be more like me and be less like you!)
+
+[Outro: Iconic Haunting Electronic Synth Riff Returns Over Heavy Guitar Chords]
+[Rock Tenor & Rapper]
+I've become so numb... 對洗盤徹底麻木……
+握緊 ${stockList}，直上雲霄。收盤！
+[End]`;
+
+  const lyricsEn = `[Intro: Iconic Haunting 2000s Electronic Synth-Pad Riff, Turntable Scratch & Crashing Drop-D Nu-Metal Distorted Guitar Wall!]
+[Rapper - Mike Style, urgent rhythmic cadence over heavy synth & drums]
+Yeah... 3:30 AM staring at a screen bleeding forty percent red
+From panic, to margin calls, to feeling nothing at all...
+Once the market breaks you a thousand times, you become completely numb.
+
+[Verse 1: Clean Emotional Male Rock Tenor - Chester Style, Restrained Piano & Bass Pulse]
+I'm tired of trading what you want me to trade
+Feeling so faithless, lost under the HFT spoofing cascade
+I don't know what the Fed's expecting of me
+Put under the pressure of walking in Warren Buffett's shoes
+(Caught in the stop-hunt, just caught in the stop-hunt)
+Every step that I take is another mistake to my brokerage account
+(Caught in the stop-hunt, just caught in the stop-hunt)
+
+[Pre-Chorus: Building Distorted Guitar Chugs & Snare Crescendo]
+I've held my margin so tight, afraid to lose control
+'Cause everything that the TV gurus thought I would be
+Has fallen apart right in front of the opening bell—!
+
+[Chorus: Explosive Nu-Metal Guitar Wall & Raw Raspy High-Note Scream Belt!]
+${hookLineEn}
+By this drawdown, all I want to do
+Is be more like a disciplined sniper and be less like a retail fool!
+
+[Verse 2: Interlocked Dual Vocals — Mike-Style Rapid-Fire Rap & Chester-Style Melodic Tenor]
+[Rapper] (Meteora-Era Dual-Vocal Rap-Rock Interplay)
+Foreign funds short-lending millions while the forum jinxes scream all-in at the top
+Turned a five-minute scalp into a family heirloom watching the maintenance ratio drop
+Yesterday configuring a Lamborghini, tonight eating instant noodles in the dark
+Deleted the broker app in grayscale mode so the red candles can't leave a mark!
+[Rock Tenor] Can't you see that you're liquidating me?
+Holding too tight to the leverage, afraid to lose control
+'Cause every target price that the analysts promised me
+Has crashed through the floor at the closing bell!
+
+[Chorus: Explosive Nu-Metal Guitar Wall & Raw Raspy High-Note Scream Belt!]
+${hookLineEn}
+By this whipsaw, all I want to do
+Is lock onto ${stockListEn} and never fold for you!
+
+[Bridge: Stripped-Back Atmospheric Synth & Piano Building into Cathartic Dual-Vocal Scream Climax!]
+[Rock Tenor, soaring agonizing high belt]
+And I know—— I may end up catching a falling knife too
+But I know—— You were just like me with paper hands disappointed in you!
+[Rock Tenor, Maximum Fry-Scream High Note]
+I've become so NUUUUUUUMB——!
+
+[Chorus: Final Maximum Stadium Nu-Metal Climax, Dual Vocals Overlapping!]
+${hookLineEn}
+([Rapper] I'm tired of trading what the market makers want me to trade!)
+I'm becoming this, all I want to do
+Is hold my diamond hands to the all-time high and be less like you!
+
+[Outro: Iconic Haunting Electronic Synth Riff Returns Over Heavy Guitar Chords]
+[Rock Tenor & Rapper]
+I've become so numb... I can't feel the drawdown there...
+(I'm tired of being what you want me to be...) Market closed!
+[End]`;
+
+  return {
+    zh: {
+      title: "跌到麻木・砍不下手的心痛 (I've Become So Numb)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI新金屬搖滾饒舌】《跌到麻木 I've Become So Numb》｜致敬 Linkin Park 破二十億傳奇神曲！唱出散戶被洗盤到麻木的覺醒 (Official Audio)`,
+        `《跌到麻木 (I've Become So Numb)》｜「我對崩盤已經徹底麻木，連融資斷頭的痛都感覺不出！」Nu-Metal 音牆 × 雙主唱說唱 (${bpm} BPM)`,
+        `當聯合公園 Linkin Park《Numb》遇上台股美股大洗盤！那聲撕裂嘶吼出來直接靈魂共振 🔥🎸`
+      ],
+      ytDesc: `🔥「I've become so numb! 我對崩盤已經徹底麻木，連融資斷頭的痛都感覺不出！被洗盤洗到疲憊，卻比任何時候都還要清醒 (So much more aware!)」
+致敬搖滾傳奇天團 Linkin Park（聯合公園）全球破二十億點擊不朽神曲《Numb》（參考網址：kXYiU_JCYtU），這首《跌到麻木・砍不下手的心痛 (I've Become So Numb)》以 ${bpm} BPM 最具標誌性的空靈電子合成器前奏 Loop 與厚重 Drop-D 失真電吉他音牆揭開序幕！
+完美重現 Chester Bennington 式從壓抑低吟到副歌撕心裂肺的靈魂嘶吼高音，以及 Mike Shinoda 式冷靜犀利的快嘴 Rap 雙主唱交錯對撞！把散戶從聽信投顧明牌、被天地針掃停損、刪 APP 調黑白模式、關燈吃泡麵到最終「對短線震盪徹底麻木、砍掉情緒握緊 ${stockList} 覺醒為冷血狙擊手」的心路歷程唱得熱血沸騰！
+
+🎧 曲風與編曲亮點：
+• ${bpm} BPM 千禧年經典 Nu-Metal / Alternative Rap-Rock（標誌性電子合成器 Riff + DJ 刷碟 + 炸裂重金屬電吉他音牆）
+• 雙主唱靈魂配置：撕裂高音搖滾主唱（Chester 風）× 冷靜快嘴饒舌主唱（Mike 風）結尾雙軌交疊
+• 融合熱門股市迷因：股版冥燈、阿公從族譜跳出來、一張不賣變傳家寶、刪 APP 黑白模式、處置五分盤
+
+💬 你也曾經被大盤洗到「徹底麻木（So Numb）」最後反而練成鑽石手嗎？在留言區刷一排「I've Become So Numb! 🔥🎸」！
+
+#台股 #美股 #LinkinPark #Numb #聯合公園 #NuMetal #搖滾饒舌 #RapRock #台積電 #輝達 #股市迷因 #融資斷頭 #SunoAI #AI音樂 #股票戰歌`
+    },
+    en: {
+      title: "跌到麻木・砍不下手的心痛 (I've Become So Numb)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `跌到麻木 (I've Become So Numb) | Linkin Park "Numb" Style Nu-Metal × Wall Street Rap-Rock (${bpm} BPM)`,
+        `"I've Become So Numb, I Can't Feel the Drawdown There!" 🔥🎸 Cathartic Stock Market Anthem (Official AI Audio)`,
+        `When a 2000s Nu-Metal Classic Meets Margin-Call Pain & Diamond-Hand Awakening (NVDA, TSMC)`
+      ],
+      ytDesc: `🔥 "${hookLineEn}!"
+Inspired by Linkin Park's legendary 2003 nu-metal masterpiece "Numb", this ${bpm} BPM alternative rap-rock anthem pairs the iconic haunting electronic synth melody and crushing distorted guitar wall with dual male vocals—trading razor-sharp rap verses about retail trading memes with raw, cathartic high-note screams about becoming numb to market shakeouts and holding ${stockListEn} to the top!
+
+#StockMarketRap #LinkinPark #Numb #NuMetal #RapRock #WallStreetMemes #DiamondHands #TSMC #NVDA #SunoAI #AIMusic`
+    }
+  };
 }
 
 function buildGagaShallowPackage(p, bpm, flags) {
@@ -4572,6 +4775,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "lp-numb") {
+    return buildLinkinParkNumbPackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "gaga-shallow") {
     return buildGagaShallowPackage(p, bpm, {
