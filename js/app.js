@@ -10,6 +10,13 @@
  */
 
 const KNOWN_YT_REFS = {
+  X8COjmk4Jkg: {
+    title: "KAFE.HU & KEY.L 劉聰《經濟艙》微醺詩意爵士說唱 × 雲層之上治癒副歌",
+    bpm: 82,
+    preset: "kafehu-economycabin",
+    vibe: "溫暖爵士電鋼琴與薩克斯風微醺律動 (82 BPM) × KAFE.HU 磁性低沉意識流詩意敘事 Flow（「46A 我靠窗邊坐下，散戶坐在經濟艙面子傷不傷，我說這是通往財富自由的方向」）× KEY.L 劉聰靈魂穿透旋律副歌（「撥不通的電話，遍布Ｋ線的晚上，跟我輕輕唱，就算你在經濟艙」）",
+    dna: ["✈️ \"46A 散戶坐在經濟艙\"", "🎷 82 BPM 詩意爵士鋼琴×Boom-Bap", "📞 \"撥不通的電話，遍布星辰的晚上\"", "🎤 KAFE.HU 磁性敘事×劉聰靈魂副歌"]
+  },
   ktvTqknDobU: {
     title: "Imagine Dragons《Radioactive》末日工業戰鼓 Dubstep-Rock × 核爆級算力軋空說唱",
     bpm: 136,
@@ -181,6 +188,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "kafehu-economycabin": {
+    nameZh: "KAFE.HU & 劉聰《經濟艙》風：微醺爵士鋼琴 Boom-Bap × 磁性意識流詩意說唱 ×「就算你在經濟艙」走心旋律副歌",
+    defaultBpm: 82,
+    sunoStyleZh:
+      "Mandarin poetic jazz-hop and emotional conscious boom-bap duet, {BPM} BPM, warm Rhodes electric piano chords, mellow late-night saxophone and gentle vinyl crackle with cabin announcement ambience, Rapper A with a deep magnetic laid-back conversational spoken-word jazz flow (Kafe.Hu style) delivering poetic introspective metaphors, Chorus and Verse 2 by a soulful raspy melodic male vocalist/rapper (KEY.L Liu Cong style) singing an unforgettable soaring hook (撥不通的電話，遍布星辰的晚上，跟我輕輕唱，就算你在經濟艙) and resilient gritty boom-bap bars, deeply moving live stage atmosphere",
+    sunoStyleEn:
+      "Poetic conscious jazz hip-hop and soulful melodic boom-bap duet, {BPM} BPM, warm Rhodes piano, dusty upright bass and late-night saxophone over gentle boom-bap drums with airplane cabin chime intro, Rapper A delivering a deep magnetic laid-back spoken-word poetic narrative, Rapper B singing a soaring soulful melodic chorus (Unanswered phone calls on a starlit night, sing along with me even from the economy cabin) and gritty inspirational second verse, raw heartfelt hip-hop masterpiece",
+    sunoExclude: "EDM, techno, heavy metal screaming, trap cowbell, bubblegum pop, fast drill",
+    dnaTags: ["✈️ \"46A 散戶坐在經濟艙\"", "🎷 82 BPM 詩意爵士鋼琴×Boom-Bap", "📞 \"撥不通的電話，遍布星辰的晚上\"", "🎤 KAFE.HU 磁性敘事×劉聰靈魂副歌"]
+  },
   "dragons-radioactive": {
     nameZh: "Imagine Dragons《Radioactive》風：末日工業重低音 Drop × 震天體育館戰鼓 ×「Welcome to the new age!」核爆嘶吼與快嘴說唱",
     defaultBpm: 136,
@@ -445,8 +462,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "dragons-radioactive",
-  bpm: 136,
+  preset: "kafehu-economycabin",
+  bpm: 82,
   topics: new Set([
     "nvda",
     "tsmc",
@@ -1553,6 +1570,189 @@ function analyzeYoutubeUrl() {
   randomizeSongKeywords(false);
   renderAll();
   showToast("🔍 已完成曲風解析並隨機抽取全新關鍵字創作歌詞！");
+}
+
+function buildKafehuEconomyCabinPackage(p, bpm, flags) {
+  const hookLineZh =
+    currentState.customHook ||
+    "撥不通的電話，遍布Ｋ線的晚上，跟我輕輕唱，就算你在經濟艙";
+  const hookLineEn =
+    currentState.customHook ||
+    "Unanswered phone calls on a starlit night, sing along with me even if you're in the economy cabin";
+
+  const stockList =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.zh.split(" ")[0]).join("、")
+      : "台積電、輝達、鴻海";
+  const stockListEn =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.en.split(" ")[0]).join(", ")
+      : "TSMC, Nvidia, Foxconn";
+
+  const lyricsZh = `[Intro: Airplane Cabin Seatbelt Chime (Ding-Dong!), Warm Jazzy Rhodes Piano Chords, Mellow Saxophone & Dusty Boom-Bap Drums (82 BPM)]
+[Rapper A - Kafe.Hu Style, deep magnetic laid-back spoken-word jazz flow]
+上段行情剛結束了一場大洗盤
+感謝所有在跌停板還沒放棄的夥伴
+但今天這根Ｋ線我沒現成的公式可以套
+所以靈魂繼續熬，盯著美股夜盤準備寫一個通宵……
+
+[Verse 1: Rapper A - Kafe.Hu Style, poetic introspective conversational cadence, dense internal rhymes]
+當我打開了看盤軟體，經歷的虧損又成為我的草稿
+買了幾張零股坐在散戶的經濟艙，來到華爾街這個地方
+隔著租屋處的窗，望著那斯達克的月亮思故鄉
+我的股齡說新不算新，對於 ${stockList} 的題材總目不轉睛
+心裡面想怎麼在主升段拿冠軍，讓漲停的喝彩不再成為深夜的幻聽
+我把五檔跳動比喻成鋼琴，而我被天地針刺穿的憂鬱是否需要張OK繃（邦迪）
+保護一些追高殺低的傷，保護一些砍在阿呆谷的秘密
+等時間的複利發酵，解套後我寫首歌送給你
+（爵士鋼琴微醺過門）
+46A 我靠著Ｋ線窗邊坐下，遇見了群組的戰友他略顯得驚訝
+「開玩笑嗎？操盤手還坐在散戶經濟艙、吃著泡麵面子傷不傷？」
+我笑著說：這是通往財富自由最踏實的方向。
+結束談話，沉默在三萬點的高空上，降噪耳機隔開了股版冥燈與投顧老師的喧囂
+安靜的夜盤容易讓我想起遠方的家人，不敢讓他們知道今天維持率差點跌破一百三的驚濤
+透過窗，月光灑下均線雲層的剎那，希望不會因為一則半夜關稅推文而泡湯
+散戶的希望輕輕飄在經濟艙，希望前後排套牢的水手表情別哭喪
+你的交易軌跡有沒有偏航？你所期盼的財富自由是否發生在實際上？
+
+[Chorus: Soulful Raspy Melodic Male Vocal - KEY.L Liu Cong Style, Soaring Emotional Hook!]
+Ladies and gentlemen...
+${hookLineZh}
+撥不通的電話，信號丟失在均線雲層上
+${hookLineZh}
+哪怕還沒買到頭等艙，把 ${stockList} 的信仰握在手心上
+
+[Verse 2: Rapper B - KEY.L Liu Cong Style, gritty resilient boom-bap flow with philosophical punchlines]
+（劉聰 KEY.L 式江湖勵志韻腳 Flow）
+兄弟別緊張，股市不是一天定生死的競技場
+平常心，最怕在橫盤整理中停歇像塊冰
+別忘了李小龍 Be Water 順勢而為的經驗
+Homie 說你本金不多還這麼拼，當然需要鋼鐵般的信心
+老鷹不可以留戀無本當沖搶便當錢的地平線
+這散戶經濟艙畢竟看不見主力頭等艙裡外資有求必應
+但種子在主升段發芽前，得先在阿呆谷底跟泥土比拼
+直到 ${stockList} 的護城河足以和天空比鄰！
+不可思議的鑽石手韌性來自幾次暴跌洗盤的經歷，你別不信
+千篇一律的熬夜盯盤，那些足印涉過斷頭與處置五分盤的艱險
+幫我滅卻了追高殺低的驕傲與惰性
+當被壓抑與回撤逼到臨界，才了解 Champion 的翻譯是活到最後的冠軍
+Yeah, let's begin!
+心心相印的看盤人別停止想念，把停損的傷口輕輕清創，迎著黃金交叉的風再次起航！
+
+[Chorus: Soulful Melodic Male Vocal & Rapper A Harmony, Full Jazz Piano & Strings Swell]
+${hookLineZh}
+撥不通的電話，信號丟失在均線雲層上
+${hookLineZh}
+走過關燈吃麵的晚上，黎明降臨時我們頭等艙見！
+
+[Outro: Mellow Saxophone Solo, Rhodes Piano Chords & Cabin Chime Fade Out]
+[Rapper A - Kafe.Hu Style, quiet magnetic whisper]
+46A，靠窗的位置……
+散戶坐在經濟艙面子傷不傷？
+我說，這是通往破頂成功的方向。收盤。
+[End]`;
+
+  const lyricsEn = `[Intro: Airplane Cabin Seatbelt Chime (Ding-Dong!), Warm Jazzy Rhodes Piano Chords, Mellow Saxophone & Dusty Boom-Bap Drums (82 BPM)]
+[Rapper A - Kafe.Hu Style, deep magnetic laid-back spoken-word jazz flow]
+Last week's volatility just finished another brutal shakeout
+Thankful for everyone who didn't fold their hand at the bottom
+No textbook indicator fits tonight's chart
+So my soul stays up late, writing through the Nasdaq night session...
+
+[Verse 1: Rapper A - Kafe.Hu Style, poetic introspective conversational cadence, dense internal rhymes]
+Opened up my laptop, every past drawdown became my rough draft
+Sitting in the retail economy cabin with a small account, flying toward Wall Street
+Looking out the studio window at the glowing candlestick moon
+My years in the market aren't brand new, eyes locked onto ${stockListEn}
+Thinking how to win the championship so the cheering isn't just a 3 AM hallucination
+I treat the Level-two order book like piano keys, wondering if my stop-hunt scars need a Band-Aid
+Protecting a few paper-hand wounds, protecting a few bagholding secrets
+Waiting for compounding to ferment, when we break even I'll write this song for you
+(Jazzy Rhodes Piano Interlude)
+Seat 46A by the window, met a fellow trader from the forum looking surprised
+"Are you kidding me? A full-time trader sitting in the retail economy cabin eating ramen—doesn't that hurt your pride?"
+I smiled and said: This is the most honest flight path toward financial freedom.
+Silence at thirty-thousand points altitude, noise-canceling headphones blocking out the forum jinxes and fake TV gurus
+Quiet night sessions make me think of my family back home, hiding the 130-percent margin-call storm from their phone
+Moonlight piercing through the moving-average clouds, praying one midnight tariff tweet doesn't ruin the flight
+Retail dreams floating gently inside the economy cabin, hoping the bagholding sailors in the back row stop crying tonight
+Has your trading trajectory drifted off course? Is the freedom you prayed for finally happening in reality?
+
+[Chorus: Soulful Raspy Melodic Male Vocal - KEY.L Style, Soaring Emotional Hook!]
+Ladies and gentlemen...
+${hookLineEn}
+Unanswered calls, signal lost above the candlestick clouds
+${hookLineEn}
+Holding ${stockListEn} through the night until we land in first class
+
+[Verse 2: Rapper B - KEY.L Style, gritty resilient boom-bap flow with philosophical punchlines]
+(Resilient Conscious Boom-Bap Flow)
+Relax kid, life isn't a one-day casino arena
+Stay calm when the sideways chop freezes your patience like ice
+Never forget Bruce Lee's philosophy—Be Water, flow with the trend
+Homie said you're grinding from a small account so you need iron conviction
+An eagle cannot fall in love with the zero-day scalping horizon
+From this economy seat you don't get the Wall Street VIP bailout
+A seed has to wrestle with the dark soil in the valley floor before it sprouts
+Until the silicon moat of ${stockListEn} stands shoulder to shoulder with the sky!
+Unbelievable diamond-hand resilience comes from surviving the crashes, believe the grind
+Every sleepless night staring at the tape burned away my arrogance and FOMO greed
+When drawdown pressure pushes you to the edge, you learn that champion means surviving to the end
+Yeah, let's begin!
+Clean the wounds from the stop-loss, catch the golden-cross wind and fly again!
+
+[Chorus: Soulful Melodic Male Vocal & Rapper A Harmony, Full Jazz Piano & Strings Swell]
+${hookLineEn}
+Unanswered calls, signal lost above the candlestick clouds
+${hookLineEn}
+
+[Outro: Mellow Saxophone Solo, Rhodes Piano Chords & Cabin Chime Fade Out]
+[Rapper A, quiet magnetic whisper]
+Seat 46A by the window...
+Does sitting in the retail economy cabin hurt your pride?
+No—this is the direction to the top. Market closed.
+[End]`;
+
+  return {
+    zh: {
+      title: "散戶經濟艙・通往財富自由的航向 (Economy Cabin Trader)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI走心爵士說唱】《散戶經濟艙》｜致敬 KAFE.HU & 劉聰〈經濟艙〉神級舞台！「散戶坐在經濟艙面子傷不傷？我說這是通往成功的方向！」(Official Audio)`,
+        `《散戶經濟艙 (Economy Cabin Trader)》｜「撥不通的電話，遍布Ｋ線的晚上，跟我輕輕唱，就算你在經濟艙…」(${bpm} BPM 催淚說唱)`,
+        `小資金散戶深夜必聽！當 KAFE.HU 詩意爵士說唱 × 劉聰靈魂副歌遇上台美股長線信仰 ✈️🌙`
+      ],
+      ytDesc: `✈️「46A 我靠著Ｋ線窗邊坐下，遇見了群組的戰友他略顯得驚訝：『開玩笑嗎？操盤手還坐在散戶經濟艙、吃著泡麵面子傷不傷？』我笑著說：這是通往財富自由最踏實的方向。」
+致敬《中國新說唱2020》最催淚走心的神級舞台——KAFE.HU 與 KEY.L 劉聰代表作《經濟艙》（參考網址：X8COjmk4Jkg），這首《散戶經濟艙・通往財富自由的航向 (Economy Cabin Trader)》以 ${bpm} BPM 微醺溫暖的 Rhodes 爵士電鋼琴、薩克斯風與機艙廣播音效揭開序幕！
+前半段以 KAFE.HU 式低沉磁性、充滿文學隱喻的意識流敘事 Flow（「我把五檔跳動比喻成鋼琴，而我被天地針刺穿的憂鬱是否需要張邦迪」），道出小資金散戶在夜盤震盪、關燈吃麵與家人牽掛中的溫柔與倔強；副歌與第二段則由 KEY.L 劉聰式穿透靈魂的旋律唱腔（「${hookLineZh}」）與「Be Water 順勢而為、種子發芽前先在阿呆谷底和泥土比拼」的江湖哲理接力，獻給每一位雖然現在還坐在「小資金散戶經濟艙」、卻緊握 ${stockList} 核心信仰飛往財富自由的看盤人！
+
+🎧 曲風與編曲亮點：
+• ${bpm} BPM 微醺詩意爵士嘻哈 (Poetic Jazz-Hop / Conscious Boom-Bap) + 機艙廣播叮咚聲
+• KAFE.HU 式磁性意識流說唱 × KEY.L 劉聰式穿透高音旋律副歌與勵志主歌
+• 金句重現：「老鷹不可以留戀無本當沖的地平線，種子在主升段發芽前得先和泥土比拼！」
+
+💬 你現在也坐在「46A 散戶經濟艙」默默累積複利嗎？在留言區寫下你的目的地，我們頭等艙見 ✈️🌙！
+
+#台股 #美股 #經濟艙 #KAFEHU #劉聰 #KEYL #中國新說唱 #爵士說唱 #走心說唱 #散戶心聲 #台積電 #輝達 #SunoAI #AI音樂 #股票饒舌`
+    },
+    en: {
+      title: "散戶經濟艙・通往財富自由的航向 (Economy Cabin Trader)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `散戶經濟艙 (Economy Cabin Trader) | Kafe.Hu & KEY.L "Economy Cabin" Style Poetic Jazz-Hop (${bpm} BPM)`,
+        `"Does Sitting in the Retail Economy Cabin Hurt Your Pride? No—This Is the Flight Path to Freedom!" ✈️🌙`,
+        `For Every Small-Account Trader Grinding Through the Night Session 🎷 "Economy Cabin Trader" (Official AI Audio)`
+      ],
+      ytDesc: `✈️ "Seat 46A by the window... Does sitting in the retail economy cabin hurt your pride? I said: This is the flight path toward financial freedom."
+Inspired by Kafe.Hu and KEY.L Liu Cong's acclaimed jazz-hop masterpiece "Economy Cabin (經濟艙)", this ${bpm} BPM poetic conscious boom-bap duet blends warm Rhodes piano chords, late-night saxophone, introspective spoken-word metaphors, and a soaring soulful chorus dedicated to small-account traders holding ${stockListEn} through the clouds!
+
+#StockMarketRap #EconomyCabin #KafeHu #LiuCong #JazzHop #ConsciousHipHop #SmallAccountTrader #TSMC #NVDA #SunoAI #AIMusic`
+    }
+  };
 }
 
 function buildDragonsRadioactivePackage(p, bpm, flags) {
@@ -5571,6 +5771,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "kafehu-economycabin") {
+    return buildKafehuEconomyCabinPackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "dragons-radioactive") {
     return buildDragonsRadioactivePackage(p, bpm, {
