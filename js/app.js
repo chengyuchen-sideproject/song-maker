@@ -10,6 +10,13 @@
  */
 
 const KNOWN_YT_REFS = {
+  ktvTqknDobU: {
+    title: "Imagine Dragons《Radioactive》末日工業戰鼓 Dubstep-Rock × 核爆級算力軋空說唱",
+    bpm: 136,
+    preset: "dragons-radioactive",
+    vibe: "標誌性空靈木吉他前奏與深吸一口氣（「I'm waking up to ash and dust...」）× 136 BPM 震耳欲聾的末日體育館大鼓與失真 Dubstep 重低音 Drop × 爆發力嘶吼男主唱（「Welcome to the new age! Radioactive!」）與硬核炸裂快嘴 Rapper 雙軌轟炸",
+    dna: ["☢️ 深呼吸開盤×末日工業重低音 Drop", "🥁 136 BPM 震天體育館戰鼓×Dubstep-Rock", "🔥 \"Welcome To The New Age!\" AI新紀元", "⚡ \"Radioactive!\" 核爆級嘶吼×快嘴 Rap"]
+  },
   "5NPBIwQyPWE": {
     title: "Avril Lavigne《Complicated》Y2K 滑板流行搖滾 × 叛逆女聲吐槽 × 雙倍速快嘴 Rap",
     bpm: 78,
@@ -174,6 +181,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "dragons-radioactive": {
+    nameZh: "Imagine Dragons《Radioactive》風：末日工業重低音 Drop × 震天體育館戰鼓 ×「Welcome to the new age!」核爆嘶吼與快嘴說唱",
+    defaultBpm: 136,
+    sunoStyleZh:
+      "Apocalyptic arena electronic rock and industrial dubstep-rock anthem fused with explosive hardcore hip-hop rap, {BPM} BPM, haunting acoustic guitar intro followed by a sharp deep inhale and a massive earth-shaking distorted dubstep sub-bass and taiko war-drum drop, gritty powerhouse male rock vocalist roaring with raw stadium intensity (Welcome to the new age, I'm radioactive!), trading high-voltage rapid-fire bars with an aggressive double-time male rapper, massive gang-vocal stadium chant (Whoa-oh-oh-oh, I'm radioactive!), unstoppable nuclear bull-run energy",
+    sunoStyleEn:
+      "2010s apocalyptic stadium alternative rock and industrial dubstep-rock crossover fused with hard-hitting hip-hop rap, {BPM} BPM, atmospheric acoustic guitar intro, audible deep breath before a thunderous distorted bass and booming arena war-drum drop, raspy powerhouse male rock lead vocal belting an explosive chorus (Welcome to the new age, radioactive!) alongside a fierce rapid-fire male rapper, epic stadium choir harmonies and earth-shattering low end",
+    sunoExclude: "gentle jazz lounge, country twang, cute bubblegum pop, soft lullaby, disco",
+    dnaTags: ["☢️ 深呼吸開盤×末日工業重低音 Drop", "🥁 136 BPM 震天體育館戰鼓×Dubstep-Rock", "🔥 \"Welcome To The New Age!\" AI新紀元", "⚡ \"Radioactive!\" 核爆級嘶吼×快嘴 Rap"]
+  },
   "avril-complicated": {
     nameZh: "Avril Lavigne《Complicated》風：Y2K 木吉他流行龐克搖滾 ×「Why'd you make it so complicated?」叛逆女聲 × 吐槽假股神快嘴 Rap",
     defaultBpm: 78,
@@ -428,8 +445,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "avril-complicated",
-  bpm: 78,
+  preset: "dragons-radioactive",
+  bpm: 136,
   topics: new Set([
     "nvda",
     "tsmc",
@@ -1366,6 +1383,200 @@ function analyzeYoutubeUrl() {
   randomizeSongKeywords(false);
   renderAll();
   showToast("🔍 已完成曲風解析並隨機抽取全新關鍵字創作歌詞！");
+}
+
+function buildDragonsRadioactivePackage(p, bpm, flags) {
+  const hookLineZh =
+    currentState.customHook ||
+    "Welcome to the new age, to the new age! 歡迎來到 AI 算力新紀元，I'm radioactive, 核爆級軋空！";
+  const hookLineEn =
+    currentState.customHook ||
+    "Welcome to the new age, to the new age! Whoa, oh, oh, oh, I'm radioactive, short-squeeze radioactive!";
+
+  const stockList =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.zh.split(" ")[0]).join("、")
+      : "台積電、輝達、鴻海";
+  const stockListEn =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.en.split(" ")[0]).join(", ")
+      : "TSMC, Nvidia, Foxconn";
+
+  const lyricsZh = `[Intro: Haunting Melancholic Acoustic Guitar Arpeggios, Distant Apocalyptic Wind... Sudden Deep Inhale (Gasp!) & Earth-Shaking Dubstep Sub-Bass + Stadium War Drums Drop!]
+[Powerhouse Raspy Arena Rock Vocal & Rapper Hype]
+(Deep Inhale... BOOM!)
+Whoa, oh, oh, oh, oh...
+Whoa, oh, oh, oh, oh...
+從融資斷頭的灰燼裡醒來，歡迎來到算力統治的新紀元！
+
+[Verse 1: Gritty Raspy Rock Male Vocal, Booming Industrial War Drums & Heavy Distorted Bass]
+I'm waking up to ash and dust
+我在千點重挫的灰燼裡醒來，擦乾額頭的汗與交割的淚
+I'm breathing in the silicon
+深深吸一口氣，聞到晶圓與伺服器機房滿載燃燒的氣味—— *(Deep Inhale!)*
+[Explosive Vocal Roar]
+我衝破了五檔假單的牢籠，在阿呆谷底重新給槓桿上膛
+當外資借券砸盤的末日降臨，我卻在廢墟裡看見 ${stockList} 核爆般的長紅光芒！
+This is it, the apocalypse, whoa!
+
+[Pre-Chorus: Escalating Stadium Taiko War Drums & Choir Chant]
+I'm waking up, 我感覺主升段的血液在骨頭裡沸騰
+Enough to make my trading system blow
+${hookLineZh}
+
+[Chorus: Maximum Voltage Dubstep-Rock Drop, Thunderous War Drums & Soaring Raspy Scream!]
+Whoa, oh, oh, oh, oh
+Whoa, oh, oh, oh, I'm radioactive, radioactive!
+Whoa, oh, oh, oh, oh
+Whoa, oh, oh, oh, 籌碼正在核爆，I'm radioactive, radioactive!
+
+[Verse 2: Aggressive Hardcore Male Rapper Trading Bars with Arena Rock Vocal, Heavy Industrial Bass!]
+[Rapper] （末日工業重低音 × 炸裂硬核快嘴 Rap Flow）
+Yo! 我升起多軍的戰旗，把那些關燈吃泡麵的舊時代徹底埋葬
+昨天還在公園紙箱位與溫蒂漢堡排班表前嘆氣，今天 ${stockList} 跳空鎖死一字線直接掀翻全場
+看股版冥燈反指標在山頂發抖、投顧老師蓋牌四張跌停股還在馬後砲畫線
+你把短線當沖做成了傳家寶、刪掉 APP 調成黑白模式，連阿公都從族譜跳出來問你買了哪支妖股
+（雙倍速核爆快嘴衝刺）
+但當黃仁勳皮衣刀客揮手點燃算力新紀元，處置五分盤也關不住這頭出柙的猛獸
+我們用鑽石手頂開 Call Wall 最大壓力天花板，讓空軍在週三結算日的 Gamma 核爆裡無處可逃！
+[Rock Vocal] I raise my flags, don my clothes
+It's a revolution, I suppose
+We're painted red to fit right in, 全場紅通通漲停亮燈——Whoa!
+
+[Pre-Chorus: Escalating Stadium Taiko War Drums & Choir Chant]
+I'm breaking in, shaping up, checking out on the prison bus
+This is it, the short-squeeze apocalypse, whoa!
+I'm waking up, 我感覺滾燙的買單在指尖跳動
+Enough to make the Wall Street bears explode
+${hookLineZh}
+
+[Chorus: Maximum Voltage Dubstep-Rock Drop, Thunderous War Drums & Soaring Raspy Scream!]
+Whoa, oh, oh, oh, oh
+Whoa, oh, oh, oh, I'm radioactive, radioactive!
+Whoa, oh, oh, oh, oh
+Whoa, oh, oh, oh, 空單全面融化，I'm radioactive, radioactive!
+
+[Bridge: Stripped-Back Acoustic Guitar & Choral Harmony Building to Nuclear Drum Explosion!]
+[Rock Vocal, haunting and solemn]
+All systems go, the sun hasn't died
+Deep in my bones, straight from inside...
+([Rapper] 倒數三、二、一，九點整集合競價開盤！所有算力引擎全開，把四萬點天花板徹底轟碎！)
+
+[Chorus: Final Earth-Shattering Stadium Climax, Maximum Vocal Roar + Dubstep Bass + Full Choir!]
+I'm waking up, I feel it in my bones
+Enough to make my portfolio blow
+${hookLineZh}
+Whoa, oh, oh, oh, oh
+Whoa, oh, oh, oh, I'm radioactive, radioactive!
+握緊 ${stockList}，開創我們的算力新紀元！
+I'm radioactive, radioactive!
+
+[Outro: Echoing War Drums & Fading Acoustic Guitar Chords]
+[Rock Vocal]
+Welcome to the new age... 算力新紀元，漲停收盤！
+[End]`;
+
+  const lyricsEn = `[Intro: Haunting Melancholic Acoustic Guitar Arpeggios, Distant Apocalyptic Wind... Sudden Deep Inhale (Gasp!) & Earth-Shaking Dubstep Sub-Bass + Stadium War Drums Drop!]
+[Powerhouse Raspy Arena Rock Vocal & Rapper Hype]
+(Deep Inhale... BOOM!)
+Whoa, oh, oh, oh, oh...
+Whoa, oh, oh, oh, oh...
+Rising from the ashes of the margin call—welcome to the AI compute new age!
+
+[Verse 1: Gritty Raspy Rock Male Vocal, Booming Industrial War Drums & Heavy Distorted Bass]
+I'm waking up to ash and dust
+I wipe my brow and I sweat my rust
+I'm breathing in the silicon — *(Deep Inhale!)*
+[Explosive Vocal Roar]
+I'm breaking in, shaping up, checking out on the liquidation bus
+This is it, the short-squeeze apocalypse, whoa!
+
+[Pre-Chorus: Escalating Stadium Taiko War Drums & Choir Chant]
+I'm waking up, I feel it in my bones
+Enough to make my portfolio blow
+${hookLineEn}
+
+[Chorus: Maximum Voltage Dubstep-Rock Drop, Thunderous War Drums & Soaring Raspy Scream!]
+Whoa, oh, oh, oh, oh
+Whoa, oh, oh, oh, I'm radioactive, radioactive!
+Whoa, oh, oh, oh, oh
+Whoa, oh, oh, oh, I'm radioactive, radioactive!
+
+[Verse 2: Aggressive Hardcore Male Rapper Trading Bars with Arena Rock Vocal, Heavy Industrial Bass!]
+[Rapper] (Apocalyptic Industrial Dubstep-Rock × Hardcore Fast Rap Flow)
+Yo! I raise my bull flags, burn the Wendy's night-shift application to the ground
+Yesterday sleeping in a park cardboard box, today ${stockListEn} locking limit-up with a nuclear sound
+Forum jinxes trembling at the top while fake TV gurus hide four losers under the desk
+Turned a five-minute scalp into a family heirloom, grandpa jumping out the family tree at my request
+Deleted the broker app in grayscale mode eating instant noodles in the cold
+Now the silicon revolution is here, diamond hands crushing every hedge-fund short that sold!
+[Rock Vocal] I raise my flags, don my clothes
+It's a revolution, I suppose
+We're painted green to fit right in, whoa!
+
+[Chorus: Maximum Voltage Dubstep-Rock Drop, Thunderous War Drums & Soaring Raspy Scream!]
+${hookLineEn}
+Whoa, oh, oh, oh, oh
+Whoa, oh, oh, oh, I'm radioactive, radioactive!
+
+[Bridge: Stripped-Back Acoustic Guitar & Choral Harmony Building to Nuclear Drum Explosion!]
+[Rock Vocal, haunting and solemn]
+All systems go, the bull hasn't died
+Deep in my bones, straight from inside...
+([Rapper] Countdown three, two, one—opening bell ignition! Smashing through the Call Wall ceiling!)
+
+[Chorus: Final Earth-Shattering Stadium Climax, Maximum Vocal Roar + Dubstep Bass + Full Choir!]
+I'm waking up, I feel it in my bones
+Enough to make my portfolio blow
+${hookLineEn}
+Holding ${stockListEn} into the new age!
+I'm radioactive, radioactive!
+
+[Outro: Echoing War Drums & Fading Acoustic Guitar Chords]
+[Rock Vocal]
+Welcome to the new age... Market conquered!
+[End]`;
+
+  return {
+    zh: {
+      title: "核爆級軋空・歡迎來到算力新紀元 (Radioactive Short Squeeze)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI末日戰鼓搖滾饒舌】《核爆級軋空 Radioactive》｜致敬 Imagine Dragons 破二十億神曲！「歡迎來到 AI 算力新紀元！」(Official Audio)`,
+        `《核爆級軋空 (Radioactive Short Squeeze)》｜深呼吸一聲後重低音核爆 Drop × 體育館戰鼓說唱 (${bpm} BPM)`,
+        `從斷頭灰燼中滿血復活！當 Imagine Dragons《Radioactive》遇上台積電與輝達算力新紀元 ☢️🥁`
+      ],
+      ytDesc: `☢️「I'm waking up to ash and dust... 深深吸一口氣，聞到晶圓與伺服器機房滿載燃燒的氣味—— *(Deep Inhale!)* Welcome to the new age! 歡迎來到 AI 算力新紀元，I'm radioactive, 核爆級軋空！」
+致敬搖滾天團 Imagine Dragons（謎幻樂團）榮獲葛萊美獎、全球破二十億點擊的末日戰鼓神曲《Radioactive》（參考網址：ktvTqknDobU），這首《核爆級軋空・歡迎來到算力新紀元 (Radioactive Short Squeeze)》以 ${bpm} BPM 完美重現原曲最震撼的「空靈木吉他前奏 ➔ 深吸一口氣停頓 ➔ 毀天滅地 Dubstep 重低音與體育館太鼓炸裂 Drop」！
+將散戶在經歷千點暴跌灰燼（關燈吃泡麵、公園紙箱位、溫蒂漢堡排班、刪 APP 調黑白模式、阿公從族譜跳出來）後，伴隨輝達（NVIDIA）與台積電（2330）（${stockList}）開啟 AI 算力新紀元、升起多軍紅旗（"We're painted red to fit right in!"）引爆核爆級軋空主升段的史詩氣勢唱到極致！
+
+🎧 曲風與編曲亮點：
+• ${bpm} BPM 末日工業搖滾 × Dubstep 重低音合成器 × 震耳欲聾的體育館太鼓 (Taiko War Drums)
+• 完美還原原曲標誌性「I'm breathing in the silicon — *(Deep Inhale!)*」深呼吸停頓與重拍炸裂
+• Dan Reynolds 式嘶吼男高音副歌 × 中段硬核雙倍速快嘴 Rap 雙軌轟炸
+
+💬 你準備好迎接這場「Welcome to the new age」的核爆級主升段了嗎？在留言區刷一排「☢️ I'm Radioactive! 漲停核爆」！
+
+#台股 #美股 #ImagineDragons #Radioactive #謎幻樂團 #搖滾饒舌 #AI算力 #台積電 #輝達 #軋空 #股市迷因 #SunoAI #AI音樂 #股票戰歌`
+    },
+    en: {
+      title: "核爆級軋空・歡迎來到算力新紀元 (Radioactive Short Squeeze)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `核爆級軋空 (Radioactive Short Squeeze) | Imagine Dragons "Radioactive" Style Dubstep-Rock × Stock Rap (${bpm} BPM)`,
+        `"I'm Waking Up to Ash and Dust... Welcome to the AI New Age!" ☢️🥁 Nuclear Bull Run Anthem (Official AI Audio)`,
+        `Wait for the Deep Breath & Bass Drop 🔥 When Imagine Dragons' "Radioactive" Meets Wall Street Short Squeeze`
+      ],
+      ytDesc: `☢️ "I'm waking up to ash and dust... I'm breathing in the silicon — *(Deep Inhale!)* ${hookLineEn}!"
+Inspired by Imagine Dragons' Grammy-winning apocalyptic arena-rock smash "Radioactive", this ${bpm} BPM industrial dubstep-rock and hardcore rap anthem rises from the ashes of a market crash into a nuclear AI bull run on ${stockListEn}—complete with the signature deep-breath drop, booming stadium war drums, and rapid-fire Wall Street meme bars!
+
+#StockMarketRap #ImagineDragons #Radioactive #ArenaRock #DubstepRock #ShortSqueeze #WallStreetMemes #TSMC #NVDA #SunoAI #AIMusic`
+    }
+  };
 }
 
 function buildAvrilComplicatedPackage(p, bpm, flags) {
@@ -5190,6 +5401,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "dragons-radioactive") {
+    return buildDragonsRadioactivePackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "avril-complicated") {
     return buildAvrilComplicatedPackage(p, bpm, {

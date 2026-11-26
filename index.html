@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>歌曲製造機 Pro | AI 曲風整改 × 台美股饒舌 × Suno & YouTube 全套工作站</title>
-  <link rel="stylesheet" href="css/style.css?v=20261126g" />
+  <link rel="stylesheet" href="css/style.css?v=20261126h" />
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#0d1117" />
 </head>
@@ -33,7 +33,7 @@
       <section class="card">
         <div class="card-header">
           <h2>1️⃣ 參考 YouTube 網址與曲風基因</h2>
-          <span class="status-pill" id="url-status">已載入 Avril Lavigne《Complicated》千禧滑板龐克流行搖滾×反指標吐槽說唱基因</span>
+          <span class="status-pill" id="url-status">已載入 Imagine Dragons《Radioactive》末日戰鼓重低音×核爆級軋空搖滾說唱基因</span>
         </div>
         <div class="form-group">
           <label for="yt-url">YouTube 參考歌曲網址</label>
@@ -41,27 +41,27 @@
             <input
               type="url"
               id="yt-url"
-              value="https://www.youtube.com/watch?v=5NPBIwQyPWE&list=RDvx2u5uUu3DE&index=14"
+              value="https://www.youtube.com/watch?v=ktvTqknDobU&list=RDvx2u5uUu3DE&index=24"
               placeholder="貼上 YouTube 連結 (例如：https://www.youtube.com/watch?v=...)"
             />
             <button id="btn-analyze-url" class="btn-accent">🔍 解析曲風</button>
           </div>
-          <small class="hint">支援一鍵解析《Complicated》(5NPBIwQyPWE)、《Viva La Vida》(dvgZkm1xWPE)、《Numb》(kXYiU_JCYtU)、《Shallow》(bo_efYhYU2A)、《Bad Romance》(qrO4YZeyl0I)、《Thriller 顫慄》(Thzt3Hi6ihM)、《What Makes You Beautiful》(S3IQwuYX_ls)、《It's My Life》(vx2u5uUu3DE)、《浪子回頭》(x3bDhtuC5yk)、《你也是個Rapper》(K1j4kneapVY)、《若月亮沒來》(j-iN8RD44dI)、《差不多姑娘》(s4pxJ-1QLQg)、《苦行僧》(50BCt8bptDg)、《飄向北方》(IBaWc3C00kU)、《慶功酒》(MywfB-ZXe8o)、《Ghost Face》(GNPZZ55pBck)、《在Cypher裏》(VslVrOUnJX0)、《離開》(Qey0V-UtK6U)、《除了說唱我什麼都不會》(IjltoDcgtV0)、《攀登》(z-4GQPIxppw)、《槍火》(FqRiJA8KOO0)、《王牌冤家》(lEKuorDbaCQ)。</small>
+          <small class="hint">支援一鍵解析《Radioactive》(ktvTqknDobU)、《Complicated》(5NPBIwQyPWE)、《Viva La Vida》(dvgZkm1xWPE)、《Numb》(kXYiU_JCYtU)、《Shallow》(bo_efYhYU2A)、《Bad Romance》(qrO4YZeyl0I)、《Thriller 顫慄》(Thzt3Hi6ihM)、《What Makes You Beautiful》(S3IQwuYX_ls)、《It's My Life》(vx2u5uUu3DE)、《浪子回頭》(x3bDhtuC5yk)、《你也是個Rapper》(K1j4kneapVY)、《若月亮沒來》(j-iN8RD44dI)、《差不多姑娘》(s4pxJ-1QLQg)、《苦行僧》(50BCt8bptDg)、《飄向北方》(IBaWc3C00kU)、《慶功酒》(MywfB-ZXe8o)、《Ghost Face》(GNPZZ55pBck)、《在Cypher裏》(VslVrOUnJX0)、《離開》(Qey0V-UtK6U)、《除了說唱我什麼都不會》(IjltoDcgtV0)、《攀登》(z-4GQPIxppw)、《槍火》(FqRiJA8KOO0)、《王牌冤家》(lEKuorDbaCQ)。</small>
         </div>
 
         <div id="ref-song-card" class="ref-song-box">
           <div class="ref-thumb">
-            <img id="ref-thumb-img" src="https://i.ytimg.com/vi/5NPBIwQyPWE/hqdefault.jpg" alt="Reference Thumbnail" />
-            <span class="ref-bpm-tag" id="ref-bpm-display">78 BPM</span>
+            <img id="ref-thumb-img" src="https://i.ytimg.com/vi/ktvTqknDobU/hqdefault.jpg" alt="Reference Thumbnail" />
+            <span class="ref-bpm-tag" id="ref-bpm-display">136 BPM</span>
           </div>
           <div class="ref-meta">
-            <h3 id="ref-title">Avril Lavigne《Complicated》Y2K 滑板流行搖滾 × 叛逆女聲吐槽 × 雙倍速快嘴 Rap</h3>
-            <p id="ref-vibe">標誌性「Uh-huh, life's like this!」清脆木吉他刷弦與 Boom-Bap 搖滾鼓點 (78 BPM) × 艾薇兒式酷帥叛逆女聲吐槽裝模作樣的假股神 ×「Why'd you have to go and make things so complicated?」爆發力失真電吉他大合唱 × 156 BPM 雙倍速快嘴 Rap 交鋒</p>
+            <h3 id="ref-title">Imagine Dragons《Radioactive》末日工業戰鼓 Dubstep-Rock × 核爆級算力軋空說唱</h3>
+            <p id="ref-vibe">標誌性空靈木吉他前奏與深吸一口氣（「I'm waking up to ash and dust...」）× 136 BPM 震耳欲聾的末日體育館大鼓與失真 Dubstep 重低音 Drop × 爆發力嘶吼男主唱（「Welcome to the new age! Radioactive!」）與硬核炸裂快嘴 Rapper 雙軌轟炸</p>
             <div class="dna-tags" id="ref-dna-tags">
-              <span>🛹 "Uh-huh, Market's Like This!"</span>
-              <span>🎸 Y2K 木吉他刷弦×流行龐克搖滾</span>
-              <span>🙄 "Why'd You Make It So Complicated?"</span>
-              <span>⚡ 叛逆酷女聲×雙倍速吐槽快嘴 Rap</span>
+              <span>☢️ 深呼吸開盤×末日工業重低音 Drop</span>
+              <span>🥁 136 BPM 震天體育館戰鼓×Dubstep-Rock</span>
+              <span>🔥 "Welcome To The New Age!" AI新紀元</span>
+              <span>⚡ "Radioactive!" 核爆級嘶吼×快嘴 Rap</span>
             </div>
           </div>
         </div>
@@ -69,7 +69,8 @@
         <div class="form-group">
           <label for="style-preset">曲風整改模板 (可自由切換)</label>
           <select id="style-preset">
-            <option value="avril-complicated" selected>🛹 Avril Lavigne《Complicated》風：Y2K 木吉他流行龐克搖滾 ×「Why'd you make it so complicated?」叛逆女聲 × 吐槽假股神快嘴 Rap (78 BPM)</option>
+            <option value="dragons-radioactive" selected>☢️ Imagine Dragons《Radioactive》風：末日工業重低音 Drop × 震天體育館戰鼓 ×「Welcome to the new age!」核爆嘶吼與快嘴說唱 (136 BPM)</option>
+            <option value="avril-complicated">🛹 Avril Lavigne《Complicated》風：Y2K 木吉他流行龐克搖滾 ×「Why'd you make it so complicated?」叛逆女聲 × 吐槽假股神快嘴 Rap (78 BPM)</option>
             <option value="coldplay-viva">👑 Coldplay《Viva La Vida》風：史詩巴洛克交響弦樂 × 教堂鐘聲定音鼓 ×「Whoa-oh-oh」萬人聖歌與王朝說唱 (138 BPM)</option>
             <option value="lp-numb">🔥 Linkin Park《Numb》風：標誌性電子合成器 Loop × 厚重 Nu-Metal 電吉他音牆 × 撕裂高音嘶吼與雙主唱 Rap-Rock (110 BPM)</option>
             <option value="gaga-shallow">🌊 Lady Gaga & Bradley Cooper《Shallow》風：木吉他深情男女對唱 ×「Ah-ah-aaaah」核爆女高音 × 走心股市說唱 (96 BPM)</option>
@@ -196,8 +197,8 @@
             <input type="text" id="custom-hook" placeholder="留空則使用該曲風經典改編副歌" />
           </div>
           <div class="form-group">
-            <label for="custom-bpm">目標 BPM：<span id="bpm-val">78</span></label>
-            <input type="range" id="custom-bpm" min="75" max="155" value="78" />
+            <label for="custom-bpm">目標 BPM：<span id="bpm-val">136</span></label>
+            <input type="range" id="custom-bpm" min="75" max="155" value="136" />
           </div>
         </div>
 
@@ -305,6 +306,6 @@
 
   <div id="toast" class="toast" aria-live="polite">已複製到剪貼簿！</div>
 
-  <script src="js/app.js?v=20261126g"></script>
+  <script src="js/app.js?v=20261126h"></script>
 </body>
 </html>
