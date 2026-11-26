@@ -10,6 +10,13 @@
  */
 
 const KNOWN_YT_REFS = {
+  "5NPBIwQyPWE": {
+    title: "Avril Lavigne《Complicated》Y2K 滑板流行搖滾 × 叛逆女聲吐槽 × 雙倍速快嘴 Rap",
+    bpm: 78,
+    preset: "avril-complicated",
+    vibe: "標誌性「Uh-huh, life's like this!」清脆木吉他刷弦與 Boom-Bap 搖滾鼓點 (78 BPM) × 艾薇兒式酷帥叛逆女聲吐槽裝模作樣的假股神 ×「Why'd you have to go and make things so complicated?」爆發力失真電吉他大合唱 × 156 BPM 雙倍速快嘴 Rap 交鋒",
+    dna: ["🛹 \"Uh-huh, Market's Like This!\"", "🎸 Y2K 木吉他刷弦×流行龐克搖滾", "🙄 \"Why'd You Make It So Complicated?\"", "⚡ 叛逆酷女聲×雙倍速吐槽快嘴 Rap"]
+  },
   dvgZkm1xWPE: {
     title: "Coldplay《Viva La Vida》史詩巴洛克交響弦樂 × 教堂鐘聲定音鼓 × 股神王朝史詩說唱",
     bpm: 138,
@@ -167,6 +174,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "avril-complicated": {
+    nameZh: "Avril Lavigne《Complicated》風：Y2K 木吉他流行龐克搖滾 ×「Why'd you make it so complicated?」叛逆女聲 × 吐槽假股神快嘴 Rap",
+    defaultBpm: 78,
+    sunoStyleZh:
+      "Early 2000s Y2K teen pop-rock and skate-punk acoustic-rock crossover fused with witty double-time melodic rap, {BPM} BPM, iconic laid-back spoken intro (Uh-huh, market's like this!) over bright strummed acoustic guitar and punchy mid-tempo boom-bap rock drums, charismatic rebellious young female rock vocalist with attitude and crystal-clear angst, exploding into crunchy distorted power-chord electric guitars on the anthemic sing-along chorus (Why'd you have to go and make trading so complicated?), trading sharp satirical double-time rap bars with a witty male rapper",
+    sunoStyleEn:
+      "2002 Y2K skate-pop-rock and alternative acoustic-punk anthem fused with playful double-time hip-hop rap, {BPM} BPM, signature spoken intro (Uh-huh, life's like this!) over crisp acoustic guitar strumming and hip-hop-inflected live rock drums, sassy rebellious female rock lead vocal exploding into a massive distorted electric guitar chorus belt (Why'd you have to go and make trading so complicated?), paired with a rapid-fire satirical rap verse roasting fake Wall Street gurus, pure early-2000s nostalgia energy",
+    sunoExclude: "dark horror metal, slow funeral organ, EDM trance, country twang, robotic autotune",
+    dnaTags: ["🛹 \"Uh-huh, Market's Like This!\"", "🎸 Y2K 木吉他刷弦×流行龐克搖滾", "🙄 \"Why'd You Make It So Complicated?\"", "⚡ 叛逆酷女聲×雙倍速吐槽快嘴 Rap"]
+  },
   "coldplay-viva": {
     nameZh: "Coldplay《Viva La Vida》風：史詩巴洛克交響弦樂 × 教堂鐘聲定音鼓 ×「Whoa-oh-oh」萬人聖歌與王朝說唱",
     defaultBpm: 138,
@@ -411,8 +428,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "coldplay-viva",
-  bpm: 138,
+  preset: "avril-complicated",
+  bpm: 78,
   topics: new Set([
     "nvda",
     "tsmc",
@@ -1349,6 +1366,206 @@ function analyzeYoutubeUrl() {
   randomizeSongKeywords(false);
   renderAll();
   showToast("🔍 已完成曲風解析並隨機抽取全新關鍵字創作歌詞！");
+}
+
+function buildAvrilComplicatedPackage(p, bpm, flags) {
+  const hookLineZh =
+    currentState.customHook ||
+    "Why'd you have to go and make trading so complicated? 幹嘛把看盤搞得這麼複雜，最後還不是砍在阿呆谷底！";
+  const hookLineEn =
+    currentState.customHook ||
+    "Why'd you have to go and make trading so complicated? I see the way you're drawing twenty indicators and getting liquidated!";
+
+  const stockList =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.zh.split(" ")[0]).join("、")
+      : "台積電、輝達、鴻海";
+  const stockListEn =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.en.split(" ")[0]).join(", ")
+      : "TSMC, Nvidia, Foxconn";
+
+  const lyricsZh = `[Intro: Bright Strummed Acoustic Guitar & Punchy Mid-Tempo Y2K Pop-Rock Boom-Bap Drums (78 BPM)]
+[Sassy Rebellious Female Vocal - Avril Style, casual spoken attitude]
+Uh-huh, market's like this...
+Uh-huh, uh-huh... that's the way it is
+'Cause life's like this
+Uh-huh, uh-huh, that's the way it is...
+（深呼吸，放下你螢幕上那二十條五顏六色的技術指標好嗎？Chill out!）
+
+[Verse 1: Sassy Young Female Rock Vocal, Crisp Acoustic Guitar Strums & Bass Groove]
+Chill out, 你在那裡大驚小怪吵什麼？
+Lay back, 這不過就是一根回測五日線的正常洗盤
+而且我們才剛走到主升段的一半
+When you're 獨自在書房，你明明也知道只要買進 ${stockList} 抱緊就能贏
+但一走進股版跟同學會群組，你卻突然換了一副假股神的面具
+
+[Pre-Chorus: Building Electric Guitar Arpeggios & Snare Drum Roll]
+你從來不肯老實承認自己又追高套在山頂
+你只會在收盤後畫滿馬後砲的波浪理論來騙自己
+You're making me
+Laugh out when you strike your guru pose
+把那個雷射筆給我拿開，你的維持率早就已經洩了底——！
+
+[Chorus: Explosive Y2K Distorted Power-Chord Electric Guitars & Powerhouse Pop-Punk Female Belt!]
+${hookLineZh}
+我看穿你在群組裡假裝算準每一根天地針的模樣
+讓我越看越無奈 (Makes me frustrated!)
+行情明明就是這樣，你卻被無本當沖跟五檔假單耍得團團轉
+You fall, and you crawl, and you break
+然後在 T加2 交割日前把本金賠光，honesty, you promised me
+你說這次絕對一張不賣，結果一跌兩趴你就嚇得全部砍光
+Why'd you have to go and make things so complicated?
+
+[Post-Chorus: Acoustic Guitar Riff & Sassy Vocal]
+Uh-huh, that's the way it is!
+
+[Verse 2: Witty Male Rapper & Sassy Female Vocal Trading Double-Time 156 BPM Rapid-Fire Roast Bars!]
+[Rapper] （雙倍速 156 BPM 吐槽快嘴 Rap Flow × Y2K 搖滾節拍）
+Yo! 你螢幕上開了 KD、MACD、布林通道外加八條費波南希黃金分割線
+結果股版冥燈反指標隨便喊一句滿倉歐印，你馬上把所有交易紀律丟到天邊
+投顧老師電視上蓋牌四張跌停股只吹漲停那一張，你也跟著刷卡入會喊恭喜會員
+昨天才在看信義區豪宅跟藍寶堅尼型錄，今晚跌停鎖死只能關起燈吃泡麵連茶葉蛋都不敢添！
+[Female Vocal] 只要不打開看盤 APP 就當作沒賠錢，把手機調成黑白模式自欺欺人
+[Rapper] 短線當沖搶便當錢最後變成傳家寶寫進遺囑，連阿公都從族譜跳出來問你買了什麼鬼東西
+明明只要跟著 ${stockList} 的基本面與 VWAP 均價線順勢走就海闊天空
+你偏要把簡單的多頭趨勢搞得像量子力學一樣複雜，最後再去大安森林公園排隊領紙箱！
+
+[Pre-Chorus: Escalating Rock Guitars & Drum Fill]
+你從來不肯承認自己只是手癢想賭一把
+你在夜盤面前裝得像華爾街之狼，卻在清晨追繳簡訊前雙腿發麻
+Take off all your preppy guru clothes
+You know you're not fooling anyone when your margin blows——！
+
+[Chorus: Explosive Y2K Distorted Power-Chord Electric Guitars & Full Band Sing-Along!]
+${hookLineZh}
+我看穿你在那裡算來算去最後還是賣飛在起漲點
+讓我越看越無奈 (Makes me frustrated!)
+牛市明明就是這樣，只要鑽石手抱緊 ${stockList} 就能一路破頂
+You fall, and you crawl, and you break
+何必為了幾個 tick 的價差天天幫券商打工，honesty, you promised me
+放下那些花裡胡哨的複雜指標，回歸最純粹的趨勢信仰
+Why'd you have to go and make things so complicated?
+
+[Bridge: Stripped-Back Acoustic Guitar & Emotional Female Vocal Building to Final Rock Explosion!]
+[Female Vocal]
+Chill out, what ya yellin' for?
+Lay back, it's all been done before
+And if you could only let it be, 刪掉那些雜訊，你會看見主升段有多清晰——！
+([Rapper] Keep it simple! 抱緊核心龍頭，讓時間的複利替你說話！Let's go!)
+
+[Chorus: Final Maximum Y2K Pop-Punk Stadium Climax, Soaring High-Note Ad-libs!]
+${hookLineZh}
+我看穿你假裝不在乎帳面虧損、其實半夜偷看美股期貨的模樣
+Makes me frustrated!
+Life's like this, you
+把複雜的當沖槓桿全部砍掉，跟著 ${stockList} 迎向破頂的曙光
+You truth, you promised me, I'm never gonna find you fake it
+No, no, no!
+
+[Outro: Iconic Acoustic Guitar Strum & Sassy Spoken Ad-lib]
+[Female Vocal]
+Uh-huh, market's like this...
+一點都不複雜，抱緊就對了。收盤！
+[End]`;
+
+  const lyricsEn = `[Intro: Bright Strummed Acoustic Guitar & Punchy Mid-Tempo Y2K Pop-Rock Boom-Bap Drums (78 BPM)]
+[Sassy Rebellious Female Vocal - Avril Style, casual spoken attitude]
+Uh-huh, market's like this...
+Uh-huh, uh-huh... that's the way it is
+'Cause trading's like this
+Uh-huh, uh-huh, that's the way it is...
+
+[Verse 1: Sassy Young Female Rock Vocal, Crisp Acoustic Guitar Strums & Bass Groove]
+Chill out, what ya panic-sellin' for?
+Lay back, it's just a normal pullback we've seen before
+And if you could only let it ride, you will see
+I like you the way you trade when we're holding ${stockListEn} alone
+And we're buying the dip and you're in the zone
+But then we log onto the forum and you become somebody else 'round everyone else
+
+[Pre-Chorus: Building Electric Guitar Arpeggios & Snare Drum Roll]
+You're watchin' your back like you can't relax
+You're tryin' to be cool, drawing fifty trendlines on the tracks
+You're makin' me
+Laugh out when you strike your guru pose
+Take off all your Wall Street suits, you know you're not fooling anyone, no—!
+
+[Chorus: Explosive Y2K Distorted Power-Chord Electric Guitars & Powerhouse Pop-Punk Female Belt!]
+${hookLineEn}
+Acting like you're a hedge-fund quant gets me frustrated
+Market's like this, you
+And you fall, and you crawl, and you break
+And you take what you get, and you turn a five-minute scalp into a family heirloom
+And honesty, you promised me I'm never gonna find you paper-handing
+No, no, no!
+
+[Verse 2: Witty Male Rapper & Sassy Female Vocal Trading Double-Time 156 BPM Rapid-Fire Roast Bars!]
+[Rapper] (156 BPM Double-Time Satirical Rap Flow Over Y2K Pop-Rock Beat)
+Yo! You got RSI, MACD, Bollinger Bands and twelve Fibonacci retracements on your screen
+Then the forum jinx screams YOLO at the top and you blow your whole margin routine
+TV guru waving a laser pointer bragging about one winner while hiding four losers in the drawer
+Yesterday configuring a Lamborghini, tonight eating instant noodles on the Wendy's floor!
+[Female Vocal] Deleting the broker app in grayscale mode pretending you haven't lost a dime
+[Rapper] Even your grandpa jumped out the family tree asking why you bought the top every single time
+All you had to do was hold ${stockListEn} above the VWAP line and let the bull run pay
+Instead you over-complicated a simple breakout and gave your whole portfolio away!
+
+[Chorus: Explosive Y2K Distorted Power-Chord Electric Guitars & Full Band Sing-Along!]
+${hookLineEn}
+Acting like you're Warren Buffett gets me frustrated
+Trading's like this, you
+And you fall, and you crawl, and you break
+Stop over-trading every tick, hold ${stockListEn} to the all-time high
+And honesty, you promised me I'm never gonna find you faking it
+No, no, no!
+
+[Outro: Iconic Acoustic Guitar Strum & Sassy Spoken Ad-lib]
+[Female Vocal]
+Uh-huh, market's like this...
+Keep it simple, diamond hands. Market closed!
+[End]`;
+
+  return {
+    zh: {
+      title: "別把看盤搞得太複雜・簡單抱緊就贏了 (Why'd You Make Trading So Complicated)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI千禧搖滾饒舌】《別把看盤搞得太複雜 Complicated》｜致敬艾薇兒 Avril Lavigne 經典神曲！吐槽假股神畫線名師 (Official Audio)`,
+        `《別把看盤搞得太複雜 (Why'd You Make Trading So Complicated)》｜Y2K 木吉他龐克搖滾 × 雙倍速吐槽快嘴 Rap (${bpm} BPM)`,
+        `畫了二十條指標結果還是賣飛砍在阿呆谷？聽完艾薇兒風《Complicated》秒懂「簡單抱緊台積電就贏了」🛹🎸`
+      ],
+      ytDesc: `🛹「Uh-huh, market's like this! Why'd you have to go and make trading so complicated? 幹嘛把看盤搞得這麼複雜，最後還不是砍在阿呆谷底！」
+致敬千禧年搖滾小天后 Avril Lavigne（艾薇兒）全球破億傳奇出道神曲《Complicated》（參考網址：5NPBIwQyPWE），這首《別把看盤搞得太複雜・簡單抱緊就贏了 (Why'd You Make Trading So Complicated)》以 ${bpm} BPM 最經典的「Uh-huh, life's like this!」清脆木吉他刷弦與帶有 Hip-Hop 律動感的 Y2K 流行龐克搖滾鼓點揭開序幕！
+用艾薇兒式酷帥叛逆、一針見血的吐槽女聲，搭配中段 156 BPM 雙倍速男聲快嘴 Rap，狠狠吐槽那些在螢幕上畫了二十條技術指標、在群組裝模作樣當少年股神、聽信投顧老師雷射筆蓋牌、結果一開盤就被五檔假單洗出去、把短線當沖做成傳家寶、刪 APP 調黑白模式、去溫蒂漢堡排班與公園搶紙箱的搞笑日常——其實只要放下複雜的雜訊，用鑽石手簡單抱緊 ${stockList} 主升段就贏了！
+
+🎧 曲風與編曲亮點：
+• ${bpm} BPM Y2K 千禧滑板流行搖滾 (Skate-Pop-Rock / Acoustic Pop-Punk)
+• 經典木吉他刷弦主歌 ➔ 副歌爆發力失真電吉他大合唱：「Why'd you have to go and make trading so complicated?」
+• 雙倍速（156 BPM）吐槽快嘴 Rap 濃縮滿滿股市地獄迷因
+
+💬 你身邊也有那種「指標畫滿整個螢幕，結果一買就套、一賣就噴」的朋友嗎？快把這首歌傳給他：「別把看盤搞得太複雜 🛹🎸」！
+
+#台股 #美股 #AvrilLavigne #Complicated #艾薇兒 #Y2K搖滾 #流行龐克 #股市迷因 #少年股神 #台積電 #輝達 #SunoAI #AI音樂 #股票饒舌`
+    },
+    en: {
+      title: "別把看盤搞得太複雜・簡單抱緊就贏了 (Why'd You Make Trading So Complicated)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `別把看盤搞得太複雜 (Why'd You Make Trading So Complicated) | Avril Lavigne Style Y2K Pop-Rock × Stock Rap (${bpm} BPM)`,
+        `"Why'd You Have to Go and Make Trading So Complicated?" 🛹🎸 Roasting Over-Indicator Traders (Official AI Audio)`,
+        `20 Indicators on Your Screen Just to Sell the Bottom 😂 Y2K Pop-Punk Wall Street Anthem (NVDA, TSMC)`
+      ],
+      ytDesc: `🛹 "Uh-huh, market's like this! ${hookLineEn}!"
+Inspired by Avril Lavigne's iconic 2002 Y2K pop-rock smash hit "Complicated", this ${bpm} BPM acoustic-to-pop-punk anthem and double-time satirical rap duet roasts traders who clutter their screens with twenty indicators, follow forum jinxes, and turn five-minute scalps into family heirlooms—when simply holding ${stockListEn} with diamond hands was all it took!
+
+#StockMarketRap #AvrilLavigne #Complicated #Y2KPopRock #PopPunk #WallStreetMemes #DiamondHands #TSMC #NVDA #SunoAI #AIMusic`
+    }
+  };
 }
 
 function buildColdplayVivaPackage(p, bpm, flags) {
@@ -4973,6 +5190,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "avril-complicated") {
+    return buildAvrilComplicatedPackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "coldplay-viva") {
     return buildColdplayVivaPackage(p, bpm, {
