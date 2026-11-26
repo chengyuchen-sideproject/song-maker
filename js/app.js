@@ -1391,32 +1391,137 @@ async function extractSunoFreeDownload() {
 
   if (match) {
     const uuid = match[1].toLowerCase();
-    const mp3Url = `https://cdn1.suno.ai/${uuid}.mp3`;
-    const mp4Url = `https://cdn1.suno.ai/${uuid}.mp4`;
-    const imgUrl = `https://cdn2.suno.ai/image_${uuid}.jpeg`;
+    // Suno 新版公開免簽章 CloudFront 音訊串流節點 (已支援 Access-Control-Allow-Origin: *)
+    const m4aUrl = `https://d2lwuy8qc234o3.cloudfront.net/1/clip/${uuid}.m4a`;
 
     resultEl.innerHTML = `
       <div style="display:flex;flex-direction:column;gap:8px">
-        <div style="color:#34d399;font-weight:700">✅ 成功提取 Suno 歌曲 ID：<code>${uuid}</code></div>
-        <audio controls src="${mp3Url}" style="width:100%;height:36px"></audio>
+        <div style="color:#34d399;font-weight:700">✅ 成功解鎖 Suno 新版免簽章音訊節點 (ID：<code>${uuid}</code>)</div>
+        <audio controls src="${m4aUrl}" style="width:100%;height:38px"></audio>
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
-          <a href="${mp3Url}" target="_blank" rel="noopener" download="${uuid}.mp3" class="btn-accent" style="text-decoration:none;padding:6px 12px;border-radius:6px;font-size:0.8rem;background:#10b981;color:#fff;font-weight:700">🎵 開啟 / 右鍵另存 MP3 原檔</a>
-          <a href="${mp4Url}" target="_blank" rel="noopener" download="${uuid}.mp4" class="btn-secondary-sm" style="text-decoration:none;padding:6px 12px;border-radius:6px;font-size:0.8rem">🎬 開啟 / 另存 MP4 歌詞影片</a>
-          <a href="${imgUrl}" target="_blank" rel="noopener" class="btn-secondary-sm" style="text-decoration:none;padding:6px 12px;border-radius:6px;font-size:0.8rem">🖼️ 下載封面大圖</a>
+          <button type="button" onclick="directDownloadSunoAudio('${m4aUrl}', 'suno-${uuid}.m4a', this)" class="btn-accent" style="padding:7px 14px;border-radius:6px;font-size:0.82rem;background:#10b981;color:#fff;font-weight:700;border:none;cursor:pointer">⬇️ 一鍵直接下載原檔 (.m4a 音訊)</button>
+          <button type="button" onclick="convertAndDownloadSunoWav('${m4aUrl}', 'suno-${uuid}.wav', this)" class="btn-secondary-sm" style="padding:7px 14px;border-radius:6px;font-size:0.82rem;cursor:pointer;color:#fde047;border-color:#fde047">🎚️ 轉為無損 .WAV 並直接下載</button>
+          <a href="${m4aUrl}" target="_blank" rel="noopener" class="btn-secondary-sm" style="text-decoration:none;padding:7px 12px;border-radius:6px;font-size:0.8rem">🔗 在新分頁開啟音檔</a>
         </div>
-        <div style="font-size:0.74rem;color:#94a3b8">💡 點擊上方「🎵 開啟 MP3 原檔」後，在新分頁播放器點選右下角「⋮」或按 <code>Ctrl + S</code> 即可免費存到電腦！</div>
+        <div style="font-size:0.74rem;color:#94a3b8">💡 已繞過舊版 <code>cdn1.suno.ai</code> 的 <code>MissingKey</code> 封鎖！點擊上方綠色按鈕即可直接把音樂存進電腦（或轉成通用無損 <code>.wav</code> 音檔）。</div>
       </div>
     `;
-    showToast("🔓 已成功解析 Suno CDN 原生 MP3 下載連結！");
+    showToast("🔓 已成功連上 Suno 新版免簽章音訊伺服器！");
   } else {
     resultEl.innerHTML = `
       <div style="color:#fbbf24;line-height:1.6">
-        ⚠️ 此短網址需透過瀏覽器轉址才能取得 36 碼 UUID。請直接點選以下兩種方式任一即可 100% 免費下載：<br>
-        1️⃣ <strong>最快方法</strong>：先在瀏覽器打開你的短網址，等網址列自動跳轉成 <code>https://suno.com/song/xxxx-xxxx...</code> 後，把完整網址貼回這裡再按一次解析！<br>
-        2️⃣ <strong>直接丟第三方解析站</strong>：點選 <a href="https://sunodown.com/" target="_blank" rel="noopener" style="color:#38bdf8;font-weight:700">SunoDown.com</a> 或 <a href="https://vocuno.com/suno-downloader" target="_blank" rel="noopener" style="color:#38bdf8;font-weight:700">Vocuno Downloader</a> 貼上短網址直接下載。
+        ⚠️ 此短網址需先在瀏覽器展開才能取得 36 碼歌曲 ID：<br>
+        請先在瀏覽器新分頁打開你的短網址，等網址列自動跳轉成 <code>https://suno.com/song/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</code> 後，把完整網址複製貼回上方欄位再按一次解析，即可一鍵免費下載！
       </div>
     `;
   }
+}
+
+async function directDownloadSunoAudio(url, filename, btnEl) {
+  const origText = btnEl ? btnEl.textContent : "";
+  try {
+    if (btnEl) {
+      btnEl.disabled = true;
+      btnEl.textContent = "⏳ 正在從伺服器抓取音檔...";
+    }
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const blob = await resp.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = blobUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(blobUrl);
+    showToast("🎵 已直接下載 Suno 原生音檔！");
+  } catch (err) {
+    window.open(url, "_blank");
+    showToast("⚠️ 已在新分頁開啟音檔，請按 Ctrl+S 另存！");
+  } finally {
+    if (btnEl) {
+      btnEl.disabled = false;
+      btnEl.textContent = origText;
+    }
+  }
+}
+
+async function convertAndDownloadSunoWav(url, filename, btnEl) {
+  const origText = btnEl ? btnEl.textContent : "";
+  try {
+    if (btnEl) {
+      btnEl.disabled = true;
+      btnEl.textContent = "⏳ 正在解碼並轉為無損 WAV...";
+    }
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const arrayBuf = await resp.arrayBuffer();
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    const decodeCtx = new AudioCtx();
+    const audioBuffer = await decodeCtx.decodeAudioData(arrayBuf);
+    const wavBlob = audioBufferToWavBlob(audioBuffer);
+    if (decodeCtx.close) decodeCtx.close();
+
+    const blobUrl = URL.createObjectURL(wavBlob);
+    const a = document.createElement("a");
+    a.href = blobUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(blobUrl);
+    showToast("🎚️ 已成功轉為無損 WAV 並下載至電腦！");
+  } catch (err) {
+    showToast(`⚠️ WAV 轉檔失敗 (${err.message})，請改點左側下載 .m4a 原檔！`);
+  } finally {
+    if (btnEl) {
+      btnEl.disabled = false;
+      btnEl.textContent = origText;
+    }
+  }
+}
+
+function audioBufferToWavBlob(buffer) {
+  const numOfChan = buffer.numberOfChannels;
+  const length = buffer.length * numOfChan * 2 + 44;
+  const out = new ArrayBuffer(length);
+  const view = new DataView(out);
+  const channels = [];
+  let sample = 0;
+  let offset = 0;
+  let pos = 0;
+
+  const setUint16 = (data) => { view.setUint16(pos, data, true); pos += 2; };
+  const setUint32 = (data) => { view.setUint32(pos, data, true); pos += 4; };
+
+  setUint32(0x46464952); // "RIFF"
+  setUint32(length - 8);
+  setUint32(0x45564157); // "WAVE"
+  setUint32(0x20746d66); // "fmt "
+  setUint32(16);
+  setUint16(1); // PCM
+  setUint16(numOfChan);
+  setUint32(buffer.sampleRate);
+  setUint32(buffer.sampleRate * 2 * numOfChan);
+  setUint16(numOfChan * 2);
+  setUint16(16);
+  setUint32(0x61746164); // "data"
+  setUint32(length - pos - 4);
+
+  for (let i = 0; i < numOfChan; i++) {
+    channels.push(buffer.getChannelData(i));
+  }
+  while (pos < length) {
+    for (let i = 0; i < numOfChan; i++) {
+      sample = Math.max(-1, Math.min(1, channels[i][offset]));
+      sample = (sample < 0 ? sample * 32768 : sample * 32767) | 0;
+      view.setInt16(pos, sample, true);
+      pos += 2;
+    }
+    offset++;
+  }
+  return new Blob([out], { type: "audio/wav" });
 }
 
 function analyzeYoutubeUrl() {
