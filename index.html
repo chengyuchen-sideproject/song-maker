@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>歌曲製造機 Pro | AI 曲風整改 × 台美股饒舌 × Suno & YouTube 全套工作站</title>
-  <link rel="stylesheet" href="css/style.css?v=20261126b" />
+  <link rel="stylesheet" href="css/style.css?v=20261126c" />
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#0d1117" />
 </head>
@@ -33,7 +33,7 @@
       <section class="card">
         <div class="card-header">
           <h2>1️⃣ 參考 YouTube 網址與曲風基因</h2>
-          <span class="status-pill" id="url-status">已載入 Michael Jackson《Thriller 顫慄》80s 暗黑放克合成器×午夜驚悚說唱基因</span>
+          <span class="status-pill" id="url-status">已載入 Lady Gaga《Bad Romance》暗黑電音合成器×洗腦 Rah-rah 股市虐戀說唱基因</span>
         </div>
         <div class="form-group">
           <label for="yt-url">YouTube 參考歌曲網址</label>
@@ -41,27 +41,27 @@
             <input
               type="url"
               id="yt-url"
-              value="https://www.youtube.com/watch?v=Thzt3Hi6ihM&list=RDThzt3Hi6ihM&start_radio=1"
+              value="https://www.youtube.com/watch?v=qrO4YZeyl0I&list=RDqrO4YZeyl0I&start_radio=1"
               placeholder="貼上 YouTube 連結 (例如：https://www.youtube.com/watch?v=...)"
             />
             <button id="btn-analyze-url" class="btn-accent">🔍 解析曲風</button>
           </div>
-          <small class="hint">支援一鍵解析《Thriller 顫慄》(Thzt3Hi6ihM)、《What Makes You Beautiful》(S3IQwuYX_ls)、《It's My Life》(vx2u5uUu3DE)、《浪子回頭》(x3bDhtuC5yk)、《你也是個Rapper》(K1j4kneapVY)、《若月亮沒來》(j-iN8RD44dI)、《差不多姑娘》(s4pxJ-1QLQg)、《苦行僧》(50BCt8bptDg)、《飄向北方》(IBaWc3C00kU)、《慶功酒》(MywfB-ZXe8o)、《Ghost Face》(GNPZZ55pBck)、《在Cypher裏》(VslVrOUnJX0)、《離開》(Qey0V-UtK6U)、《除了說唱我什麼都不會》(IjltoDcgtV0)、《攀登》(z-4GQPIxppw)、《槍火》(FqRiJA8KOO0)、《王牌冤家》(lEKuorDbaCQ)。</small>
+          <small class="hint">支援一鍵解析《Bad Romance》(qrO4YZeyl0I)、《Thriller 顫慄》(Thzt3Hi6ihM)、《What Makes You Beautiful》(S3IQwuYX_ls)、《It's My Life》(vx2u5uUu3DE)、《浪子回頭》(x3bDhtuC5yk)、《你也是個Rapper》(K1j4kneapVY)、《若月亮沒來》(j-iN8RD44dI)、《差不多姑娘》(s4pxJ-1QLQg)、《苦行僧》(50BCt8bptDg)、《飄向北方》(IBaWc3C00kU)、《慶功酒》(MywfB-ZXe8o)、《Ghost Face》(GNPZZ55pBck)、《在Cypher裏》(VslVrOUnJX0)、《離開》(Qey0V-UtK6U)、《除了說唱我什麼都不會》(IjltoDcgtV0)、《攀登》(z-4GQPIxppw)、《槍火》(FqRiJA8KOO0)、《王牌冤家》(lEKuorDbaCQ)。</small>
         </div>
 
         <div id="ref-song-card" class="ref-song-box">
           <div class="ref-thumb">
-            <img id="ref-thumb-img" src="https://i.ytimg.com/vi/Thzt3Hi6ihM/hqdefault.jpg" alt="Reference Thumbnail" />
-            <span class="ref-bpm-tag" id="ref-bpm-display">118 BPM</span>
+            <img id="ref-thumb-img" src="https://i.ytimg.com/vi/qrO4YZeyl0I/hqdefault.jpg" alt="Reference Thumbnail" />
+            <span class="ref-bpm-tag" id="ref-bpm-display">119 BPM</span>
           </div>
           <div class="ref-meta">
-            <h3 id="ref-title">Michael Jackson《Thriller (顫慄)》80s 暗黑放克合成器 × 午夜崩盤驚悚饒舌</h3>
-            <p id="ref-vibe">標誌性午夜狼嚎與木門嘎吱聲開場 × 118 BPM 傳奇 Minimoog 放克合成器 Bassline 與銅管齊奏 × 流行之王爆發力律動唱腔與緊湊 Funk-Rap 交錯 ×「'Cause this is Thriller, Thriller night!」萬人殭屍舞步副歌 × 結尾 Vincent Price 莊家低沉恐怖獨白與邪惡狂笑</p>
+            <h3 id="ref-title">Lady Gaga《Bad Romance》暗黑歌劇電音 Synth-Pop × 股市虐戀雙人說唱</h3>
+            <p id="ref-vibe">標誌性歌劇合成器前奏與「Oh-oh-oh-oh-oh, caught in a bad romance!」× 119 BPM 狂暴工業電音鋸齒 Bass 與四四拍重鼓 × 超洗腦「Rah-rah-ah-ah-ah, Roma-roma-ma」咒語 Hook × 女王低沉戲劇唸唱與硬派快嘴 Rapper 雙軌對撞</p>
             <div class="dna-tags" id="ref-dna-tags">
-              <span>🧟 80s Minimoog 暗黑放克 Bassline</span>
-              <span>🕺 118 BPM 流行之王律動×Funk-Rap</span>
-              <span>🌕 "'Cause This Is Thriller Night!"</span>
-              <span>🦇 結尾莊家低音恐怖獨白+邪惡笑聲</span>
+              <span>👑 "Rah-rah-ah-ah-ah!" 洗腦咒語</span>
+              <span>🎹 119 BPM 暗黑歌劇電音 Synth-Pop</span>
+              <span>💔 "Caught in a Bad Romance!" 股市虐戀</span>
+              <span>⚡ 法語戲劇 Bridge × 炸裂快嘴 Rap</span>
             </div>
           </div>
         </div>
@@ -69,7 +69,8 @@
         <div class="form-group">
           <label for="style-preset">曲風整改模板 (可自由切換)</label>
           <select id="style-preset">
-            <option value="mj-thriller" selected>🧟 Michael Jackson《Thriller 顫慄》風：80s 暗黑放克合成器 Bass × 午夜驚悚律動 Rap × 莊家邪惡笑聲獨白 (118 BPM)</option>
+            <option value="gaga-badromance" selected>👑 Lady Gaga《Bad Romance》風：暗黑歌劇電音 Synth-Pop ×「Rah-rah-ah-ah-ah」洗腦咒語 × 股市虐戀雙人說唱 (119 BPM)</option>
+            <option value="mj-thriller">🧟 Michael Jackson《Thriller 顫慄》風：80s 暗黑放克合成器 Bass × 午夜驚悚律動 Rap × 莊家邪惡笑聲獨白 (118 BPM)</option>
             <option value="oned-beautiful">🏖️ One Direction《What Makes You Beautiful》風：陽光衝浪吉他 × 男團多巴胺接力 Rap × 超洗腦大合唱 (125 BPM)</option>
             <option value="bonjovi-mylife">🎸 Bon Jovi《It's My Life》風：Talk-Box 哇音電吉他 × 體育館硬式搖滾嘶吼 × 熱血 Rap-Rock 戰歌 (120 BPM)</option>
             <option value="prodigal-return">🚬 茄子蛋《浪子回頭》風：催淚藍調電吉他 × 沙啞菸酒嗓大合唱 × 台式浪子走心饒舌 (78 BPM)</option>
@@ -191,8 +192,8 @@
             <input type="text" id="custom-hook" placeholder="留空則使用該曲風經典改編副歌" />
           </div>
           <div class="form-group">
-            <label for="custom-bpm">目標 BPM：<span id="bpm-val">118</span></label>
-            <input type="range" id="custom-bpm" min="75" max="155" value="118" />
+            <label for="custom-bpm">目標 BPM：<span id="bpm-val">119</span></label>
+            <input type="range" id="custom-bpm" min="75" max="155" value="119" />
           </div>
         </div>
 
@@ -300,6 +301,6 @@
 
   <div id="toast" class="toast" aria-live="polite">已複製到剪貼簿！</div>
 
-  <script src="js/app.js?v=20261126b"></script>
+  <script src="js/app.js?v=20261126c"></script>
 </body>
 </html>

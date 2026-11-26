@@ -10,6 +10,13 @@
  */
 
 const KNOWN_YT_REFS = {
+  qrO4YZeyl0I: {
+    title: "Lady Gaga《Bad Romance》暗黑歌劇電音 Synth-Pop × 股市虐戀雙人說唱",
+    bpm: 119,
+    preset: "gaga-badromance",
+    vibe: "標誌性歌劇合成器前奏與「Oh-oh-oh-oh-oh, caught in a bad romance!」× 119 BPM 狂暴工業電音鋸齒 Bass 與四四拍重鼓 × 超洗腦「Rah-rah-ah-ah-ah, Roma-roma-ma」咒語 Hook × 女王低沉戲劇唸唱與硬派快嘴 Rapper 雙軌對撞",
+    dna: ["👑 \"Rah-rah-ah-ah-ah!\" 洗腦咒語", "🎹 119 BPM 暗黑歌劇電音 Synth-Pop", "💔 \"Caught in a Bad Romance!\" 股市虐戀", "⚡ 法語戲劇 Bridge × 炸裂快嘴 Rap"]
+  },
   Thzt3Hi6ihM: {
     title: "Michael Jackson《Thriller (顫慄)》80s 暗黑放克合成器 × 午夜崩盤驚悚饒舌",
     bpm: 118,
@@ -139,6 +146,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "gaga-badromance": {
+    nameZh: "Lady Gaga《Bad Romance》風：暗黑歌劇電音 Synth-Pop ×「Rah-rah-ah-ah-ah」洗腦咒語 × 股市虐戀雙人說唱",
+    defaultBpm: 119,
+    sunoStyleZh:
+      "Dark theatrical Euro-dance electropop and industrial synth-pop anthem fused with hard-hitting hip-hop rap duet, {BPM} BPM, iconic dramatic operatic synth-choir intro (Oh-oh-oh-oh-oh, caught in a bad romance!) and hypnotic stuttering vocal chant (Rah-rah-ah-ah-ah, roma-roma-ma, gaga-ooh-la-la!), heavy distorted sawtooth synth bassline and pounding four-on-the-floor stadium club drums, powerhouse theatrical female vocalist switching between deep sultry spoken-sung verses and soaring stadium diva chorus belts, trading fiery rapid-fire bars with an aggressive male rapper, dramatic spoken-word French-style bridge build-up",
+    sunoStyleEn:
+      "2010s dark theatrical electro-house synth-pop and industrial dance-pop anthem fused with explosive hip-hop rap duet, {BPM} BPM, iconic operatic synth intro and infectious stuttering chant hook (Rah-rah-ah-ah-ah, roma-roma-ma, gaga-ooh-la-la!), gritty sawtooth synth bass and thumping four-on-the-floor club drums, fierce theatrical female pop diva delivering sultry low-register verses and massive soaring stadium chorus vocals alongside a razor-sharp rapid-fire male rapper, dramatic French-inflected spoken bridge climax",
+    sunoExclude: "gentle acoustic folk, country, slow sleepy lullaby, soft jazz lounge, monotone mumble",
+    dnaTags: ["👑 \"Rah-rah-ah-ah-ah!\" 洗腦咒語", "🎹 119 BPM 暗黑歌劇電音 Synth-Pop", "💔 \"Caught in a Bad Romance!\" 股市虐戀", "⚡ 法語戲劇 Bridge × 炸裂快嘴 Rap"]
+  },
   "mj-thriller": {
     nameZh: "Michael Jackson《Thriller 顫慄》風：80s 暗黑放克合成器 Bass × 午夜驚悚律動 Rap × 莊家邪惡笑聲獨白",
     defaultBpm: 118,
@@ -343,8 +360,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "mj-thriller",
-  bpm: 118,
+  preset: "gaga-badromance",
+  bpm: 119,
   topics: new Set([
     "nvda",
     "tsmc",
@@ -1281,6 +1298,222 @@ function analyzeYoutubeUrl() {
   randomizeSongKeywords(false);
   renderAll();
   showToast("🔍 已完成曲風解析並隨機抽取全新關鍵字創作歌詞！");
+}
+
+function buildGagaBadRomancePackage(p, bpm, flags) {
+  const hookLineZh =
+    currentState.customHook ||
+    "I want your 漲停, I want your 跌停, 只要不賣我們就是天生一對 (Caught in a bad romance!)";
+  const hookLineEn =
+    currentState.customHook ||
+    "I want your green candles, and I want your red crash, long as you're my ticker I'm caught in a bad romance!";
+
+  const stockList =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.zh.split(" ")[0]).join("、")
+      : "台積電、輝達、鴻海";
+  const stockListEn =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.en.split(" ")[0]).join(", ")
+      : "TSMC, Nvidia, Foxconn";
+
+  const lyricsZh = `[Intro: Iconic Operatic Baroque Synth-Choir Swell & Pounding Industrial Sawtooth Synth-Bass Drop!]
+[Powerhouse Theatrical Female Diva Vocal]
+Oh-oh-oh-oh-oh, oh-oh-oh-oh, oh-oh-oh!
+Caught in a bad romance!
+Oh-oh-oh-oh-oh, oh-oh-oh-oh, oh-oh-oh!
+陷入這場股市的壞浪漫！
+
+[Post-Intro Hook: Hypnotic Stuttering Electro-Pop Chant & Heavy Club Kick]
+Rah, rah-ah-ah-ah
+拉，拉抬，拉到漲停板
+Roma, roma-ma
+融資，融券，軋，軋到天花板
+Gaga, ooh-la-la
+砍在阿呆谷，也捨不得放開這壞浪漫！
+
+[Verse 1: Sultry Low-Register Theatrical Female Vocal, Gritty Industrial Synth-Bass Pulse]
+我想要你那根天地針的醜陋，我想要你洗盤的假動作
+我想要你在早盤九點鐘，用十萬張假委買把我徹底迷惑
+我想要你高股息左配右的溫柔，我想要你跌破季線的冷漠
+你知道我愛你愛到連看盤 APP 都不敢刪，甘願為你睡公園搶紙箱吹冷風！
+
+[Pre-Chorus: Escalating Euro-Club Synth Risers & Snare Roll Build-Up!]
+你知道我想要你的主升段，你知道我賭上全部的交割款
+想要你那瘋狂的千點振幅，Can't read my poker face!
+You know that I want you, and you know that I need you ('Cause I'm all-in, baby!)
+我想要你的壞，你的壞浪漫——！
+
+[Chorus: Explosive Stadium Electro-Pop Diva Belt & Full Choir Harmony!]
+${hookLineZh}
+I want your 軋空, and your 融資追繳令
+You and me could write a bad romance! (Oh-oh-oh-oh-oh!)
+我想要你的暴漲，還有你半夜閃崩的瘋狂
+只要 ${stockList} 還在帳上，You and me could write a bad romance!
+Oh-oh-oh-oh-oh, oh-oh-oh-oh, oh-oh-oh!
+Caught in a bad romance!
+
+[Post-Chorus Chant]
+Rah, rah-ah-ah-ah
+拉，拉抬，拉到漲停板
+Roma, roma-ma
+Gaga, ooh-la-la!
+Want your bad, your bad romance!
+
+[Verse 2: Aggressive Rapid-Fire Male Rapper Trading Bars with Diva Ad-libs, Heavy Sawtooth Bass!]
+（男聲硬派電音快嘴 Rap × 女王高音交鋒）
+[Rapper] Yo! 這是一場散戶跟主力之間最致命的斯德哥爾摩症候群
+你早盤拉高五百點給我一顆糖，尾盤殺到跌停板卻讓我遍體鱗傷還不肯停
+看著股版冥燈反指標高喊滿倉抄底，連阿公都從族譜跳出來問我到底買了什麼東西
+嘴巴唸著一張不賣奇蹟自來，短線當沖做成長線存股最後變成傳家寶寫進遺囑裡
+（雙倍速電音快嘴衝刺）
+昨天看的是信義區豪宅跟藍寶堅尼，今晚關起燈默默吃泡麵連茶葉蛋都不敢加進去
+可是只要 ${stockList} 明天跳空開高一根紅Ｋ，我馬上忘記所有追繳的痛又滿倉衝進去！
+[Diva Vocal] Walk, walk, fashion baby! Work it, 就算跌進處置五分盤也越關越大尾！
+Walk, walk, passion baby! Work it, I'm a free-margin freak, baby!
+
+[Bridge: Stripped-Back Dramatic Synth Pad & Whispered French-Style Theatrical Monologue Building to a Scream!]
+[Diva Vocal, sultry theatrical whisper]
+I want your 籌碼, I don't wanna be friends
+J'veux ton amour, et je veux ta revanche (我想要你的紅利，也想要你的報復軋空)
+J'veux ton amour, 我不要只賺便當錢，我要陪你從阿呆谷一路軋上四萬點！
+[Screaming Diva Belt + Rapper Hype]
+No, I don't wanna be just a bagholder!
+I want your liquidity, I want your short squeeze, I want your all-time high——!
+
+[Chorus: Final Maximum Voltage Stadium Electro-Pop Climax, Key-Change High Notes!]
+${hookLineZh}
+I want your 軋空, and your 融資追繳令
+You and me could write a bad romance! (Oh-oh-oh-oh-oh!)
+就算被你多空雙巴洗到脫皮，我依然死抱不放我的鑽石手
+只要 ${stockList} 鎖死漲停，You and me could write a bad romance!
+Oh-oh-oh-oh-oh, oh-oh-oh-oh, oh-oh-oh!
+Caught in a bad romance!
+
+[Outro: Iconic Stuttering Chant & Industrial Synth Slam Finale]
+Rah, rah-ah-ah-ah!
+Roma, roma-ma!
+Gaga, ooh-la-la!
+Want your bad, your bad romance! 漲停鎖死，收盤！
+[End]`;
+
+  const lyricsEn = `[Intro: Iconic Operatic Baroque Synth-Choir Swell & Pounding Industrial Sawtooth Synth-Bass Drop!]
+[Powerhouse Theatrical Female Diva Vocal]
+Oh-oh-oh-oh-oh, oh-oh-oh-oh, oh-oh-oh!
+Caught in a bad romance!
+Oh-oh-oh-oh-oh, oh-oh-oh-oh, oh-oh-oh!
+Caught in a Wall Street bad romance!
+
+[Post-Intro Hook: Hypnotic Stuttering Electro-Pop Chant & Heavy Club Kick]
+Rah, rah-ah-ah-ah
+Rally, rally, rip it to the top
+Roma, roma-ma
+Roll the margin, gamma never stops
+Gaga, ooh-la-la
+Want your bad, your stock-market romance!
+
+[Verse 1: Sultry Low-Register Theatrical Female Vocal, Gritty Industrial Synth-Bass Pulse]
+I want your ugly, I want your stop-hunt lower wick
+I want your Level-two spoofing everything as long as it clicks
+I want your volatility, your three-thousand-point whipsaw ride
+I want your midnight flash crash leaving paper hands nowhere to hide
+You know that I love you so much I won't even delete the broker app!
+
+[Pre-Chorus: Escalating Euro-Club Synth Risers & Snare Roll Build-Up!]
+You know that I want your breakout, and you know that I wired my cash
+I want it bad, your parabolic flash!
+You know that I want you, and you know that I need you ('Cause I'm all-in, baby!)
+I want it bad, your bad romance—!
+
+[Chorus: Explosive Stadium Electro-Pop Diva Belt & Full Choir Harmony!]
+${hookLineEn}
+I want your drama, the touch of your margin call
+You and me could write a bad romance! (Oh-oh-oh-oh-oh!)
+I want your vertical pump, and your circuit-breaker scream
+Long as ${stockListEn} lead the team, you and me could write a bad romance!
+Oh-oh-oh-oh-oh, oh-oh-oh-oh, oh-oh-oh!
+Caught in a bad romance!
+
+[Post-Chorus Chant]
+Rah, rah-ah-ah-ah
+Roma, roma-ma
+Gaga, ooh-la-la!
+Want your bad, your bad romance!
+
+[Verse 2: Aggressive Rapid-Fire Male Rapper Trading Bars with Diva Ad-libs, Heavy Sawtooth Bass!]
+(Hard-Hitting Electro-Rap × Diva Counterpoint)
+[Rapper] Yo! It's Stockholm syndrome on the trading floor, addicted to the pain
+You pump five hundred at the open bell then dump two thousand in the afternoon rain
+Watching the forum jinx call the bottom while my grandpa jumps out the family tree
+Chanting "never sell a single share" till a five-minute scalp becomes a family heirloom to be
+Yesterday configuring a Lamborghini, tonight eating instant noodles in the dark
+Next morning ${stockListEn} gap up one percent and I'm all-in chasing the spark!
+[Diva Vocal] Walk, walk, fashion baby! Work it, move that leverage crazy!
+Walk, walk, passion baby! Work it, I'm a diamond-handed freak, baby!
+
+[Bridge: Stripped-Back Dramatic Synth Pad & Whispered French-Style Theatrical Monologue Building to a Scream!]
+[Diva Vocal, sultry theatrical whisper]
+I want your alpha, I don't wanna be friends
+J'veux ton amour, et je veux ta revanche (I want your green rally, and I want your short-squeeze revenge)
+J'veux ton amour, I don't wanna be just a paper-trading tourist!
+[Screaming Diva Belt + Rapper Hype]
+No, I don't wanna be friends!
+Want your liquidity, want your gamma squeeze, want your all-time high——!
+
+[Chorus: Final Maximum Voltage Stadium Electro-Pop Climax, Key-Change High Notes!]
+${hookLineEn}
+I want your drama, the touch of your margin call
+You and me could write a bad romance! (Oh-oh-oh-oh-oh!)
+Oh-oh-oh-oh-oh, oh-oh-oh-oh, oh-oh-oh!
+Caught in a bad romance!
+
+[Outro: Iconic Stuttering Chant & Industrial Synth Slam Finale]
+Rah, rah-ah-ah-ah!
+Roma, roma-ma!
+Gaga, ooh-la-la!
+Want your bad, your bad romance! Market closed!
+[End]`;
+
+  return {
+    zh: {
+      title: "韭菜壞浪漫・被主力套牢的愛 (Caught in a Bad Romance)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI電音神曲】《韭菜壞浪漫 Caught in a Bad Romance》｜致敬 Lady Gaga 破十億神曲！「拉、拉抬、拉到漲停板！」(Official Audio)`,
+        `《韭菜壞浪漫 (Caught in a Bad Romance)》｜「I want your 漲停, I want your 跌停！」暗黑歌劇電音 × 股市虐戀說唱 (${bpm} BPM)`,
+        `被主力洗盤虐千百遍還是一開盤就初戀？當 Lady Gaga《Bad Romance》遇上台股美股地獄迷因 👑💔`
+      ],
+      ytDesc: `👑「Rah, rah-ah-ah-ah! 拉、拉抬、拉到漲停板！Roma, roma-ma! 融資、融券、軋、軋到天花板！Gaga, ooh-la-la! 砍在阿呆谷也捨不得放開這壞浪漫！」
+致敬流行天后 Lady Gaga 全球破十億點擊傳奇神曲《Bad Romance》（參考網址：qrO4YZeyl0I），這首《韭菜壞浪漫・被主力套牢的愛 (Caught in a Bad Romance)》以 ${bpm} BPM 最具標誌性的巴洛克歌劇合成器前奏、狂暴工業鋸齒 Synth-Bass 與超洗腦「Rah-rah-ah-ah-ah」咒語，把散戶與主力莊家之間「虐我千百遍、待你如初戀」的股市斯德哥爾摩症候群唱到極致！
+完美融合女王低沉戲劇唸唱、高亢 Diva 副歌、法語經典過門（"J'veux ton amour, et je veux ta revanche"）與硬派男聲電音快嘴 Rap（涵蓋股版冥燈、阿公從族譜跳出來、一張不賣變傳家寶、關燈吃麵 vs. 藍寶堅尼、處置股越關越大尾等爆笑迷因）！
+
+🎧 曲風與編曲亮點：
+• ${bpm} BPM 暗黑歌劇電音舞曲 (Dark Theatrical Synth-Pop / Electro-House) + 工業鋸齒重低音
+• 超洗腦諧音開頭咒語：「Rah-rah（拉抬）、Roma-roma-ma（融資融券軋）、Gaga-ooh-la-la！」
+• 女王戲劇高音副歌 × 男聲雙倍速電音快嘴 Rap × 經典法語唸白 Bridge 高潮
+
+💬 你手上有哪一檔股票讓你陷入「被套牢卻捨不得砍的 Bad Romance」？在留言區貼出它的代號吧 👑💔！
+
+#台股 #美股 #LadyGaga #BadRomance #股市迷因 #韭菜心聲 #電音饒舌 #台積電 #輝達 #鴻海 #漲停板 #SunoAI #AI音樂 #股票情歌`
+    },
+    en: {
+      title: "韭菜壞浪漫・被主力套牢的愛 (Caught in a Bad Romance)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `韭菜壞浪漫 (Caught in a Bad Romance) | Lady Gaga Style Dark Synth-Pop × Wall Street Rap (${bpm} BPM)`,
+        `"I Want Your Green Candles & I Want Your Red Crash!" 👑💔 Stock Market Bad Romance Anthem (Official AI Audio)`,
+        `Rah-Rah-Rally to the Top! 🔥 When Lady Gaga's "Bad Romance" Meets Wall Street Degens (NVDA, TSMC)`
+      ],
+      ytDesc: `👑 "${hookLineEn}!"
+Inspired by Lady Gaga's iconic electro-pop masterpiece "Bad Romance", this ${bpm} BPM dark theatrical synth-pop and hip-hop duet turns the toxic love-hate relationship between retail traders and market volatility (${stockListEn}) into a stadium club banger—complete with the "Rah-rah-ah-ah-ah" chant, industrial sawtooth bass, rapid-fire rap verses, and the dramatic French bridge!
+
+#StockMarketRap #LadyGaga #BadRomance #SynthPop #WallStreetMemes #DiamondHands #TSMC #NVDA #SunoAI #AIMusic`
+    }
+  };
 }
 
 function buildMjThrillerPackage(p, bpm, flags) {
@@ -4145,6 +4378,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "gaga-badromance") {
+    return buildGagaBadRomancePackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "mj-thriller") {
     return buildMjThrillerPackage(p, bpm, {
