@@ -10,6 +10,13 @@
  */
 
 const KNOWN_YT_REFS = {
+  bo_efYhYU2A: {
+    title: "Lady Gaga & Bradley Cooper《Shallow》木吉他深情男女對唱 × 靈魂撕裂高音 × 走心股市說唱",
+    bpm: 96,
+    preset: "gaga-shallow",
+    vibe: "溫暖指彈木吉他與現場萬人歡呼開場 × 96 BPM 粗獷滄桑男聲低語與深情女聲對話 × 走心敘事 Melodic Rap 主歌 × Bridge「Ah-ah-ah-ah, ah-aaaaah!」核爆級女高音嘶吼破頂 ×「We're far from the shallow now!」體育館大合唱",
+    dna: ["🎸 溫暖指彈木吉他×鋼琴搖滾", "👩‍❤️‍👨 滄桑男聲×鐵肺女聲靈魂對唱", "🔥 \"Ah-ah-ah-aaaah!\" 核爆高音 Bridge", "🌊 \"We're Far From The Shallow Now!\""]
+  },
   qrO4YZeyl0I: {
     title: "Lady Gaga《Bad Romance》暗黑歌劇電音 Synth-Pop × 股市虐戀雙人說唱",
     bpm: 119,
@@ -146,6 +153,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "gaga-shallow": {
+    nameZh: "Lady Gaga & Bradley Cooper《Shallow》風：木吉他深情男女對唱 ×「Ah-ah-aaaah」核爆女高音 × 走心股市說唱",
+    defaultBpm: 96,
+    sunoStyleZh:
+      "Cinematic arena folk-pop rock ballad and emotional melodic hip-hop duet, {BPM} BPM, intimate fingerpicked acoustic guitar and warm grand piano intro with live stadium crowd ambience, warm gravelly raspy male baritone vocalist opening in a tender conversational tone, answered by a powerhouse soulful female vocalist building from intimate vulnerability into an earth-shattering chest-voice high-note scream in the bridge (Ah-ah-ah-ah, ah-aaaaah!), heartfelt melodic storytelling rap interlude, crashing live stadium rock drums and soaring electric guitars in the final duet chorus (I'm off the deep end, watch as I dive in, we're far from the shallow now!)",
+    sunoStyleEn:
+      "Academy-Award style cinematic acoustic rock ballad fused with heartfelt melodic rap duet, {BPM} BPM, delicate fingerpicked acoustic guitar and grand piano building into a massive live stadium rock climax, weathered raspy male vocalist and powerhouse soulful female diva trading intimate verses, emotional storytelling rap bars, explosive goosebump-inducing female vocal belt bridge (Ah-ah-ah-ah, ah-aaaaah!), triumphant duet chorus (I'm off the deep end, watch as I dive in, we're far from the shallow now!)",
+    sunoExclude: "EDM, techno, trap cowbell, robotic autotune, mumble rap, disco",
+    dnaTags: ["🎸 溫暖指彈木吉他×鋼琴搖滾", "👩‍❤️‍👨 滄桑男聲×鐵肺女聲靈魂對唱", "🔥 \"Ah-ah-ah-aaaah!\" 核爆高音 Bridge", "🌊 \"We're Far From The Shallow Now!\""]
+  },
   "gaga-badromance": {
     nameZh: "Lady Gaga《Bad Romance》風：暗黑歌劇電音 Synth-Pop ×「Rah-rah-ah-ah-ah」洗腦咒語 × 股市虐戀雙人說唱",
     defaultBpm: 119,
@@ -360,8 +377,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "gaga-badromance",
-  bpm: 119,
+  preset: "gaga-shallow",
+  bpm: 96,
   topics: new Set([
     "nvda",
     "tsmc",
@@ -1298,6 +1315,183 @@ function analyzeYoutubeUrl() {
   randomizeSongKeywords(false);
   renderAll();
   showToast("🔍 已完成曲風解析並隨機抽取全新關鍵字創作歌詞！");
+}
+
+function buildGagaShallowPackage(p, bpm, flags) {
+  const hookLineZh =
+    currentState.customHook ||
+    "I'm off the deep end, watch as I dive in! 我跳進主升段的深淵，絕不再回到當沖的淺灘 (We're far from the shallow now!)";
+  const hookLineEn =
+    currentState.customHook ||
+    "I'm off the deep end, watch as I dive in! I'll never meet the margin floor—we're far from the shallow now!";
+
+  const stockList =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.zh.split(" ")[0]).join("、")
+      : "台積電、輝達、鴻海";
+  const stockListEn =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.en.split(" ")[0]).join(", ")
+      : "TSMC, Nvidia, Foxconn";
+
+  const lyricsZh = `[Intro: Intimate Fingerpicked Acoustic Guitar Arpeggios & Distant Live Stadium Crowd Murmur]
+[Weathered Gravelly Male Vocal - Bradley Cooper Style, gentle and empathetic]
+Tell me somethin', girl...
+妳在這片紅綠閃爍的無情早盤裡，是不是也累了？
+Tell me somethin', girl...
+每天在無本當沖的淺灘裡搶那幾個 tick 的便當錢，妳真的快樂嗎？
+
+[Verse 1: Gravelly Raspy Male Vocal, Warm Acoustic Guitar & Soft Piano Chords]
+在所有暴漲暴跌的夜盤裡
+我看見妳眼裡藏著被天地針洗出場的委屈
+關起燈吃著泡麵，假裝只要不打開看盤 APP 就沒有輸過
+在這個充滿投顧明牌與冥燈反指標的世界裡
+還有沒有一檔核心信仰，值得妳用鑽石手死抱到底？
+
+[Verse 2: Soulful Powerhouse Female Vocal - Lady Gaga Style, starting intimate and vulnerable]
+Tell me somethin', boy...
+你是不是也厭倦了在融資維持率一百三的邊緣拼命掙扎？
+在每一個被外資借券砸盤的深夜裡
+你明知道短線追高殺低只會去公園搶紙箱
+卻還是渴望著一場能徹底翻身的破頂主升段？
+
+[Pre-Chorus: Male storytelling Rapper & Female Vocalist Intertwining, Building Live Drums & Bass]
+[Rapper] （深情走心敘事 Melodic Rap Flow）
+我們都曾在阿呆谷底懷疑過人生，把短線當沖做成了傳家寶寫進遺囑
+看別人貼對帳單看信義區豪宅，自己卻在 T加2 交割日前被營業員奪命連環叩
+但當我越過那些五檔假單的泡沫，看清 ${stockList} 真正的晶圓與算力護城河
+我決定不再在投機的淺水區裡溺水，牽起妳的手，我們直接縱身躍入趨勢的深海！
+
+[Chorus: Powerhouse Female Diva Vocal & Raspy Male Harmony, Crashing Live Arena Rock Drums!]
+${hookLineZh}
+就算千點洗盤巨浪襲來，也撞不碎我們的底牌
+Crash through the surface, where they can't hurt us
+遠離隔日沖與散戶追高的淺灘，We're far from the shallow now!
+
+[Post-Chorus Duet: Soaring Emotional Call & Response]
+[Female & Male Duet]
+In the sha-ha, sha-ha-llow (在追高殺低的韭菜淺灘裡)
+In the sha-ha-sha-la-la-la-llow
+In the sha-ha, sha-ha-llow
+We're far from the shallow now! (我們已經航向破頂的深海！)
+
+[Bridge: Stripped-Back Piano Building into Earth-Shattering Goosebump Female Vocal Scream Climax!]
+[Female Diva Vocal, raw chest-voice building to maximum stadium roar]
+Oh, ha-ah-ah-ah——
+Ah-ah-ah-ah, ah-aaaaah——!
+（撕裂雲霄的鐵肺女高音破頂吶喊 × Rapper 熱血疊句：衝破所有均線壓力天花板！把空頭全部軋上四萬點！）
+Woo-aaaah——!
+
+[Chorus: Final Maximum Voltage Stadium Rock Duet Climax, Full Orchestra, Electric Guitar & Choir!]
+${hookLineZh}
+抱緊 ${stockList} 的核心籌碼，迎著黃金交叉的曙光
+Crash through the surface, where the bears can't hurt us
+我們已經徹底告別韭菜的淺灘，We're far from the shallow now!
+
+[Outro: Emotional Acoustic Guitar & Soaring Duet Harmonies with Crowd Applause]
+[Female & Male Duet]
+In the sha-ha, sha-ha-llow...
+In the sha-ha-sha-la-la-la-llow...
+We're far from the shallow now! (破頂封王，遠離淺灘！)
+[End]`;
+
+  const lyricsEn = `[Intro: Intimate Fingerpicked Acoustic Guitar Arpeggios & Distant Live Stadium Crowd Murmur]
+[Weathered Gravelly Male Vocal - Bradley Cooper Style, gentle and empathetic]
+Tell me somethin', girl...
+Are you happy in this high-frequency day-trading world?
+Or do you need more?
+Is there somethin' else you're searchin' for on the trading floor?
+
+[Verse 1: Gravelly Raspy Male Vocal, Warm Acoustic Guitar & Soft Piano Chords]
+I'm fallin'...
+In all the good times I find myself longin' for a real breakout trend
+And in the bad times, when the stop-hunt lower wick sweeps my account clean, I fear myself
+
+[Verse 2: Soulful Powerhouse Female Vocal - Lady Gaga Style, starting intimate and vulnerable]
+Tell me somethin', boy...
+Aren't you tired tryin' to fill that margin-call void?
+Or do you need more?
+Ain't it hard keepin' it so hardcore while eating ramen in the dark?
+
+[Pre-Chorus: Male Storytelling Rapper & Female Vocalist Intertwining, Building Live Drums & Bass]
+[Rapper] (Heartfelt Melodic Storytelling Rap Flow)
+We both got burned in the shallow water, scalping ticks while paying commissions in fear
+Watching the forum jinxes and fake TV gurus scream while our portfolios disappear
+No more Wendy's night-shift applications, no more panic-selling at the exact valley floor
+When we lock onto the real moat of ${stockListEn}, we leave the shallow noise behind and dive into the core!
+
+[Chorus: Powerhouse Female Diva Vocal & Raspy Male Harmony, Crashing Live Arena Rock Drums!]
+${hookLineEn}
+Crash through the resistance, where the algos can't hurt us
+We're far from the shallow now!
+
+[Post-Chorus Duet: Soaring Emotional Call & Response]
+[Female & Male Duet]
+In the sha-ha, sha-ha-llow (Out of the paper-hand shallow water)
+In the sha-ha-sha-la-la-la-llow
+In the sha-ha, sha-ha-llow
+We're far from the shallow now!
+
+[Bridge: Stripped-Back Piano Building into Earth-Shattering Goosebump Female Vocal Scream Climax!]
+[Female Diva Vocal, raw chest-voice building to maximum stadium roar]
+Oh, ha-ah-ah-ah——
+Ah-ah-ah-ah, ah-aaaaah——!
+(Goosebump-Inducing Arena High-Note Belt × Rapper Counterpoint: Breaking through the Call Wall ceiling, riding the short squeeze to the sky!)
+Woo-aaaah——!
+
+[Chorus: Final Maximum Voltage Stadium Rock Duet Climax, Full Orchestra, Electric Guitar & Choir!]
+${hookLineEn}
+Holding ${stockListEn} with diamond hands through the volatility storm
+Crash through the surface, where the bears can't hurt us
+We're far from the shallow now!
+
+[Outro: Emotional Acoustic Guitar & Soaring Duet Harmonies with Crowd Applause]
+[Female & Male Duet]
+In the sha-ha, sha-ha-llow...
+In the sha-ha-sha-la-la-la-llow...
+We're far from the shallow now! Market conquered!
+[End]`;
+
+  return {
+    zh: {
+      title: "遠離韭菜淺灘・跳進主升段的深淵 (Far From The Shallow Now)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI神級男女對唱】《遠離韭菜淺灘 Shallow》｜致敬 Lady Gaga & Bradley Cooper 奧斯卡神曲！核爆高音唱哭百萬股民 (Official Audio)`,
+        `《遠離韭菜淺灘 (Far From The Shallow Now)》｜「我跳進主升段的深淵，絕不再回到當沖的淺灘！」木吉他對唱 × 走心說唱 (${bpm} BPM)`,
+        `當《一個巨星的誕生 Shallow》遇上台股美股！那聲「Ah-ah-aaaah」高音出來直接破頂漲停 🌊🔥`
+      ],
+      ytDesc: `🌊「Tell me somethin', girl... 每天在無本當沖的淺灘裡搶那幾個 tick 的便當錢，妳真的快樂嗎？I'm off the deep end, watch as I dive in! 我們已經遠離韭菜的淺灘 (We're far from the shallow now!)」
+致敬奧斯卡最佳原創歌曲、Lady Gaga 與 Bradley Cooper 全球破十億傳奇男女對唱神曲《Shallow》（電影《一個巨星的誕生 A Star Is Born》，參考網址：bo_efYhYU2A），這首《遠離韭菜淺灘・跳進主升段的深淵 (Far From The Shallow Now)》以 ${bpm} BPM 最經典的溫暖指彈木吉他與萬人演唱會氛圍揭開序幕！
+前半段由粗獷滄桑的男聲與溫柔深情的女聲對話，訴說散戶在當沖淺灘、天地針洗盤、關燈吃麵與股版冥燈裡受盡折磨的心酸；中段融入走心敘事 Melodic Rap，並在 Bridge 迎來 Lady Gaga 最具靈魂穿透力的「Ah-ah-ah-ah, ah-aaaaah——！」核爆級女高音嘶吼，象徵徹底告別追高殺低的淺灘，抱緊核心護城河（${stockList}）縱身躍入波段主升段的深海！
+
+🎧 曲風與編曲亮點：
+• ${bpm} BPM 溫暖指彈木吉他 & 古典鋼琴開場 ➔ 後半段體育館搖滾真鼓與電吉他全面爆發
+• 粗獷滄桑男聲 × 鐵肺靈魂女高音 × 走心敘事 Rap 三重情感堆疊
+• 完美重現 Bridge 雞皮疙瘩級「Ah-ah-ah-aaaah!」破頂高音與「In the sha-ha, sha-ha-llow」大合唱
+
+💬 你也決定離開「天天搶便當錢卻被洗出場的當沖淺灘」，航向波段主升段的深海了嗎？在留言區刷一排「We're far from the shallow now! 🌊🔥」！
+
+#台股 #美股 #Shallow #LadyGaga #BradleyCooper #AStarIsBorn #一個巨星的誕生 #男女對唱 #台積電 #輝達 #股市迷因 #SunoAI #AI音樂 #股票情歌`
+    },
+    en: {
+      title: "遠離韭菜淺灘・跳進主升段的深淵 (Far From The Shallow Now)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `遠離韭菜淺灘 (Far From The Shallow Now) | Lady Gaga & Bradley Cooper "Shallow" Style Trader Duet (${bpm} BPM)`,
+        `"I'm Off the Deep End, Watch as I Dive In!" 🌊🔥 From Day-Trading Shallow Water to Diamond-Hand Conviction`,
+        `When That "Ah-ah-aaaah!" High Note Hits the All-Time High Breakout 🎸 "Far From The Shallow Now" (Official AI Audio)`
+      ],
+      ytDesc: `🌊 "${hookLineEn}!"
+Inspired by Lady Gaga and Bradley Cooper's Oscar-winning masterpiece "Shallow" (from A Star Is Born), this ${bpm} BPM acoustic-to-arena rock duet and melodic rap ballad tells the story of two retail traders leaving the toxic shallow waters of tick-scalping, margin calls, and forum jinxes to dive into deep, disciplined conviction on ${stockListEn}—complete with the goosebump-inducing "Ah-ah-ah-aaaah!" vocal climax!
+
+#StockMarketRap #Shallow #LadyGaga #BradleyCooper #AStarIsBorn #ArenaRockDuet #DiamondHands #TSMC #NVDA #SunoAI #AIMusic`
+    }
+  };
 }
 
 function buildGagaBadRomancePackage(p, bpm, flags) {
@@ -4378,6 +4572,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "gaga-shallow") {
+    return buildGagaShallowPackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "gaga-badromance") {
     return buildGagaBadRomancePackage(p, bpm, {
