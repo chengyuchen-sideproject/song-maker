@@ -345,21 +345,43 @@ const ALL_TOPIC_KEYS = [
   "whipsaw",
   "tariff",
   "etf",
+  "BBU",
+  "robot",
+  "cpi",
   "squeeze",
   "daytrade",
   "margincall",
   "settlement",
   "limitlock",
+  "pledge",
+  "jail",
+  "levETF",
   "wick",
   "ma",
   "macd",
   "fibonacci",
   "orderbook",
+  "vwap",
+  "gap",
+  "bollinger",
   "options",
   "ZeroDTE",
   "inst",
   "broker",
-  "fomo"
+  "fomo",
+  "pcr",
+  "retail",
+  "afterhours",
+  "wendys",
+  "inverse",
+  "oneLot",
+  "ancestors",
+  "noodles",
+  "appDelete",
+  "shipping",
+  "diamond",
+  "buffett",
+  "guru"
 ];
 
 const RANDOM_STOCK_POOL = [
@@ -374,7 +396,13 @@ const RANDOM_STOCK_POOL = [
   { zh: "特斯拉 (TSLA) FSD 自駕與機器人", en: "Tesla FSD & Optimus robotics", tag: "#特斯拉TSLA" },
   { zh: "超微 (AMD) MI300 算力挑戰者", en: "AMD MI300 compute challenger", tag: "#AMD超微" },
   { zh: "微策略 (MSTR) 比特幣槓桿狂潮", en: "MicroStrategy Bitcoin leverage wave", tag: "#比特幣概念" },
-  { zh: "美超微 (SMCI) 液冷機櫃妖股行情", en: "Supermicro liquid-cooled server volatility", tag: "#美超微SMCI" }
+  { zh: "美超微 (SMCI) 液冷機櫃妖股行情", en: "Supermicro liquid-cooled server volatility", tag: "#美超微SMCI" },
+  { zh: "聯鈞 (3450) 矽光子 CPO 光通訊", en: "Sigurd CPO silicon photonics transceiver", tag: "#矽光子CPO" },
+  { zh: "AES-KY (6781) BBU 伺服器備援電池", en: "AES-KY BBU server battery backup unit", tag: "#BBU概念股" },
+  { zh: "所羅門 (2359) AI 視覺人形機器人", en: "Solomon 3D-vision humanoid robotics", tag: "#機器人概念股" },
+  { zh: "帕蘭泰爾 (PLTR) 國防 AI 大數據神股", en: "Palantir defense AI ontology engine", tag: "#PLTR" },
+  { zh: "元大台灣50正2 (00631L) 槓桿教主", en: "Yuanta Taiwan 50 Daily 2X Leverage ETF", tag: "#正2教派" },
+  { zh: "遊戲驛站 (GME) 咆哮小貓迷因軋空", en: "GameStop Roaring Kitty meme short squeeze", tag: "#GME迷因股" }
 ];
 
 const TRADING_KEYWORD_ENGINE = {
@@ -657,6 +685,314 @@ const TRADING_KEYWORD_ENGINE = {
     ],
     tagZh: "#賣飛 #砍在阿呆谷 #睡公園",
     tagEn: "#PaperHands #SoldTheBottom"
+  },
+  BBU: {
+    zh: [
+      "BBU 備援電池跟矽光子 CPO 輪流點火，題材股只要有夢本益比就沒有天花板",
+      "伺服器從氣冷換水冷再炒到光通訊，資金輪動快到散戶連公司做什麼都還來不及查",
+      "CoWoS 設備股搭上矽光子高速列車，主力畫出的未來藍圖在漲停板上直接兌現"
+    ],
+    en: [
+      "BBU battery backup and CPO silicon photonics catching fire, dream-stock multiples climbing higher and higher",
+      "From liquid cooling to optical interconnects in a flash, sector rotation moving faster than retail cash",
+      "CoWoS toolmakers riding the photonics express, limit-up boards pricing in tomorrow's success"
+    ],
+    tagZh: "#BBU #矽光子CPO #水冷散熱",
+    tagEn: "#SiliconPhotonics #BBU #AIServers"
+  },
+  robot: {
+    zh: [
+      "黃仁勳夜市逛一圈背板概念股全體漲停，人形機器人還沒量產股價先飛上外太空",
+      "仁來瘋的妖股清單每天在群組瘋傳，不管基本面只要沾到機器人視覺就是連拉五根",
+      "從工業手臂炒到 AI 視覺感測器，背板點名誰誰就是這個月的主力印鈔機"
+    ],
+    en: [
+      "Jensen tours the night market and his backdrop stocks all lock limit-up, humanoid robot tickers overflowing the cup",
+      "AI robotics concept lists going viral in every chat, five straight green candles before a single robot ships out flat",
+      "From robotic arms to 3D machine-vision eyes, whoever makes the keynote backdrop touches the skies"
+    ],
+    tagZh: "#人形機器人 #仁來瘋 #背板概念股",
+    tagEn: "#HumanoidRobots #JensenMania #AIStocks"
+  },
+  cpi: {
+    zh: [
+      "八點半 CPI 通膨數據開獎前全場屏息，鮑爾一句話讓那斯達克瞬間上下洗盤五百點",
+      "非農就業太強怕不降息、太弱又怕衰退，華爾街喪事喜辦的劇本永遠猜不透",
+      "點陣圖跟降息預期天天在坐蹺蹺板，一覺醒來美股費半又幫台股決定了開盤的命運"
+    ],
+    en: [
+      "8:30 AM CPI print drops and the whole floor holds its breath, one Powell syllable whipsaws Nasdaq to death",
+      "Hot payrolls fear no cuts, cold payrolls fear recession, Wall Street spins bad news into a bull obsession",
+      "Fed dot-plots and rate-cut odds swinging on a seesaw, Philly Semiconductor decides Taiwan's opening law"
+    ],
+    tagZh: "#CPI通膨 #非農數據 #鮑爾講話",
+    tagEn: "#CPIPrint #FedPowell #MacroWhipsaw"
+  },
+  pledge: {
+    zh: [
+      "信貸借出來買股票再質押借出第二層，牛市裡人人都是槓桿大師直到暴跌那一天",
+      "房屋增貸加股票質押把槓桿開到極限，利息還沒賺到先收到券商補擔保品的催命符",
+      "負債滾出千萬部位號稱生命周期投資法，黑天鵝飛過來的時候連呼吸都要算維持率"
+    ],
+    en: [
+      "Personal loan into stocks then pledged again for layer two, everyone's a leverage genius till the crash comes through",
+      "Home-equity loan stacked on share-pledge margin to the max, one flash crash and the collateral call attacks",
+      "Calling triple-layered debt a lifecycle strategy, praying maintenance ratios hold through the tragedy"
+    ],
+    tagZh: "#股票質押 #信貸開槓桿 #生命周期投資",
+    tagEn: "#SharePledge #MaxLeverage #MarginDebt"
+  },
+  jail: {
+    zh: [
+      "注意股警告沒在怕，進了處置五分盤二十分盤反而越關越大尾鎖死漲停",
+      "妖股關禁閉預收款券照樣排隊搶進，出關那天是龍袍加身還是直接關門放狗",
+      "二十分鐘撮合一次的心跳加速局，處置股的流動性牢籠裡只有真賭徒敢留倉"
+    ],
+    en: [
+      "Warning flags couldn't slow it down, locked in 5-minute and 20-minute disposition jail yet it still rips the crown",
+      "Pre-funded cash-upfront restriction rules in the penalty box, monster stocks breaking out of regulatory locks",
+      "One match every twenty minutes making heartbeats race, disposition-jail day is a high-stakes place"
+    ],
+    tagZh: "#處置股 #越關越大尾 #五分盤",
+    tagEn: "#PenaltyBoxStock #DispositionJail #MonsterStock"
+  },
+  levETF: {
+    zh: [
+      "正2 邪教天天喊著無腦多頭複利奇蹟，遇到箱型盤整雙巴耗損卻在角落默默流淚",
+      "美股 TQQQ 跟 SOXL 三倍槓桿直接拉滿，一夜暴富或一夜回到解放前只差一根長黑",
+      "00631L 順風時把大盤狠狠甩在後頭，逆風連跌五天時才發現兩倍波動不是開玩笑"
+    ],
+    en: [
+      "2X leveraged ETF cult preaching compounding miracles every day, until sideways chop decay eats the gains away",
+      "TQQQ and SOXL triple-leveraged chips pushed to the center, one semiconductor drawdown and it's a brutal winter",
+      "00631L outrunning the index when the bull wind blows, double-speed drawdown when the margin door closes"
+    ],
+    tagZh: "#正2教派 #00631L #TQQQ #SOXL",
+    tagEn: "#LeveragedETF #TQQQ #SOXL #VolatilityDecay"
+  },
+  vwap: {
+    zh: [
+      "指數牢牢站穩 VWAP 當日均價成本線之上，帶量長紅直接把昨天的黑K整根吞噬",
+      "綠線 VWAP 就是盤中多空唯一的生死分界，線上偏多加碼、線下偏空一秒都不戀戰",
+      "開低走高強勢突破均價成本線，爆量陽線吞噬了所有空軍最後一絲僥倖"
+    ],
+    en: [
+      "Price holding firm above the intraday VWAP line, high-volume bullish engulfing candle flashing the sign",
+      "VWAP is the only bull-bear dividing line on the screen, long above the curve and short when it flips red from green",
+      "Opened low then ripped straight through the volume-weighted cost, engulfing every short position that got lost"
+    ],
+    tagZh: "#VWAP均價線 #長紅吞噬",
+    tagEn: "#VWAPLine #BullishEngulfing"
+  },
+  gap: {
+    zh: [
+      "島狀反轉跳空缺口三天不補就是真突破，回測頸線支撐不破直接扣下滿倉扳機",
+      "底部竭盡缺口洗出最後一批恐慌散戶，隔天向上跳空直接把左邊套牢區變成孤島",
+      "突破缺口伴隨三倍天量強勢表態，技術派的教科書買點在K線圖上完美成形"
+    ],
+    en: [
+      "Island-reversal gap unclosed for three straight days, neckline retest held firm so the breakout pays",
+      "Exhaustion gap washed out the final panic sellers at the low, gap-up island reversal stealing the whole show",
+      "Breakaway gap on triple volume making its stand, textbook technical entry playing out as planned"
+    ],
+    tagZh: "#島狀反轉 #跳空缺口 #回測頸線",
+    tagEn: "#IslandReversal #BreakawayGap #NecklineRetest"
+  },
+  bollinger: {
+    zh: [
+      "布林通道極度壓縮到快要窒息，一舉衝破上軌開口放大就是波段狂飆的起點",
+      "K線貼著布林上軌一路軋空不回頭，碰到中軌二十日線就是老手眼中的黃金買點",
+      "布林喇叭口正式張開伴隨法人大買，壓抑了一整季的能量在一根長紅裡徹底引爆"
+    ],
+    en: [
+      "Bollinger Bands squeezed tight to the suffocation point, upper-band breakout blowing the roof off the joint",
+      "Candles walking the upper Bollinger band without a pause, middle-band 20-MA pullback obeying trend laws",
+      "Bollinger jaws opening wide with institutional buying flow, a whole quarter of coiled energy ready to blow"
+    ],
+    tagZh: "#布林通道 #通道壓縮 #沿上軌噴出",
+    tagEn: "#BollingerSqueeze #UpperBandWalk"
+  },
+  pcr: {
+    zh: [
+      "上檔 Call Wall 最大未平倉築起鐵壁，下檔 Put Wall 莊家重兵防守連跌都跌不下去",
+      "Put Call Ratio 站上一百二偏多支撐超硬，跟著莊家籌碼牆走才不會在盤中迷路",
+      "一旦帶量衝破買權最大未平倉壓力天花板，莊家被迫停損對鎖就是倒莊軋空的開始"
+    ],
+    en: [
+      "Overhead Call Wall stacked high with open interest, downside Put Wall defended where market makers invest",
+      "Put-Call Ratio climbing past 120 showing iron support below, reading the OI walls is how the pros go",
+      "Once price smashes through the Call Wall ceiling with force, dealers delta-hedging fuels a runaway course"
+    ],
+    tagZh: "#CallWall壓力 #PutWall支撐 #PCRatio",
+    tagEn: "#CallWall #PutWall #PutCallRatio"
+  },
+  retail: {
+    zh: [
+      "散戶小台跟微台多空比又飆到極端正值，擦鞋童全體看多的時候我們早就反手落袋",
+      "看散戶微台一路死扛攤平加碼做多，主力大鱷最愛獵殺的就是這種不設停損的對手盤",
+      "小台散戶多空比就是全市場最準的反指標，當散戶終於認賠砍倉翻空就是底部反彈的號角"
+    ],
+    en: [
+      "Retail mini and micro futures long-short ratio hitting extreme highs, when the shoeshine boy goes all-in the smart money says goodbye",
+      "Retail micro-contracts averaging down into a falling knife, whale algos feasting on stubborn positions for life",
+      "The retail small-lot ratio is the sharpest contrarian gauge in town, the exact minute retail capitulates short the market turns around"
+    ],
+    tagZh: "#散戶多空比 #微台反指標 #擦鞋童理論",
+    tagEn: "#RetailContrarian #MicroFutures #SmartMoney"
+  },
+  afterhours: {
+    zh: [
+      "下午一點二十五分最後五分鐘撮合，神秘黑手一筆五萬張大單直接偷拉尾盤翻紅",
+      "MSCI 季度調整尾盤爆出千億天量，最後一盤集合競價上演神仙打架的驚天逆轉",
+      "盤中裝死一整天卻在尾盤一點半急拉五十點，黑手護盤的劇本永遠寫在最後一秒鐘"
+    ],
+    en: [
+      "1:25 PM final five-minute closing auction bell, a mysterious whale drops fifty-thousand lots to flip the close swell",
+      "MSCI rebalancing day exploding with billion-dollar closing print, last-second auction plot twist leaving bears in a splint",
+      "Playing dead all session then ripping fifty points at 1:30 sharp, invisible hand painting the closing chart like a harp"
+    ],
+    tagZh: "#尾盤黑手 #最後一盤 #MSCI甩尾",
+    tagEn: "#ClosingAuction #InvisibleHand #MSCIClose"
+  },
+  wendys: {
+    zh: [
+      "看對帳單從賓士變成國產車再變成腳踏車，麥當勞跟溫蒂漢堡的大夜班排班表已經填好名字",
+      "大安森林公園的第一排紙箱位已經被預約滿，今晚跌停鎖死只好去跟街友借半塊厚紙板",
+      "昨天還在群組看豪宅型錄挑車位，今天歐印翻車直接上網投履歷問薯條要怎麼炸才脆"
+    ],
+    en: [
+      "Watched my portfolio shrink from a Porsche to a bicycle in a week, filling out the Wendy's night-shift application looking bleak",
+      "VIP cardboard-box spots at the city park are already booked out, one more limit-down and I'm camping out without a doubt",
+      "Yesterday browsing penthouse brochures in the group chat, today asking the drive-thru manager where the fryer station's at"
+    ],
+    tagZh: "#睡公園 #搶紙箱 #麥當勞排班",
+    tagEn: "#SirThisIsAWendys #CardboardBox #BrokeTrader"
+  },
+  inverse: {
+    zh: [
+      "股版冥燈一出手連護國神山都要抖三抖，全體起立致敬東方神秘反指標的精準摸頭",
+      "看到名嘴網紅高喊滿倉抄底我就知道還沒跌完，跟著冥燈反著做別墅直接靠大海",
+      "不管是丸子還是折折只要在山頂喊多，那根反指標避雷針比任何技術線型都還要準確"
+    ],
+    en: [
+      "When the famous forum jinx calls the bottom even blue-chips shake, inverse the guru is the easiest money you'll ever make",
+      "TV pundits screaming all-in at the top is my cue to exit fast, betting against the inverse indicator builds wealth that lasts",
+      "More accurate than any quantitative model on Wall Street, when the jinx turns bullish it's time for a tactical retreat"
+    ],
+    tagZh: "#股版冥燈 #反指標 #別墅靠大海",
+    tagEn: "#InverseCramer #ContrarianMeme #MarketJinx"
+  },
+  oneLot: {
+    zh: [
+      "口中唸著一張不賣奇蹟自來的散戶聖經，結果短線當沖做成了長線存股最後變成傳家寶",
+      "本來只想搶個兩百塊便當錢就跑，一不小心套在山頂被迫領股息當起公司永久股東",
+      "套牢時安慰自己這叫價值投資長線佈局，對帳單上的負五十趴已經準備寫進遺囑傳給孫子"
+    ],
+    en: [
+      "Chanting 'never sell a single share and miracles will appear', turning a five-minute scalp into a family heirloom for a souvenir",
+      "Only wanted to grab lunch money on a morning bounce, now I'm a lifelong involuntary shareholder counting every ounce",
+      "Calling a fifty-percent baghold 'long-term value investing' with pride, passing these underwater shares to my grandkids on the other side"
+    ],
+    tagZh: "#一張不賣奇蹟自來 #短線變股東 #傳家寶",
+    tagEn: "#BagholderForLife #InvoluntaryInvestor #FamilyHeirloom"
+  },
+  ancestors: {
+    zh: [
+      "這波下殺狠到連阿公都從族譜裡跳出來問我到底買了什麼，別人恐懼我直接嚇到發抖",
+      "群組老哥永遠只有一句問就是歐印加碼，抄底抄在半山腰結果山頂還有地下十八層",
+      "以為地板已經到了結果下面還有地下室，攤平攤到連清明節去掃墓都不敢看祖先牌位"
+    ],
+    en: [
+      "This crash hit so hard my grandpa jumped out of the family tree, asking what kind of garbage ticker I bought on a spree",
+      "Group chat bros always yelling 'ask no questions just go all-in', catching falling knives halfway down where the basement begins",
+      "Thought I bought the floor until the trapdoor opened to level B18, averaging down so deep it's the wildest loss ever seen"
+    ],
+    tagZh: "#問就是歐印 #抄底半山腰 #地板下有地下室",
+    tagEn: "#CatchingFallingKnives #AllInYOLO #BasementBelowTheFloor"
+  },
+  noodles: {
+    zh: [
+      "漲停那天看的是信義區豪宅跟藍寶堅尼，跌停這晚關起燈默默吃著泡麵連茶葉蛋都不敢加",
+      "開盤前幻想今天財富自由提早退休，收盤後默默打開外送平台看今晚要跑幾單才夠補交割",
+      "左手牛排紅酒右手關燈吃麵只差一根K線，股市裡的貧富切換比川劇變臉還要快上百倍"
+    ],
+    en: [
+      "Limit-up day I'm configurating a Lamborghini in gold, limit-down night eating instant noodles in the dark and cold",
+      "9 AM dreaming of financial freedom and handing in my resignation, 1:30 PM turning on my food-delivery app in desperation",
+      "One candle separates wagyu steak from ramen in the dark, the stock market flips your lifestyle with a single spark"
+    ],
+    tagZh: "#關燈吃麵 #財富自由 #藍寶堅尼",
+    tagEn: "#RamenOrLambo #FinancialFreedom #RetailLife"
+  },
+  appDelete: {
+    zh: [
+      "只要我不打開看盤 APP 就沒有賠錢，直接把券商軟體刪掉就是散戶最強的停損結界",
+      "把紅綠顏色調成黑白模式假裝心如止水，蓋牌不看損益表的鴕鳥心態在崩盤日特別好睡",
+      "跌破季線那天我選擇直接登出帳號，薛丁格的對帳單只要不點開就永遠處於沒輸的狀態"
+    ],
+    en: [
+      "As long as I don't open the trading app I haven't lost a dime, deleting the broker icon is the ultimate hedge of all time",
+      "Switched my screen to grayscale pretending I achieved Zen peace, ostrich-mode portfolio hiding till the margin calls cease",
+      "Schrödinger's brokerage account stays break-even if you never log in, ignorance is bliss when the red candles spin"
+    ],
+    tagZh: "#刪APP就不算賠 #蓋牌自欺 #薛丁格的對帳單",
+    tagEn: "#DeleteTheApp #SchrodingersPortfolio #OstrichMode"
+  },
+  shipping: {
+    zh: [
+      "當年兩百塊山頂上的水手還在咕嚕咕嚕喝海水，一聽到紅海危機運價大漲馬上滿血復活",
+      "航海王的大船開進加勒比海乘風破浪，水手們在甲板上高喊重返榮耀把前高通通解套",
+      "SCFI 運價指數一跳動全村水手集合報到，這艘貨櫃巨輪載滿了散戶不肯下船的青春與驕傲"
+    ],
+    en: [
+      "Bagholding sailors drowning at the peak go 'glug-glug' under the wave, one Red-Sea freight spike brings the pirate crew back from the grave",
+      "Pirate King container ships sailing through the storm with pride, sailors on deck chanting 'Return to Glory' on the bull tide",
+      "Every Friday SCFI freight index print rallies the whole crew, riding the shipping rollercoaster through the ocean blue"
+    ],
+    tagZh: "#咕嚕咕嚕 #航海王水手 #重返榮耀",
+    tagEn: "#ShippingStocks #PirateKing #ContainerFreight"
+  },
+  diamond: {
+    zh: [
+      "鑽石手 Diamond Hands 死抱不放喊著 To The Moon，紙手散戶被洗出去一秒鐘股價馬上原地起飛",
+      "主力洗盤震倉三百點也休想騙走我手上的籌碼，真正的信仰是在暴風雨裡依然握緊方向盤",
+      "笑看那些追高殺低的紙手天天幫券商打工，我們用鑽石般的定力把主升段從魚頭吃到魚尾"
+    ],
+    en: [
+      "Diamond Hands holding through the dip screaming To The Moon, Paper Hands shaken out right before the parabolic boom",
+      "A three-hundred-point shakeout won't pry a single share from my grip, real conviction holds the wheel on a stormy ship",
+      "Laughing at paper-handed tourists paying commissions in fear, Diamond Hands riding the entire super-cycle year"
+    ],
+    tagZh: "#鑽石手 #DiamondHands #ToTheMoon #紙手賣飛",
+    tagEn: "#DiamondHands #ToTheMoon #HODL #PaperHands"
+  },
+  buffett: {
+    zh: [
+      "巴菲特說別人恐懼我貪婪，結果我一貪婪就抄在半山腰變成別人小賠我直接破產",
+      "把股神語錄貼在螢幕前當護身符，卻忘了人家有無限現金流而我只有月底要繳的卡費",
+      "雪球滾下山坡前要先確定自己不是那顆被輾過去的石頭，看清自己的籌碼底線才是真智慧"
+    ],
+    en: [
+      "Buffett said be greedy when others are fearful in the street, I got greedy at the halfway dip and took a total defeat",
+      "Taped Omaha quotes all over my monitor like a sacred charm, forgetting he has billions in cash while my margin sounds the alarm",
+      "Everyone wants to roll a compounding snowball down the hill, just make sure you're not the rock getting crushed by the thrill"
+    ],
+    tagZh: "#別人恐懼我破產 #巴菲特語錄 #雪球理論",
+    tagEn: "#GreedyWhenFearful #BuffettMeme #RetailReality"
+  },
+  guru: {
+    zh: [
+      "投顧老師電視上拿著雷射筆狂喊恭喜會員亮燈漲停，卻絕口不提另外四張蓋牌套牢在跌停",
+      "每天收盤後馬後砲畫線說我早就在上禮拜預告在前，去問會員對帳單才發現全在山頂洗碗",
+      "關掉電視裡天花亂墜的投顧明牌，相信自己的交易系統與停損紀律才不會再被當韭菜割"
+    ],
+    en: [
+      "TV stock guru waving his laser pointer bragging about one limit-up pick, while hiding four bagholding losers under the desk trick",
+      "Drawing hindsight trendlines after the close claiming he called it last week, while his paying members are washing dishes at the peak",
+      "Turn off the late-night infomercial stock tips and the noise, only your own risk system and discipline keep your poise"
+    ],
+    tagZh: "#投顧老師 #蓋牌四張吹一張 #恭喜會員",
+    tagEn: "#FakeStockGuru #HindsightTrader #LaserPointer"
   }
 };
 
@@ -678,12 +1014,13 @@ function shuffleArray(arr) {
 }
 
 function randomizeSongKeywords(notify = true) {
-  // 每個分類至少隨機挑 1~2 個，總共隨機挑 6~9 個不同關鍵字
+  // 每個分類（含股市迷因）至少隨機挑 1~2 個，總共隨機挑 7~11 個不同關鍵字
   const groups = [
-    ["nvda", "tsmc", "whipsaw", "tariff", "etf"],
-    ["squeeze", "daytrade", "margincall", "settlement", "limitlock"],
-    ["wick", "ma", "macd", "fibonacci", "orderbook"],
-    ["options", "ZeroDTE", "inst", "broker", "fomo"]
+    ["nvda", "tsmc", "whipsaw", "tariff", "etf", "BBU", "robot", "cpi"],
+    ["squeeze", "daytrade", "margincall", "settlement", "limitlock", "pledge", "jail", "levETF"],
+    ["wick", "ma", "macd", "fibonacci", "orderbook", "vwap", "gap", "bollinger"],
+    ["options", "ZeroDTE", "inst", "broker", "fomo", "pcr", "retail", "afterhours"],
+    ["wendys", "inverse", "oneLot", "ancestors", "noodles", "appDelete", "shipping", "diamond", "buffett", "guru"]
   ];
   const picked = new Set();
   groups.forEach((g) => {
@@ -694,9 +1031,9 @@ function randomizeSongKeywords(notify = true) {
     }
   });
 
-  // 再從全池隨機補滿 6~9 個
+  // 再從全池隨機補滿 7~11 個
   const remaining = shuffleArray(ALL_TOPIC_KEYS.filter((k) => !picked.has(k)));
-  const targetSize = Math.floor(Math.random() * 4) + 6; // 6 ~ 9 個
+  const targetSize = Math.floor(Math.random() * 5) + 7; // 7 ~ 11 個
   while (picked.size < targetSize && remaining.length > 0) {
     picked.add(remaining.pop());
   }
@@ -788,13 +1125,13 @@ function bindEvents() {
       chip.classList.add("active");
     });
     renderAll();
-    showToast("🔥 已全選 20 項台美股實戰操作關鍵字！");
+    showToast(`🔥 已全選 ${ALL_TOPIC_KEYS.length} 項台美股實戰關鍵字與股市迷因！`);
   });
 
   const clearBtn = document.getElementById("btn-clear-tags");
   if (clearBtn) {
     clearBtn.addEventListener("click", () => {
-      const defaults = new Set(["nvda", "tsmc", "whipsaw", "tariff", "squeeze", "daytrade", "margincall", "wick"]);
+      const defaults = new Set(["nvda", "tsmc", "whipsaw", "tariff", "squeeze", "daytrade", "margincall", "wick", "options", "wendys", "inverse"]);
       currentState.topics = new Set(defaults);
       document.querySelectorAll(".topic-chips .chip").forEach((chip) => {
         if (defaults.has(chip.dataset.topic)) {
