@@ -10,6 +10,20 @@
  */
 
 const KNOWN_YT_REFS = {
+  Thzt3Hi6ihM: {
+    title: "Michael Jackson《Thriller (顫慄)》80s 暗黑放克合成器 × 午夜崩盤驚悚饒舌",
+    bpm: 118,
+    preset: "mj-thriller",
+    vibe: "標誌性午夜狼嚎與木門嘎吱聲開場 × 118 BPM 傳奇 Minimoog 放克合成器 Bassline 與銅管齊奏 × 流行之王爆發力律動唱腔與緊湊 Funk-Rap 交錯 ×「'Cause this is Thriller, Thriller night!」萬人殭屍舞步副歌 × 結尾 Vincent Price 莊家低沉恐怖獨白與邪惡狂笑",
+    dna: ["🧟 80s Minimoog 暗黑放克 Bassline", "🕺 118 BPM 流行之王律動×Funk-Rap", "🌕 \"'Cause This Is Thriller Night!\"", "🦇 結尾莊家低音恐怖獨白+邪惡笑聲"]
+  },
+  sOnqjkJTMaA: {
+    title: "Michael Jackson《Thriller (Official 4K MV)》80s 暗黑放克合成器 × 午夜崩盤驚悚饒舌",
+    bpm: 118,
+    preset: "mj-thriller",
+    vibe: "標誌性午夜狼嚎與木門嘎吱聲開場 × 118 BPM 傳奇 Minimoog 放克合成器 Bassline 與銅管齊奏 × 流行之王爆發力律動唱腔與緊湊 Funk-Rap 交錯 ×「'Cause this is Thriller, Thriller night!」萬人殭屍舞步副歌 × 結尾 Vincent Price 莊家低沉恐怖獨白與邪惡狂笑",
+    dna: ["🧟 80s Minimoog 暗黑放克 Bassline", "🕺 118 BPM 流行之王律動×Funk-Rap", "🌕 \"'Cause This Is Thriller Night!\"", "🦇 結尾莊家低音恐怖獨白+邪惡笑聲"]
+  },
   S3IQwuYX_ls: {
     title: "One Direction《What Makes You Beautiful》陽光衝浪吉他 Pop-Rock × 男團多巴胺饒舌",
     bpm: 125,
@@ -125,6 +139,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "mj-thriller": {
+    nameZh: "Michael Jackson《Thriller 顫慄》風：80s 暗黑放克合成器 Bass × 午夜驚悚律動 Rap × 莊家邪惡笑聲獨白",
+    defaultBpm: 118,
+    sunoStyleZh:
+      "80s dark cinematic synth-funk disco-pop and theatrical horror-funk hip-hop anthem, {BPM} BPM, creaking door and midnight wolf howl intro into iconic driving Minimoog synth-bass groove, punchy LinnDrum machine beat, funky rhythm guitar strums and blazing brass horn stabs, electrifying high-tenor King-of-Pop style male vocalist with crisp hiccup ad-libs (Hee-hee! Ow!) trading bars with a sharp rhythmic funk-rapper, explosive anthemic chorus ('Cause this is Thriller, Margin-Call Thriller Night!), theatrical deep baritone Vincent Price style sinister spoken-word bridge and evil laugh outro",
+    sunoStyleEn:
+      "1980s Quincy Jones style cinematic dark synth-funk pop-disco fused with theatrical horror-funk rap, {BPM} BPM, midnight wolf howl and footsteps intro into legendary punchy Minimoog bassline, crisp 80s drum machine and funky horn section stabs, charismatic dynamic high-tenor male lead vocal with percussive vocal hiccups and ad-libs trading verses with a tight rhythmic funk-rapper, massive stadium dance chorus ('Cause this is Thriller, Liquidation Night!), sinister deep-voiced theatrical spoken-word monologue and evil laugh finale",
+    sunoExclude: "slow acoustic folk, country, gentle lullaby, monotone mumble rap, heavy metal screaming",
+    dnaTags: ["🧟 80s Minimoog 暗黑放克 Bassline", "🕺 118 BPM 流行之王律動×Funk-Rap", "🌕 \"'Cause This Is Thriller Night!\"", "🦇 結尾莊家低音恐怖獨白+邪惡笑聲"]
+  },
   "oned-beautiful": {
     nameZh: "One Direction《What Makes You Beautiful》風：陽光衝浪吉他 × 男團多巴胺接力 Rap × 超洗腦大合唱",
     defaultBpm: 125,
@@ -319,8 +343,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "oned-beautiful",
-  bpm: 125,
+  preset: "mj-thriller",
+  bpm: 118,
   topics: new Set([
     "nvda",
     "tsmc",
@@ -1252,6 +1276,196 @@ function analyzeYoutubeUrl() {
   randomizeSongKeywords(false);
   renderAll();
   showToast("🔍 已完成曲風解析並隨機抽取全新關鍵字創作歌詞！");
+}
+
+function buildMjThrillerPackage(p, bpm, flags) {
+  const hookLineZh =
+    currentState.customHook ||
+    "'Cause this is Thriller, Thriller night! 夜盤崩盤斷頭的午夜誰能逃得開";
+  const hookLineEn =
+    currentState.customHook ||
+    "'Cause this is Thriller, Liquidation night! And no one's gonna save you from the margin beast about to strike";
+
+  const stockList =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.zh.split(" ")[0]).join("、")
+      : "台積電、輝達、鴻海";
+  const stockListEn =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.en.split(" ")[0]).join(", ")
+      : "TSMC, Nvidia, Foxconn";
+
+  const lyricsZh = `[Intro: Creaking Haunted Trading-Room Door, Midnight Wolf Howl, Heavy Footsteps & Iconic 118 BPM Minimoog Synth-Bass Groove Drops!]
+[King-of-Pop Style High-Tenor Vocal & Rapper Ad-libs]
+(Creak... Awooooo!)
+Hee-hee! Ow!
+凌晨十二點整，那斯達克與台指夜盤的鐘聲敲響……
+你以為刪掉 APP 就能睡個好覺？今晚，斷頭怪獸要出來獵食了！
+Let's groove!
+
+[Verse 1: Sharp Percussive 80s Synth-Funk Male Vocal, Tight Funky Guitar Strums & LinnDrum Beat]
+接近午夜十二點，某個邪惡的黑天鵝正潛伏在黑暗的Ｋ線裡
+月光下，你看見那根閃崩三百點的長黑正讓你屏住呼吸
+你想要按停損尖叫，但恐懼已經把你的手指徹底凍結在鍵盤上
+你開始全身發抖，因為 ${stockList} 的五檔委買正一瞬間被主力抽光——
+你把眼睛緊緊閉上，祈禱這只是一場假跌破的幻象！
+
+[Pre-Chorus: Building 80s Brass Horn Stabs & Percussive Vocal Hiccups]
+但身後傳來券商系統逼近的腳步聲 (Hee-hee!)
+你的融資維持率正一步一步墜入深淵，時間已經來不及——！
+
+[Chorus: Explosive 80s Synth-Funk Pop Anthem, Soaring High-Tenor + Zombie Choir Harmony!]
+${hookLineZh}
+沒有人能從莊家獵殺的怪獸爪下救你出來
+You know it's Thriller, Margin-Call night!
+你正在跟夜盤多空雙巴的死神正面對決，為了生存而戰
+Inside a killer, Thriller tonight! (Ow!)
+
+[Verse 2: Tight Rhythmic Funk-Rapper trading bars with King-of-Pop Ad-libs]
+（80s 暗黑放克 Funk-Rap 疾速律動 Flow）
+你聽見營業員奪命連環叩的電話門鈴在半夜作響
+外資借券賣出的幽靈大軍正沿著破底的均線四處遊蕩
+剛才還在股版跟著冥燈反指標高喊滿倉歐印、一張不賣奇蹟自來
+下一秒大安森林公園的紙箱位與溫蒂漢堡的大夜班已經為你敞開
+他們從阿呆谷底伸出冰冷的雙手，要把不設停損的散戶全部拉下水
+唯有握緊鑽石般的交易紀律與對沖籌碼，才能在這場午夜驚魂裡全身而退！
+
+[Chorus: Explosive 80s Synth-Funk Pop Anthem, Full Brass & Synth-Bass Drop!]
+${hookLineZh}
+沒有人能從莊家獵殺的怪獸爪下救你出來
+You know it's Thriller, Margin-Call night!
+你正在跟夜盤洗盤三千點的死神正面對決，為了翻身而戰
+Ooh, Thriller, liquidation night!
+
+[Bridge: Stripped-Back Creepy Synth Pad & Theatrical Deep Baritone "Vincent Price" Market-Maker Monologue]
+[Sinister Deep Baritone Narrator - Vincent Price Style]
+黑暗降臨在午夜的期貨交易室，倒數結算的午夜鐘聲已經逼近……
+被套在山頂的水手與滿倉開槓桿的散戶四處逃竄，面對著無情的強制平倉令
+凡是沒有風險底線的靈魂，都將在這根天地針下化為莊家的權利金……
+
+[Rapper & Deep Narrator Call-and-Response]
+[Narrator] 惡魔的空單正在逼近，要把你的維持率徹底吞噬
+[Rapper] （反手鎖定 ${stockList} 底部爆量長紅，一舉軋穿空頭的墳墓！）
+[Narrator] 今晚沒有人能替你補交割，除非你擁有看穿籌碼的靈魂
+[Rapper] （在眾人恐懼顫慄的午夜，我們把空軍全數軋上外太空！）
+
+[Chorus: Final Maximum Voltage 80s Funk-Pop Climax + High-Note Ad-libs!]
+${hookLineZh}
+因為今晚我能把任何暴跌危機化為抄底暴富的奇蹟
+Girl, this is Thriller, Short-Squeeze night!
+我會陪你殺穿這場最黑暗的夜盤風暴，直到漲停曙光升起！
+
+[Outro: Iconic Vincent Price Sinister Spoken Word & Evil Laugh Finale]
+[Sinister Deep Baritone Narrator]
+當大盤冷卻、水銀燈熄滅，你以為自己終於逃過了今晚的洗盤……
+但明早九點整集合競價開盤的鐘聲，將再次把你的心臟緊緊掐住……
+Mwah-ha-ha-ha-ha! A-ha-ha-ha-ha-ha-ha!
+[End]`;
+
+  const lyricsEn = `[Intro: Creaking Haunted Trading-Room Door, Midnight Wolf Howl, Heavy Footsteps & Iconic 118 BPM Minimoog Synth-Bass Groove Drops!]
+[King-of-Pop Style High-Tenor Vocal & Rapper Ad-libs]
+(Creak... Awooooo!)
+Hee-hee! Ow!
+It's midnight on the futures desk, and the margin monster is prowling the chart...
+You thought deleting the broker app would save you? Tonight is Liquidation Night!
+Let's groove!
+
+[Verse 1: Sharp Percussive 80s Synth-Funk Male Vocal, Tight Funky Guitar Strums & LinnDrum Beat]
+It's close to midnight, and something evil's lurking on the futures screen
+Under the moonlight, you see a flash-crash candle that almost stops your heart
+You try to hit stop-loss, but terror takes the click before you make it
+You start to freeze, as ${stockListEn} Level-two bids vanish right between your eyes
+You're paralyzed!
+
+[Pre-Chorus: Building 80s Brass Horn Stabs & Percussive Vocal Hiccups]
+'Cause you hear the margin-call SMS slamming against your door (Hee-hee!)
+And you realize there's nowhere left to hide on the trading floor—!
+
+[Chorus: Explosive 80s Synth-Funk Pop Anthem, Soaring High-Tenor + Zombie Choir Harmony!]
+${hookLineEn}
+You know it's Thriller, Margin-Call night!
+You're fighting for your portfolio inside a killer, whipsaw tonight! (Ow!)
+
+[Verse 2: Tight Rhythmic Funk-Rapper trading bars with King-of-Pop Ad-libs]
+(80s Dark Synth-Funk Rap Flow)
+You hear the broker phone start to ring and know there's no more cash left to wire
+You feel the HFT spoofing algos dragging your leveraged options into the fire
+Yesterday you followed the forum jinx yelling "all-in YOLO, never sell a single share"
+Now the Wendy's night-shift roster and the park cardboard box are waiting over there
+They're out to hunt the paper hands closing in from every side
+Only iron discipline and a gamma-squeeze hedge can keep your account alive!
+
+[Chorus: Explosive 80s Synth-Funk Pop Anthem, Full Brass & Synth-Bass Drop!]
+${hookLineEn}
+You know it's Thriller, Margin-Call night!
+You're fighting for your equity inside a killer, Thriller tonight!
+
+[Bridge: Stripped-Back Creepy Synth Pad & Theatrical Deep Baritone "Vincent Price" Market-Maker Monologue]
+[Sinister Deep Baritone Narrator - Vincent Price Style]
+Darkness falls across the Wall Street floor; the midnight liquidation hour is close at hand...
+Over-leveraged bagholders crawl in search of liquidity, to terrorize y'all's neighborhood
+And whosoever shall be found without a stop-loss for getting down
+Must stand and face the hounds of Margin Call—and rot inside a worthless 0DTE shell...
+
+[Rapper & Deep Narrator Call-and-Response]
+[Narrator] The foulest stench is in the air, the funk of forty thousand blown accounts
+[Rapper] (Flipping the script on ${stockListEn} at the VWAP floor, squeezing the bears out the door!)
+[Narrator] And grizzly short-sellers from every tomb are closing in to seal your doom
+[Rapper] (While the zombies panic sell the bottom, we ride the short squeeze to the moon!)
+
+[Chorus: Final Maximum Voltage 80s Funk-Pop Climax + High-Note Ad-libs!]
+${hookLineEn}
+'Cause I can squeeze the shorts harder than any ghoul would ever dare try
+Thriller, Short-Squeeze night!
+So let me hold your diamond hands and share a killer, parabolic ride tonight!
+
+[Outro: Iconic Vincent Price Sinister Spoken Word & Evil Laugh Finale]
+[Sinister Deep Baritone Narrator]
+And though you fight to stay solvent, your maintenance ratio starts to shiver...
+For no mere retail mortal can resist the evil of... the Midnight Margin Thriller!
+Mwah-ha-ha-ha-ha! A-ha-ha-ha-ha-ha-ha!
+[End]`;
+
+  return {
+    zh: {
+      title: "顫慄夜盤 (Margin-Call Thriller Night)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI神曲改編】《顫慄夜盤 Thriller Night》｜致敬 Michael Jackson 傳奇神曲！把午夜閃崩與融資斷頭唱成 80s 暗黑放克戰歌 (Official Audio)`,
+        `《顫慄夜盤》｜「'Cause this is Thriller, Margin-Call night!」Minimoog 放克 Bass × 莊家邪惡笑聲獨白 (${bpm} BPM)`,
+        `半夜盯美股與台指夜盤必聽！當流行之王《Thriller 顫慄》遇上天地針洗盤與反手軋空 🧟🌕`
+      ],
+      ytDesc: `🧟「'Cause this is Thriller, Thriller night! 夜盤崩盤斷頭的午夜誰能逃得開！」
+致敬流行之王 Michael Jackson 史上最暢銷傳奇神曲《Thriller (顫慄)》（參考網址：Thzt3Hi6ihM），這首《顫慄夜盤 (Margin-Call Thriller Night)》完美還原了 ${bpm} BPM 最具標誌性的午夜狼嚎、木門嘎吱聲、傳奇 Minimoog 放克合成器 Bassline 與 80 年代爆發力銅管編曲！
+將半夜十二點盯著美股與台指夜盤突遇黑天鵝閃崩、融資維持率逼近 130% 追繳令、股版冥燈反指標與刪 APP 睡公園的地獄迷因，化為張力十足的 80s Dark Synth-Funk × 饒舌舞台劇；結尾更重現了經典 Vincent Price 式「莊家低沉恐怖口白」與邪惡狂笑（Mwah-ha-ha-ha!）！
+
+🎧 曲風與編曲亮點：
+• ${bpm} BPM 經典 80s Minimoog 暗黑放克合成器 Bassline + LinnDrum 鼓機與銅管齊奏
+• 流行之王高音律動唱腔（Hee-hee! Ow!）× 緊湊 Funk-Rap 雙軌交鋒
+• 經典恐怖片旁白致敬：Vincent Price 式低音莊家午夜追繳獨白與邪惡狂笑 Outro
+
+💬 你也曾在凌晨夜盤經歷過「顫慄之夜」嗎？在留言區分享你最驚險的一次夜盤操作吧 🌕🦇！
+
+#台股 #美股 #MichaelJackson #Thriller #顫慄 #台指夜盤 #融資斷頭 #台積電 #輝達 #股市迷因 #80sFunk #SynthFunk #SunoAI #AI音樂`
+    },
+    en: {
+      title: "Margin-Call Thriller Night (Liquidation Funk)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `Margin-Call Thriller Night | Michael Jackson "Thriller" Style 80s Synth-Funk × Wall Street Rap (${bpm} BPM)`,
+        `"'Cause This Is Thriller, Liquidation Night!" 🧟🌕 Midnight Futures Flash-Crash Anthem (Official AI Audio)`,
+        `When the Midnight Margin Monster Hunts Your Portfolio 🔥 80s Dark Synth-Funk Stock Market Parody`
+      ],
+      ytDesc: `🧟 "${hookLineEn}!"
+Inspired by Michael Jackson's legendary 1982 masterpiece "Thriller", this ${bpm} BPM 1980s dark synth-funk and horror-rap crossover captures the midnight terror of watching futures flash-crash, Level-2 bids vanish, and margin-call alerts ring—complete with the iconic Minimoog bassline, brass stabs, and a sinister Vincent Price-style market-maker monologue and evil laugh finale!
+
+#StockMarketRap #MichaelJackson #Thriller #80sSynthFunk #MarginCall #WallStreetMemes #NightSession #TSMC #NVDA #SunoAI #AIMusic`
+    }
+  };
 }
 
 function buildOneDBeautifulPackage(p, bpm, flags) {
@@ -3926,6 +4140,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "mj-thriller") {
+    return buildMjThrillerPackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "oned-beautiful") {
     return buildOneDBeautifulPackage(p, bpm, {
