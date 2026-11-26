@@ -10,6 +10,13 @@
  */
 
 const KNOWN_YT_REFS = {
+  dvgZkm1xWPE: {
+    title: "Coldplay《Viva La Vida》史詩巴洛克交響弦樂 × 教堂鐘聲定音鼓 × 股神王朝史詩說唱",
+    bpm: 138,
+    preset: "coldplay-viva",
+    vibe: "標誌性斷奏巴洛克交響小提琴與大提琴齊奏 × 138 BPM 磅礴定音鼓與教堂大鐘敲響 × 英倫搖滾史詩敘事男聲（「I used to rule the world...」）與激昂敘事快嘴 Rap ×「Whoa-oh-oh-oh-oh!」五萬人體育館聖歌大合唱",
+    dna: ["🎻 標誌性巴洛克交響弦樂齊奏", "🔔 138 BPM 教堂大鐘×磅礴定音鼓", "👑 \"I Used To Rule The World!\"", "🏟️ \"Whoa-oh-oh-oh!\" 萬人聖歌大合唱"]
+  },
   kXYiU_JCYtU: {
     title: "Linkin Park《Numb》千禧 Nu-Metal 合成器 × 撕裂嘶吼高音 × 雙主唱交錯 Rap-Rock",
     bpm: 110,
@@ -160,6 +167,16 @@ const KNOWN_YT_REFS = {
 };
 
 const STYLE_PRESETS = {
+  "coldplay-viva": {
+    nameZh: "Coldplay《Viva La Vida》風：史詩巴洛克交響弦樂 × 教堂鐘聲定音鼓 ×「Whoa-oh-oh」萬人聖歌與王朝說唱",
+    defaultBpm: 138,
+    sunoStyleZh:
+      "Epic baroque pop-rock and orchestral stadium anthem fused with cinematic storytelling hip-hop rap, {BPM} BPM, iconic staccato orchestral string section (violins and cellos) driving the main rhythm, booming timpani drums and resonant cathedral church bells, warm emotional British rock male vocalist singing a fallen-king narrative (I used to rule the trading floor!) answered by a passionate rapid-fire storytelling male rapper, massive euphoric 50,000-crowd stadium choir chant (Whoa-oh-oh-oh-oh-oh!), triumphant and majestic live concert atmosphere",
+    sunoStyleEn:
+      "2000s British baroque pop-rock and orchestral arena anthem fused with cinematic conscious hip-hop rap, {BPM} BPM, signature driving staccato violin and cello string ostinato, booming orchestral timpani and tolling cathedral bells, soulful warm British rock male lead vocal trading verses with an intense multi-syllable storytelling male rapper, soaring anthemic chorus and massive stadium crowd chant (Whoa-oh-oh-oh-oh-oh!), majestic uplifting triumph",
+    sunoExclude: "dark underground drill, trap cowbell, heavy metal screaming, lo-fi mumble, country",
+    dnaTags: ["🎻 標誌性巴洛克交響弦樂齊奏", "🔔 138 BPM 教堂大鐘×磅礴定音鼓", "👑 \"I Used To Rule The World!\"", "🏟️ \"Whoa-oh-oh-oh!\" 萬人聖歌大合唱"]
+  },
   "lp-numb": {
     nameZh: "Linkin Park《Numb》風：標誌性電子合成器 Loop × 厚重 Nu-Metal 電吉他音牆 × 撕裂高音嘶吼與雙主唱 Rap-Rock",
     defaultBpm: 110,
@@ -394,8 +411,8 @@ const STYLE_PRESETS = {
 
 let currentState = {
   lang: "zh", // 'zh' | 'en' | 'bilingual'
-  preset: "lp-numb",
-  bpm: 110,
+  preset: "coldplay-viva",
+  bpm: 138,
   topics: new Set([
     "nvda",
     "tsmc",
@@ -1332,6 +1349,187 @@ function analyzeYoutubeUrl() {
   randomizeSongKeywords(false);
   renderAll();
   showToast("🔍 已完成曲風解析並隨機抽取全新關鍵字創作歌詞！");
+}
+
+function buildColdplayVivaPackage(p, bpm, flags) {
+  const hookLineZh =
+    currentState.customHook ||
+    "I hear Jerusalem bells a-ringin', 開盤的鐘聲在華爾街敲響，我的多軍鐵騎正在歌唱";
+  const hookLineEn =
+    currentState.customHook ||
+    "I hear the opening bells a-ringin', Roman cavalry choirs are singin', be my mirror, my sword and shield!";
+
+  const stockList =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.zh.split(" ")[0]).join("、")
+      : "台積電、輝達、鴻海";
+  const stockListEn =
+    currentState.autoRandomStocks && currentState.autoRandomStocks.length > 0
+      ? currentState.autoRandomStocks.map((s) => s.en.split(" ")[0]).join(", ")
+      : "TSMC, Nvidia, Foxconn";
+
+  const lyricsZh = `[Intro: Iconic Staccato Baroque Orchestral Violins & Cellos Ostinato, Booming Timpani Drum & Tolling Cathedral Bell!]
+[Warm British-Rock Style Male Vocal & Rapper Intro]
+(Strings & Timpani: Dum-dum-dum-dum!)
+曾經，我在三萬點的牛市之巔俯瞰眾生……
+直到那根重挫兩千點的黑色星期一敲響了王朝的喪鐘。
+但真正的王者，總會在廢墟與阿呆谷底重建帝國！
+
+[Verse 1: Warm Emotional British-Rock Male Vocal, Driving Staccato Strings & Timpani]
+I used to rule the world
+當我敲下市價買單，連五檔委賣都會為我讓路分開
+那時候每天在股版曬出翻倍的對帳單，萬人崇拜
+現在我卻在凌晨獨自睡在大安森林公園的紙箱裡
+清晨一個人掃著溫蒂漢堡的地板，懷念曾經擁有的千萬部位
+
+[Verse 2: Warm Rock Vocal, Building Orchestral Cello & Piano Chords]
+I used to roll the dice
+看著空頭眼裡的恐懼，聽著散戶跟單高喊我的名字
+上一秒我還握著三倍槓桿與信貸質押的權杖
+下一秒融資維持率一百三的追繳城牆就朝我轟然倒塌
+而我發現我的交割城堡，原來只是建立在無本當沖的流沙之上
+
+[Chorus: Majestic Orchestral Strings, Tolling Cathedral Bells & Soaring Male Vocal!]
+${hookLineZh}
+Be my mirror, my sword and shield
+讓 ${stockList} 的護城河成為我的寶劍與盾牌
+My missionaries in a foreign field
+哪怕昨天暴跌到連阿公都從族譜裡跳出來，今天誰能解釋這場多頭的奇蹟歸來！
+
+[Verse 3: Passionate Cinematic Storytelling Male Rapper, Rapid-Fire Multi-Syllable Flow Over Baroque Strings!]
+（史詩巴洛克交響弦樂 × 激昂快嘴敘事 Rap Flow）
+那是狂風暴雨最猛烈的一個夜盤，一筆五萬張的外資借券直接砸穿了城門
+投顧老師蓋牌了四張跌停股還在電視上吹噓，股版冥燈反指標卻在山頂吹響了號角
+我曾經以為只要刪掉看盤 APP 調成黑白模式，就能逃避一張不賣變成傳家寶的命運
+直到我看見 ${stockList} 在底部爆出天量長下影線，在眾人恐慌砍倉的廢墟裡重新點燃星火
+我丟掉了賭徒追高殺低的傲慢，用鋼鐵般的紀律與費波南希重鑄我的王冠
+當限空令的戰鼓與教堂大鐘同時敲響，這位落難的少年股神將帶著鑽石手重返王座！
+
+[Chorus: Full Stadium Orchestra, Timpani, Brass & Soaring Vocal!]
+${hookLineZh}
+Be my mirror, my sword and shield
+讓 ${stockList} 的晶圓與算力成為我的寶劍與盾牌
+For some reason I can't explain
+曾經被洗出局的痛楚，如今化作主升段破頂封王的榮耀！
+
+[Bridge: 50,000-Crowd Stadium Choir Sing-Along Anthem & Rapper Counterpoint!]
+[50,000 Stadium Crowd Choir] Whoa-oh-oh-oh-oh-oh! Whoa-oh-oh-oh-oh!
+([Rapper] 從關燈吃泡麵的谷底，一路軋穿空頭的防線！)
+[50,000 Stadium Crowd Choir] Whoa-oh-oh-oh-oh-oh! Whoa-oh-oh-oh-oh!
+([Rapper] 聽那九點整開盤的鐘聲敲響，我們的王朝正式重返榮耀！)
+
+[Chorus: Final Maximum Majesty Stadium Climax, Bells, Strings & Choir Combined!]
+${hookLineZh}
+Be my mirror, my sword and shield
+握緊 ${stockList} 的核心底牌，在這片華爾街與台股的戰場上
+I know Saint Peter won't call my name
+但歷史新高的里程碑上，終將刻下我們永不投降的對帳單！
+
+[Outro: Fading Staccato Strings, Timpani & Stadium Choir Hum]
+[Stadium Choir]
+Mmm-mmm-mmm-mmm... Whoa-oh-oh-oh-oh...
+Viva La Bull Market! 王朝重返，破頂收盤！
+[End]`;
+
+  const lyricsEn = `[Intro: Iconic Staccato Baroque Orchestral Violins & Cellos Ostinato, Booming Timpani Drum & Tolling Cathedral Bell!]
+[Warm British-Rock Style Male Vocal & Rapper Intro]
+(Strings & Timpani: Dum-dum-dum-dum!)
+I used to rule the bull market from the thirty-thousand-point throne...
+Until Black Monday rang the liquidation bell.
+Now from the ashes of the margin call, the fallen king rises again!
+
+[Verse 1: Warm Emotional British-Rock Male Vocal, Driving Staccato Strings & Timpani]
+I used to rule the world
+Order books would part when I gave the word
+Now in the morning I sleep alone in a cardboard box
+Sweep the Wendy's drive-thru floor I used to own
+
+[Verse 2: Warm Rock Vocal, Building Orchestral Cello & Piano Chords]
+I used to roll the dice
+Feel the fear in my short-seller enemy's eyes
+Listen as the forum crowd would sing
+"Now the old guru's liquidated! Long live the king!"
+One minute I held the triple-leveraged key
+Next the margin-call walls were closed on me
+And I discovered that my castles stand
+Upon pillars of zero-day options and sand
+
+[Chorus: Majestic Orchestral Strings, Tolling Cathedral Bells & Soaring Male Vocal!]
+${hookLineEn}
+My silicon missionaries in a foreign field
+For some reason I can't explain
+Once you go all-in at the top, there was never, never an honest word
+And that was when I ruled the world!
+
+[Verse 3: Passionate Cinematic Storytelling Male Rapper, Rapid-Fire Multi-Syllable Flow Over Baroque Strings!]
+(Baroque Orchestral Strings × Cinematic Storytelling Fast Rap Flow)
+It was a wicked and wild night-session wind, blew down the stop-loss doors to let the margin call in
+Shattered monitors and the sound of timpani drums, people couldn't believe what I'd become
+Forum jinxes calling the bottom while my grandpa jumped out of the family tree
+Turned a five-minute scalp into a family heirloom, deleting the broker app so I wouldn't see
+But when the blood washed over the floor, I saw ${stockListEn} holding the VWAP fort
+Forged a new crown out of iron discipline, squeezing every greedy hedge-fund short
+No longer a reckless gambler on a pillar of sand—the fallen king reclaims the promised land!
+
+[Chorus: Full Stadium Orchestra, Timpani, Brass & Soaring Vocal!]
+${hookLineEn}
+Holding ${stockListEn} on the battlefield
+For some reason I can't explain
+I know the liquidation clerk won't call my name
+Now that my diamond hands rule the world again!
+
+[Bridge: 50,000-Crowd Stadium Choir Sing-Along Anthem & Rapper Counterpoint!]
+[50,000 Stadium Crowd Choir] Whoa-oh-oh-oh-oh-oh! Whoa-oh-oh-oh-oh!
+([Rapper] From eating ramen in the dark to the all-time high throne!)
+[50,000 Stadium Crowd Choir] Whoa-oh-oh-oh-oh-oh! Whoa-oh-oh-oh-oh!
+([Rapper] Hear the cathedral bells ring out at the opening bell—long live the bulls!)
+
+[Outro: Fading Staccato Strings, Timpani & Stadium Choir Hum]
+[Stadium Choir]
+Mmm-mmm-mmm-mmm... Whoa-oh-oh-oh-oh...
+Viva La Bull Market! Market conquered!
+[End]`;
+
+  return {
+    zh: {
+      title: "少年股神王朝・我曾統治這片盤面 (Viva La Bull Market)",
+      sunoStyle: p.sunoStyleZh.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsZh,
+      ytTitles: [
+        `【AI交響搖滾饒舌】《少年股神王朝 Viva La Bull Market》｜致敬 Coldplay 破十億神曲〈Viva La Vida〉！唱出股神殞落與浴火封王 (Official Audio)`,
+        `《少年股神王朝 (Viva La Bull Market)》｜「I used to rule the world...」巴洛克弦樂 × 教堂鐘聲 × 萬人聖歌大合唱 (${bpm} BPM)`,
+        `從千萬槓桿斷頭睡公園，到抱緊台積電與輝達重返王座！當 Coldplay《Viva La Vida》遇上台美股史詩 👑🎻`
+      ],
+      ytDesc: `👑「I used to rule the world... 當我敲下市價買單，連五檔委賣都會為我讓路分開；現在我卻在清晨一個人掃著溫蒂漢堡的地板，懷念曾經擁有的千萬部位……」
+致敬英倫搖滾天團 Coldplay（酷玩樂團）葛萊美年度歌曲、全球破十億傳奇神作《Viva La Vida》（參考網址：dvgZkm1xWPE），這首《少年股神王朝・我曾統治這片盤面 (Viva La Bull Market)》以 ${bpm} BPM 最具標誌性的巴洛克斷奏小提琴/大提琴齊奏、磅礴定音鼓與教堂大鐘敲響揭開序幕！
+以「落難國王」的史詩視角，唱出一位曾經靠著信貸質押與三倍槓桿不可一世的少年股神，在黑色星期一重挫兩千點中發現「交割城堡只是建立在無本當沖的流沙之上」（跌落公園紙箱、溫蒂漢堡排班、刪 APP、阿公從族譜跳出來）；最終在第三段激昂的交響快嘴 Rap 與五萬人體育館「Whoa-oh-oh-oh-oh!」聖歌大合唱中，以 ${stockList} 的晶圓與算力護城河為寶劍與盾牌（"Be my mirror, my sword and shield"），浴火重建多頭王朝！
+
+🎧 曲風與編曲亮點：
+• ${bpm} BPM 巴洛克交響流行搖滾 (Baroque Pop-Rock) × 史詩敘事說唱
+• 標誌性斷奏交響弦樂 (Staccato Strings) + 磅礴定音鼓 (Timpani) 與開盤教堂大鐘
+• 五萬人體育館聖歌級大合唱：「Whoa-oh-oh-oh-oh-oh! Be my mirror, my sword and shield!」
+
+💬 你也曾在股海歷經起落、如今帶著更強的紀律重返榮耀嗎？在留言區刷一排「Whoa-oh-oh-oh-oh! 王朝重返 👑🎻」！
+
+#台股 #美股 #Coldplay #VivaLaVida #酷玩樂團 #少年股神 #交響搖滾 #台積電 #輝達 #股市迷因 #SunoAI #AI音樂 #股票戰歌`
+    },
+    en: {
+      title: "少年股神王朝・我曾統治這片盤面 (Viva La Bull Market)",
+      sunoStyle: p.sunoStyleEn.replace("{BPM}", bpm),
+      sunoExclude: p.sunoExclude,
+      lyrics: lyricsEn,
+      ytTitles: [
+        `少年股神王朝 (Viva La Bull Market) | Coldplay "Viva La Vida" Style Baroque Pop-Rock × Wall Street Rap (${bpm} BPM)`,
+        `"I Used to Rule the World... Upon Pillars of 0DTE Options and Sand!" 👑🎻 Fallen Trader King Anthem`,
+        `Whoa-oh-oh-oh-oh! 🏟️ When Coldplay's "Viva La Vida" Meets Wall Street Memes & Diamond-Hand Comeback`
+      ],
+      ytDesc: `👑 "I used to rule the world, order books would part when I gave the word... And I discovered that my castles stand upon pillars of zero-day options and sand!"
+Inspired by Coldplay's Grammy-winning baroque pop-rock masterpiece "Viva La Vida", this ${bpm} BPM orchestral stadium anthem and storytelling rap epic chronicles the rise, margin-call fall, and disciplined comeback of a retail trading king backed by ${stockListEn}—complete with staccato strings, timpani drums, cathedral bells, and the 50,000-strong "Whoa-oh-oh-oh-oh!" choir chant!
+
+#StockMarketRap #Coldplay #VivaLaVida #BaroquePop #StadiumAnthem #WallStreetMemes #TSMC #NVDA #SunoAI #AIMusic`
+    }
+  };
 }
 
 function buildLinkinParkNumbPackage(p, bpm, flags) {
@@ -4775,6 +4973,17 @@ function buildSongPackage() {
   const hasTariff = currentState.topics.has("tariff");
   const hasSqueeze = currentState.topics.has("squeeze");
   const hasOptions = currentState.topics.has("options");
+
+  if (currentState.preset === "coldplay-viva") {
+    return buildColdplayVivaPackage(p, bpm, {
+      hasNvda,
+      hasTsmc,
+      hasWhipsaw,
+      hasTariff,
+      hasSqueeze,
+      hasOptions
+    });
+  }
 
   if (currentState.preset === "lp-numb") {
     return buildLinkinParkNumbPackage(p, bpm, {
